@@ -1,0 +1,88 @@
+body {
+  background: #ffffff;
+  /* Clean white background for the new modern look */
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  padding-top: 80px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.container {
+  padding: 10px 10%;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+/* Navigation Bar */
+nav {
+  background-color: #1a3e5c;
+  /* Deep Professional Blue */
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: flex;
+  align-items: center;
+  height: 80px;
+}
+
+nav ul li a {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #ffffff;
+}
+
+button {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: white;
+  color: #1a3e5c;
+  border-color: white;
+}

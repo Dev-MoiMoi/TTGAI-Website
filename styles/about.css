@@ -1,0 +1,245 @@
+/* design the about.php sections to make it elegant */
+
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    scroll-behavior: smooth;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background: #E0EAF4;
+    /* ensure font inheritance if needed, though * covers it */
+}
+
+/* Header Section */
+#header {
+    background: linear-gradient(135deg, #1A3E5C 0%, #2E77AE 100%);
+    color: white;
+    padding: 140px 20px 80px;
+    text-align: center;
+    position: relative;
+    margin-bottom: 50px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.header-text {
+    max-width: 800px;
+    margin: 0 auto;
+    animation: fadeIn 1s ease-out;
+}
+
+.header-text h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-text p {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Container */
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* card style: rounded white rectangles with shadow */
+.box {
+    background: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    gap: 0;
+    /* gap handled by padding/flex layout details */
+    align-items: stretch;
+    overflow: hidden;
+    box-shadow: 0 18px 36px rgba(12, 18, 25, 0.12);
+    margin: 44px 0;
+    transform: translateY(28px);
+    opacity: 0;
+    transition: transform 0.7s cubic-bezier(.2, .9, .2, 1) var(--delay), opacity 0.6s var(--delay);
+}
+
+/* visible state (triggered by JS IntersectionObserver) */
+.box.visible {
+    transform: none;
+    opacity: 1;
+}
+
+/* reverse layout for alternating cards */
+.box.reverse {
+    flex-direction: row-reverse;
+}
+
+/* media (image) */
+.box-media {
+    flex: 0 0 45%;
+    min-height: 250px;
+    /* Increased height for better look */
+    overflow: hidden;
+    position: relative;
+}
+
+.box-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.02);
+    transition: transform 0.6s ease;
+}
+
+.box:hover .box-media img {
+    transform: scale(1.05);
+}
+
+/* content area */
+.box-content {
+    padding: 40px;
+    color: #222;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.box-content h2 {
+    margin: 0 0 15px;
+    color: #ff4b7a;
+    font-size: 1.8rem;
+    /* Increased size */
+    font-weight: 600;
+}
+
+.box-content p {
+    margin: 0;
+    color: #555;
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+/* Optional stagger hint */
+.box[data-delay] {
+    transition-delay: calc(var(--delay, 0s));
+}
+
+/* Footer Styles (Preserved) */
+.footer {
+    background: #2E77AE;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+#footer {
+    background-color: #2E77AE;
+    color: white;
+    padding: 50px 0;
+    width: 100%;
+}
+
+.subscribe {
+    flex-basis: 35%;
+    margin-left: 100px;
+}
+
+.contact {
+    flex-basis: 50%;
+}
+
+.subscribe h1,
+.contact h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.subscribe p {
+    margin-top: 20px;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    max-width: 300px;
+    border: 0;
+    outline: none;
+    background: #f1f1f1;
+    margin: 10px 0;
+    padding: 12px;
+    color: #333;
+    font-size: 16px;
+    border-radius: 6px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #header {
+        padding: 60px 20px;
+    }
+
+    .header-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .header-text p {
+        font-size: 1.1rem;
+    }
+
+    .box {
+        flex-direction: column;
+        text-align: left;
+        /* Keep left alignment for readability usually, or center if preferred */
+        height: auto;
+    }
+
+    .box.reverse {
+        flex-direction: column;
+    }
+
+    .box-media {
+        flex: none;
+        width: 100%;
+        height: 200px;
+    }
+
+    .box-content {
+        padding: 30px 20px;
+    }
+
+    .subscribe,
+    .contact {
+        margin-left: 0;
+        flex-basis: 100%;
+        padding: 20px;
+    }
+}

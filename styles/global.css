@@ -1,0 +1,473 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    scroll-behavior: smooth;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+    background: #E0EAF4;
+    font-style: mono, sans-serif;
+}
+
+
+.container {
+    padding: 10px 10%;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}
+
+/* Hero Section */
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 80px 10%;
+    min-height: 60vh;
+    background-color: #ffffff;
+}
+
+.hero {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.hero-image {
+    width: 100%;
+    height: 90vh;
+    object-fit: cover;
+    object-position: bottom;
+}
+
+.hero-content {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.hero-text {
+    flex: 1;
+    padding-right: 50px;
+    max-width: 600px;
+}
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1a1a1a;
+    margin-bottom: 24px;
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #4a4a4a;
+    margin-bottom: 32px;
+}
+
+.hero-image-container {
+    flex: 1;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.btn-primary {
+    display: inline-block;
+    background-color: #1a1a1a;
+    color: white;
+    padding: 14px 32px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #333;
+}
+
+/* Features Grid */
+.features-section {
+    padding: 80px 10%;
+    background-color: #ffffff;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.feature-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.feature-image-container {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.feature-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover .feature-image {
+    transform: scale(1.05);
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #1a1a1a;
+}
+
+.feature-card p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 24px;
+    flex-grow: 1;
+}
+
+.btn-secondary {
+    align-self: flex-start;
+    background-color: #666;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 4px;
+    /* Consistent radius */
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #444;
+}
+
+/* ABOUT US */
+
+#about {
+    background-color: #ffffff;
+    padding: 50px 0;
+}
+
+.about-header {
+    font-size: 30px;
+    color: #000000;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    width: 80%;
+}
+
+.about-header h2 {
+    margin: 20px;
+}
+
+.about-images img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.about-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 40px;
+    margin-top: 20px;
+}
+
+.about-images div {
+    padding: 20px;
+    font-size: 13px;
+    font-weight: 300;
+    border-right: 5px;
+    border-radius: 5%;
+}
+
+.about-images div h3 {
+    font-size: 20px;
+    justify-content: center;
+    text-align: center;
+}
+
+.about-images div p {
+    margin-top: 1%;
+    font-size: 15px;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Our Story Section */
+.our-story {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+}
+
+.our-story h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.our-story p {
+    font-size: 1.2em;
+    margin-bottom: 40px;
+}
+
+.story-cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+}
+
+.card h3 {
+    font-size: 1.5em;
+    margin: 15px 0;
+}
+
+.card p {
+    font-size: 1em;
+    padding: 0 15px 20px;
+}
+
+/* Footer */
+
+#footer {
+    background-color: #2E77AE;
+    color: white;
+    padding: 50px 0;
+    width: 100%;
+}
+
+.subscribe {
+    flex-basis: 35%;
+    margin-left: 100px;
+}
+
+.contact {
+    flex-basis: 50%;
+}
+
+.subscribe h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.subscribe p {
+    margin-top: 50%;
+}
+
+.subscribe form {
+    width: 100%;
+}
+
+form input,
+form textarea {
+    width: 300px;
+    border: 0;
+    outline: none;
+    background: #414141;
+    margin: 15px 0;
+    padding: 15px;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    border-radius: 6px;
+}
+
+input {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-weight: 500;
+    font-size: .8vw;
+    color: #000000;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 .4vw rgba(0, 0, 0, 0.5), 0 0 0 .15vw transparent;
+    border-radius: 0.4vw;
+    border: none;
+    outline: none;
+    padding: 0.4vw;
+    width: 100%;
+    max-width: 190px;
+    transition: .4s;
+}
+
+
+.contact h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.contact p {
+    font-size: large;
+    font-style: bold;
+    margin: 5px;
+}
+
+.contact img {
+    width: 10px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.fa-solid {
+    color: #000000;
+    margin-right: 10px;
+}
+
+/* Footer Section */
+.footer {
+    background-color: #005b96;
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.stay-connected h2,
+.contact-us h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+form input {
+    padding: 10px;
+    width: 300px;
+    border: none;
+    border-radius: 5px;
+}
+
+form button {
+    padding: 10px 20px;
+    background-color: #ffcc00;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact-us p {
+    margin: 10px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 50px 5%;
+    }
+
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Hero Section Mobile */
+    .hero-section {
+        flex-direction: column;
+        padding: 40px 5%;
+        text-align: center;
+        min-height: auto;
+    }
+
+    .hero-text {
+        padding-right: 0;
+        margin-bottom: 40px;
+        max-width: 100%;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-image-container {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Features/Our Story Mobile */
+    .features-section {
+        padding: 40px 5%;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-top: 30px;
+    }
+
+    /* About Section Mobile */
+    .about-header {
+        width: 100%;
+        font-size: 24px;
+    }
+
+    .box,
+    .box.reverse {
+        flex-direction: column;
+        /* Assuming .box uses flex, but checking About.css might be needed. 
+           However, global.css doesn't seem to define .box flex layout (it might be in about.css).
+           Since user complained about "Our Story", .features-grid is the priority.
+        */
+    }
+
+    /* Footer Mobile */
+    #footer {
+        flex-direction: column;
+        padding: 30px 5%;
+        text-align: center;
+        /* Assuming footer uses flex from a parent container not shown or implicity applied via specific class */
+    }
+
+    /* If #footer is a flex container (implied by .subscribe flex-basis), we need to set display flex on it if it's not already */
+}
