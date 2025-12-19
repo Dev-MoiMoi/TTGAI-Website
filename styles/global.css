@@ -446,19 +446,34 @@ form button {
         margin-top: 30px;
     }
 
+    .story-cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .hero-content {
+        position: static;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #1a1a1a;
+        margin-top: -50px;
+        /* Slight overlap or adjustment */
+        z-index: 10;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-text h1 {
+        color: #1a1a1a;
+    }
+
+    .hero-text p {
+        color: #444;
+    }
+
     /* About Section Mobile */
     .about-header {
         width: 100%;
         font-size: 24px;
-    }
-
-    .box,
-    .box.reverse {
-        flex-direction: column;
-        /* Assuming .box uses flex, but checking About.css might be needed. 
-           However, global.css doesn't seem to define .box flex layout (it might be in about.css).
-           Since user complained about "Our Story", .features-grid is the priority.
-        */
     }
 
     /* Footer Mobile */
@@ -466,8 +481,5 @@ form button {
         flex-direction: column;
         padding: 30px 5%;
         text-align: center;
-        /* Assuming footer uses flex from a parent container not shown or implicity applied via specific class */
     }
-
-    /* If #footer is a flex container (implied by .subscribe flex-basis), we need to set display flex on it if it's not already */
 }

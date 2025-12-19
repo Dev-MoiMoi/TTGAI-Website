@@ -146,6 +146,20 @@
   }
 }
 
+/* extra small screens */
+@media (max-width: 600px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* small screens */
 @media (max-width:420px) {
   :root {
