@@ -32,13 +32,13 @@ const Team = () => {
     };
 
     const teamMembers = [
-        { name: "Maria Lopez", role: "Chairperson", class: "m1" },
-        { name: "Rafael Lopez", role: "President", class: "m2" },
-        { name: "Camille Reyes", role: "Investment Committee", class: "m3" },
-        { name: "Estelle Perez", role: "Risk Management", class: "m4" },
-        { name: "Maximiliano V.", role: "Trustee", class: "m5" },
-        { name: "Judith R.", role: "Trustee", class: "m6" },
-        { name: "Joanne S.", role: "Trustee", class: "m7" },
+        { name: "Daniel Matthew Benegas", role: "Chairperson", class: "m1" },
+        { name: "Daniel Matthew Benegas", role: "President", class: "m2" },
+        { name: "Daniel Matthew Benegas", role: "Investment Committee", class: "m3" },
+        { name: "Daniel Matthew Benegas", role: "Risk Management", class: "m4" },
+        { name: "Daniel Matthew Benegas", role: "Trustee", class: "m5" },
+        { name: "Daniel Matthew Benegas", role: "Trustee", class: "m6" },
+        { name: "Daniel Matthew Benegas", role: "Trustee", class: "m7" },
     ];
 
     return (

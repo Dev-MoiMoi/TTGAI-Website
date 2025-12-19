@@ -10,7 +10,7 @@ const Home = () => {
     return (
         <>
             {/* Hero Section */}
-            <section className="hero">
+            <section className="hero">w
                 <img src={img4} alt="Team Twilight Golfers" className="hero-image" />
                 <div className="hero-content">
                     <h1>Team Twilight Golfers Association, Incorporated</h1>

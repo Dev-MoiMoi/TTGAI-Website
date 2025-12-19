@@ -11,9 +11,9 @@ const Navbar = () => {
                 <li><Link to="/">HOME</Link></li>
                 <li><Link to="/about">ABOUT</Link></li>
                 <li><Link to="/team">TEAM</Link></li>
-                <li><a href="#operation">OPERATION</a></li>
-                <li><a href="#sponsors">LINKAGES</a></li>
-                <li id="team"><button>BE A SPONSOR</button></li>
+                <li><Link to="/operations">OPERATION</Link></li>
+                <li><Link to="/linkages">LINKAGES</Link></li>
+                <li id="team"><Link to="/sponsorship"><button>BE A SPONSOR</button></Link></li>
             </ul>
         </nav>
     );

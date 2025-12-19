@@ -1,0 +1,258 @@
+:root {
+    --linkage-primary: #0f172a;
+    --linkage-accent: #3b82f6;
+    --linkage-bg: #f8fafc;
+    --linkage-card-bg: #ffffff;
+    --linkage-text: #334155;
+    --linkage-text-light: #64748b;
+}
+
+.linkages-page {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--linkage-bg);
+    color: var(--linkage-primary);
+    line-height: 1.6;
+}
+
+/* Hero Section */
+.linkages-hero {
+    background: white;
+    padding: 6rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.linkages-hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #1e293b, #3b82f6);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.linkages-hero p {
+    font-size: 1.25rem;
+    color: var(--linkage-text-light);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Common Section Styles */
+.linkage-section {
+    padding: 5rem 2rem;
+}
+
+.linkage-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-header h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.section-header p {
+    color: var(--linkage-text-light);
+    font-size: 1.1rem;
+}
+
+/* Partner Categories (Tabs style) */
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+}
+
+.category-tab {
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: var(--linkage-text);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.category-tab.active,
+.category-tab:hover {
+    background: var(--linkage-accent);
+    color: white;
+    border-color: var(--linkage-accent);
+}
+
+/* Partner Grid */
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.partner-card {
+    background: var(--linkage-card-bg);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.partner-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.partner-logo-placeholder {
+    width: 80px;
+    height: 80px;
+    background: #f1f5f9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.5rem;
+    color: var(--linkage-accent);
+}
+
+.partner-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.partner-card p {
+    font-size: 0.95rem;
+    color: var(--linkage-text-light);
+}
+
+.partner-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    background: #eff6ff;
+    color: var(--linkage-accent);
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+/* Collaboration Types */
+.collab-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.collab-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--linkage-accent);
+}
+
+.collab-icon {
+    font-size: 2rem;
+    color: var(--linkage-accent);
+    background: #eff6ff;
+    padding: 1rem;
+    border-radius: 12px;
+}
+
+/* Why Linkages Matter */
+.impact-section {
+    background: #1e293b;
+    color: white;
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+    text-align: center;
+}
+
+.impact-item h3 {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    color: white;
+}
+
+.impact-item p {
+    color: #94a3b8;
+}
+
+.impact-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #60a5fa;
+}
+
+/* CTA Section */
+.linkage-cta {
+    background: white;
+    text-align: center;
+    padding: 6rem 2rem;
+}
+
+.cta-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem;
+    border-radius: 24px;
+    border: 1px solid #dbeafe;
+}
+
+.btn-partner {
+    display: inline-block;
+    background: var(--linkage-accent);
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1.1rem;
+    margin-top: 2rem;
+    transition: background 0.3s ease;
+}
+
+.btn-partner:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .linkages-hero h1 {
+        font-size: 2.25rem;
+    }
+
+    .category-tabs {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .category-tab {
+        width: 100%;
+        text-align: center;
+        max-width: 300px;
+    }
+
+    .cta-box {
+        padding: 2rem;
+    }
+}
