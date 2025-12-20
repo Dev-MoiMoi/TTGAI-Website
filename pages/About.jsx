@@ -105,10 +105,14 @@ const About = () => {
                         <img src={advocacyImg} alt="Advocacy image" />
                     </div>
                     <div className="box-content">
-                        <h2>Holistic Support</h2>
+                        <h2>The PKI Program</h2>
                         <p>
-                            We provide more than just financial aid ("Baon"). Our scholars undergo comprehensive training in:
+                            <strong>Batch Sinag at Dangal</strong> ("First Ray of Light and Hope")
                             <br /><br />
+                            Guided by the philosophy that <em>"Education is the key to a better future, the most effective equalizer in society,"</em> we provide more than just financial aid ("Baon").
+                            <br /><br />
+                            Our scholars undergo comprehensive training in:
+                            <br />
                             • Leadership & Management<br />
                             • Financial Literacy<br />
                             • Arts & Culture Appreciation<br />
@@ -116,6 +120,52 @@ const About = () => {
                             <br />
                             Our goal is to produce graduates who are not just skilled, but morally upright and ready to lead.
                         </p>
+                    </div>
+                </div>
+
+                {/* Key Events & Milestones (New Section) */}
+                <div className="box" ref={addToRefs} style={{ display: 'block' }}>
+                    <div className="box-content" style={{ width: '100%', maxWidth: '100%' }}>
+                        <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>2025 Key Events & Milestones</h2>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+
+                            {/* April Event */}
+                            <div style={{ background: '#f8fafc', padding: '1.5rem', borderRadius: '10px' }}>
+                                <h3 style={{ color: '#2563eb', marginBottom: '0.5rem' }}>April: PKI Launch</h3>
+                                <p style={{ fontSize: '0.9rem', color: '#64748b' }}><strong>April 11, 2025</strong> | Canlubang Golf & Country Club</p>
+                                <p style={{ marginTop: '1rem' }}>
+                                    Joint Birthday/Charity Golf Tournament for Mr. Rene Dela Cruz’s 60th Birthday. Attended by 118+ players. Officially launched the <strong>Pabaon Kay Iskolar (PKI) Program</strong>, raising an initial P50,000 kickstarter fund.
+                                </p>
+                            </div>
+
+                            {/* May Event */}
+                            <div style={{ background: '#f8fafc', padding: '1.5rem', borderRadius: '10px' }}>
+                                <h3 style={{ color: '#2563eb', marginBottom: '0.5rem' }}>May: Buscowitz Cup</h3>
+                                <p style={{ fontSize: '0.9rem', color: '#64748b' }}>"SWING for a Cause"</p>
+                                <p style={{ marginTop: '1rem' }}>
+                                    Partnered with Buscowitz Energy. Supported solar installations at Nereo Joaquin National High School and contributed to the PKI Program for students at Pamantasan ng Cabuyao.
+                                </p>
+                            </div>
+
+                            {/* June Event */}
+                            <div style={{ background: '#f8fafc', padding: '1.5rem', borderRadius: '10px' }}>
+                                <h3 style={{ color: '#2563eb', marginBottom: '0.5rem' }}>June: Noel Cabangon Tour</h3>
+                                <p style={{ fontSize: '0.9rem', color: '#64748b' }}>"Bar Tour Series"</p>
+                                <p style={{ marginTop: '1rem' }}>
+                                    A benefit concert series by singer-songwriter Noel Cabangon to raise funds for the scholarship program through music and advocacy.
+                                </p>
+                            </div>
+
+                            {/* August Event */}
+                            <div style={{ background: '#f8fafc', padding: '1.5rem', borderRadius: '10px' }}>
+                                <h3 style={{ color: '#2563eb', marginBottom: '0.5rem' }}>August: MOA Signing</h3>
+                                <p style={{ fontSize: '0.9rem', color: '#64748b' }}><strong>August 6, 2025</strong></p>
+                                <p style={{ marginTop: '1rem' }}>
+                                    Formal signing of Memorandum of Agreement (MOA) between Team Twilight and Pamantasan ng Cabuyao (PnC), committing to financial assistance starting AY 2025–2026.
+                                </p>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>

@@ -437,6 +437,11 @@ form button {
         height: auto;
     }
 
+    .hero-image {
+        height: 50vh;
+        /* Reduced height for mobile */
+    }
+
     /* Features/Our Story Mobile */
     .features-section {
         padding: 40px 5%;

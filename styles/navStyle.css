@@ -109,11 +109,12 @@ button:hover {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: auto;
+    height: calc(100vh - 80px);
+    /* Full height minus header */
     position: absolute;
     top: 80px;
     left: -100%;
-    opacity: 0;
+    opacity: 1;
     transition: all 0.5s ease;
     background-color: #1a3e5c;
     padding: 30px 0;
@@ -129,21 +130,25 @@ button:hover {
 
   nav ul li {
     height: auto;
-    margin: 15px 0;
+    margin: 20px 0;
     width: 100%;
     display: flex;
     justify-content: center;
   }
 
   nav ul li a {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    /* Larger touch targets */
     width: 100%;
     text-align: center;
-    padding: 10px 0;
+    padding: 12px 0;
+    display: block;
   }
 
   nav ul li button {
     width: 80%;
     margin: 0 auto;
+    font-size: 1.2rem;
+    padding: 12px;
   }
 }
