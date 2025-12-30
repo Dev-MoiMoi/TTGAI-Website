@@ -44,6 +44,29 @@ const Team = () => {
         { name: "Daniel Matthew Benegas", role: "Trustee", class: "m7" },
     ];
 
+    const scholars = [
+        { name: "Daniel Matthew Benegas", course: "BS Computer Science", position: "President" },
+        { name: "Joemhir Keil P. Badilla", course: "BEED", position: "Vice President" },
+        { name: "Ghia Mariz Estorgio", course: "BS Nursing" },
+        { name: "Moises Fatal Jr.", course: "BS Computer Science" },
+        { name: "Enrique Bague III", course: "BS Nursing" },
+        { name: "John Rico T. Añover", course: "BSED Social studies" },
+        { name: "Charles Jabriel D. Beato", course: "BS Nursing" },
+        { name: "Jaidel C. Flores", course: "BS Computer Science" },
+        { name: "Paula T. Vidal", course: "BS Psychology" },
+        { name: "Lindsay R. Laudato", course: "BSED Filipino" },
+        { name: "Chelseah Nicole B. Mamplata", course: "BSED English" },
+        { name: "John Rod Mhar M. Suario", course: "BS Information Technology" },
+        { name: "Lorenzo Chauncey L. Dapan", course: "BS Accountancy" },
+        { name: "Jefferson M. Caparas", course: "BSED-English" },
+        { name: "Justin Harvy C. Tapay", course: "BSED-Social Science" },
+        { name: "Jericho B. Alintanahin", course: "BS Nursing" },
+        { name: "Ashzel Roi M. Caluit", course: "BSBA - Marketing" },
+        { name: "Ryven B. Villar", course: "BEED" },
+        { name: "Harold V. Magpantay", course: "BSED - Mathematics" },
+        { name: "Jana Pauline D. Alcones", course: "BSED-Social Studies" }
+    ];
+
     const benefactors = [
         {
             name: "Noel Cabangon",
@@ -91,6 +114,19 @@ const Team = () => {
                             <img className="avatar" src={placeholderMember} alt={member.name} />
                             <p className="name">{member.name}</p>
                             <p className="role">{member.role}</p>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Scholars Section */}
+                <h2 className="team-title" style={{ marginTop: '4rem', background: '#10b981' }}>The Scholars</h2>
+                <div className="team-grid scholars-grid">
+                    {scholars.map((scholar, index) => (
+                        <div key={`scholar-${index}`} className={`member ${scholar.position === 'President' ? 'scholar-president' : scholar.position === 'Vice President' ? 'scholar-vp' : ''}`} ref={addToRefs}>
+                            <img className="avatar" src={placeholderMember} alt={scholar.name} style={{ width: '100px', height: '100px', borderColor: scholar.position ? '#ffd700' : 'rgba(255,255,255,0.95)' }} />
+                            <p className="name">{scholar.name}</p>
+                            {scholar.position && <p style={{ color: '#ffd700', fontWeight: 'bold', fontSize: '0.8rem', margin: '2px 0' }}>{scholar.position}</p>}
+                            <p className="role">{scholar.course}</p>
                         </div>
                     ))}
                 </div>

@@ -90,9 +90,74 @@ button:hover {
 /* Mobile Menu Icon */
 .menu-icon {
   display: none;
-  font-size: 1.5rem;
-  color: white;
+  /* Default hidden on desktop */
+}
+
+/* New Menu Button Design */
+.menu-icon {
+  /* Using the user's design parameters */
+  /* display: flex is set in media query below */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 13%;
+  color: #090909;
+  /* approx 32px */
+  width: 2em;
+  height: 2em;
+  border-radius: 0.5em;
+  background: #e8e8e8;
+  border: 1px solid #e8e8e8;
+  transition: all .3s;
+  box-shadow: 6px 6px 12px #c5c5c5,
+    -6px -6px 12px #ffffff;
   cursor: pointer;
+  /* Resetting font size if needed for em units */
+  font-size: 16px;
+}
+
+.menu-icon:hover {
+  border: 1px solid white;
+}
+
+.menu-icon:active {
+  color: #666;
+  box-shadow: inset 4px 4px 12px #c5c5c5,
+    inset -4px -4px 12px #ffffff;
+}
+
+.menu-icon input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+  visibility: hidden;
+}
+
+.menu-icon span {
+  width: 20px;
+  height: 3px;
+  background: #131313;
+  border-radius: 100px;
+  transition: 0.3s ease;
+  display: block;
+  /* Ensure spans are block for dimensions */
+}
+
+/* Animations based on checked state of the input */
+.menu-icon input:checked~span.top {
+  transform: translateY(240%) rotate(45deg);
+  width: 24px;
+}
+
+.menu-icon input:checked~span.bot {
+  transform: translateY(-240%) rotate(-45deg);
+  width: 24px;
+  box-shadow: 0 0 10px #495057;
+}
+
+.menu-icon input:checked~span.mid {
+  transform: translateX(-20px);
+  opacity: 0;
 }
 
 /* Responsive Design */
@@ -102,7 +167,7 @@ button:hover {
   }
 
   .menu-icon {
-    display: block;
+    display: flex;
   }
 
   nav ul {

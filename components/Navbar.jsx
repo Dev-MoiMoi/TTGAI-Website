@@ -13,13 +13,17 @@ const Navbar = () => {
             <Link to="/" onClick={closeMobileMenu}>
                 <img src={logo} className="logo" alt="Team Twilight Golfers Association Inc. logo" />
             </Link>
-            <div className="menu-icon" onClick={handleClick}>
-                {click ? (
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                ) : (
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-                )}
-            </div>
+            <label className="menu-icon" htmlFor="check">
+                <input
+                    id="check"
+                    type="checkbox"
+                    checked={click}
+                    onChange={handleClick}
+                />
+                <span className="top"></span>
+                <span className="mid"></span>
+                <span className="bot"></span>
+            </label>
             <ul className={click ? 'active' : ''}>
                 <li><Link to="/" onClick={closeMobileMenu}>HOME</Link></li>
                 <li><Link to="/about" onClick={closeMobileMenu}>ABOUT</Link></li>
