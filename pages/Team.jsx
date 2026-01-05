@@ -35,13 +35,16 @@ const Team = () => {
     };
 
     const teamMembers = [
-        { name: "Daniel Matthew Benegas", role: "Chairperson", class: "m1" },
-        { name: "Daniel Matthew Benegas", role: "President", class: "m2" },
-        { name: "Daniel Matthew Benegas", role: "Investment Committee", class: "m3" },
-        { name: "Daniel Matthew Benegas", role: "Risk Management", class: "m4" },
-        { name: "Daniel Matthew Benegas", role: "Trustee", class: "m5" },
-        { name: "Daniel Matthew Benegas", role: "Trustee", class: "m6" },
-        { name: "Daniel Matthew Benegas", role: "Trustee", class: "m7" },
+        { name: "Tim Batac", role: "Chairman" },
+        { name: "Cesar Sangalang", role: "Vice Chairman" },
+        { name: "Jon Mateo", role: "President" },
+        { name: "Rene dela Cruz", role: "Vice President" },
+        { name: "Jun Valerio", role: "Treasurer" },
+        { name: "Julius Buenaventura", role: "Assistant Treasurer" },
+        { name: "Tony Mangubat", role: "Secretary" },
+        { name: "Malvin Castro", role: "Trustee" },
+        { name: "Carlos Lagdameo", role: "Trustee" },
+        { name: "Rey Araos", role: "Trustee" },
     ];
 
     const scholars = [
@@ -108,9 +111,9 @@ const Team = () => {
 
                 {/* Trustees Section */}
                 <h2 className="team-title">The Trustees</h2>
-                <div className="team-grid">
+                <div className="team-grid trustees-grid">
                     {teamMembers.map((member, index) => (
-                        <div key={index} className={`member ${member.class}`} ref={addToRefs} onClick={() => handleMemberClick(member)}>
+                        <div key={index} className="member" ref={addToRefs} onClick={() => handleMemberClick(member)}>
                             <img className="avatar" src={placeholderMember} alt={member.name} />
                             <p className="name">{member.name}</p>
                             <p className="role">{member.role}</p>

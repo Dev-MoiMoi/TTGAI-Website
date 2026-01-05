@@ -46,6 +46,13 @@
   align-items: end;
 }
 
+.trustees-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
 /* explicit placement to form pyramid */
 .m1 {
   grid-column: 4 / 5;
