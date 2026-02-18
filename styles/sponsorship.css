@@ -163,10 +163,31 @@
     border-radius: 20px;
     padding: 3rem 2rem;
     text-align: center;
-    border: 1px solid #e2e8f0;
+    border: 2px solid #e2e8f0;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+}
+
+.package-card:hover {
+    border-color: #93c5fd;
+    box-shadow: 0 10px 30px -5px rgba(37, 99, 235, 0.12);
+    transform: translateY(-4px);
+}
+
+.package-card:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+.package-card.selected {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2), 0 15px 35px -5px rgba(37, 99, 235, 0.2);
+    background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+    transform: translateY(-6px);
 }
 
 .package-card.highlight {
@@ -181,6 +202,78 @@
     font-weight: 700;
     margin-bottom: 1rem;
     display: block;
+}
+
+.package-price {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 1rem 0 0.25rem;
+    color: #1e293b;
+}
+
+.package-subtitle {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.package-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #2563eb;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-bottom-left-radius: 10px;
+    letter-spacing: 0.5px;
+}
+
+.package-selected-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #10b981;
+    color: white;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-bottom-right-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.package-select-btn {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #2563eb;
+    border-radius: 8px;
+    background: transparent;
+    color: #2563eb;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.package-select-btn:hover,
+.package-select-btn.active {
+    background: #2563eb;
+    color: white;
+}
+
+.packages-hint {
+    text-align: center;
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .bronze {
@@ -362,6 +455,10 @@
         transform: none;
     }
 
+    .package-card.selected {
+        transform: translateY(-3px);
+    }
+
     .packages-grid {
         grid-template-columns: 1fr;
     }
@@ -369,4 +466,91 @@
     .sponsor-form-card {
         padding: 2rem 1.5rem;
     }
+}
+
+/* Selected Package Banner (above form) */
+.selected-package-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.95rem;
+    color: #1e40af;
+    flex-wrap: wrap;
+}
+
+.selected-package-banner i {
+    color: #10b981;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.clear-selection-btn {
+    margin-left: auto;
+    background: none;
+    border: 1px solid #93c5fd;
+    color: #2563eb;
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.clear-selection-btn:hover {
+    background: #dbeafe;
+}
+
+/* Form Package Display */
+.form-package-display {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #f8fafc;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.form-package-display.empty {
+    border-style: dashed;
+    color: #94a3b8;
+}
+
+/* Form Success State */
+.form-success {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.success-icon {
+    font-size: 4rem;
+    color: #10b981;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.form-success h3 {
+    font-size: 1.75rem;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+}
+
+.form-success p {
+    color: #64748b;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 500px;
+    margin: 0 auto;
 }
