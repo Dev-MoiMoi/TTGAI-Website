@@ -449,9 +449,9 @@
 
 .scholar-president,
 .scholar-vp {
-  grid-column: 1 / -1;
-  /* full width */
-  margin-bottom: 10px;
+  /* Same card size as peers on desktop — just highlighted with gold ring */
+  border-color: rgba(255, 215, 0, 0.45) !important;
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.12);
 }
 
 @media (max-width: 1024px) {
