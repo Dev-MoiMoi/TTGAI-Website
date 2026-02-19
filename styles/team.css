@@ -112,6 +112,36 @@
   border-color: rgba(255, 255, 255, 0.2);
 }
 
+/* Clickable member cards */
+.clickable-member {
+  cursor: pointer;
+}
+
+.clickable-member:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 215, 0, 0.4);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.clickable-member.visible:hover {
+  transform: translateY(-4px);
+}
+
+.view-profile-hint {
+  font-size: 0.75rem;
+  color: #60a5fa;
+  margin-top: 6px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.clickable-member:hover .view-profile-hint {
+  opacity: 1;
+}
+
 /* visible state */
 .member.visible {
   transform: none;
@@ -209,10 +239,14 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;
-  align-items: center;
+  /* align to top so content is reachable when taller than viewport */
+  align-items: flex-start;
   justify-content: center;
-  z-index: 1000;
-  padding: 20px;
+  z-index: 9999;
+  /* allow overlay itself to scroll on very small screens */
+  overflow-y: auto;
+  padding: 40px 16px;
+  box-sizing: border-box;
   animation: fadeIn 0.3s ease-in-out;
 }
 
@@ -230,13 +264,45 @@
   background-color: #fff;
   color: #333;
   width: 100%;
-  max-width: 600px;
+  max-width: 640px;
+  /* Responsive height: never taller than 90% of the viewport */
+  max-height: 90vh;
+  /* Internal scroll when content overflows */
+  overflow-y: auto;
   border-radius: 12px;
   padding: 30px;
   position: relative;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  transform: translateY(0);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
   animation: slideUp 0.3s ease-out;
+  /* Smooth scrollbar on webkit */
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+  .modal-overlay {
+    padding: 16px 10px;
+  }
+
+  .modal-content {
+    padding: 20px 16px;
+    max-height: none;
+    border-radius: 10px;
+  }
 }
 
 @keyframes slideUp {
@@ -311,11 +377,68 @@
   color: #2563eb;
 }
 
-/* Benefactors Grid Specifics */
-.benefactors-grid {
-  max-width: 600px;
+/* Benefactors List Grid — horizontal card layout */
+.benefactors-list-grid {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   margin: 0 auto;
-  grid-template-columns: repeat(2, 1fr);
+}
+
+.benefactors-subtitle {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.9rem;
+  margin: -24px 0 20px;
+  text-align: center;
+  font-style: italic;
+}
+
+.benefactor-card {
+  flex-direction: row !important;
+  text-align: left !important;
+  align-items: center !important;
+  gap: 20px;
+  padding: 20px 24px !important;
+}
+
+.benefactor-card .avatar {
+  width: 80px !important;
+  height: 80px !important;
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.benefactor-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.benefactor-info .name {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.benefactor-info .role {
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+.newsletter-tag {
+  display: inline-block;
+  background: rgba(37, 99, 235, 0.3);
+  border: 1px solid rgba(96, 165, 250, 0.4);
+  color: #93c5fd;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+  margin-top: 2px;
+  width: fit-content;
 }
 
 /* Scholars Grid Specifics */
@@ -362,4 +485,73 @@
   aspect-ratio: 1 / 1;
   min-width: 80px;
   /* Prevent too small */
+}
+
+/* Enhanced Modal Sections */
+.modal-section {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.modal-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.modal-section-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #2563eb;
+  margin: 0 0 0.6rem;
+}
+
+.modal-section p {
+  margin: 0;
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.modal-message {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid #ffd700;
+}
+
+.modal-message blockquote {
+  margin: 0;
+  font-style: italic;
+  color: #334155;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.modal-newsletter-tag {
+  display: inline-block;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #2563eb;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-top: 4px;
+}
+
+/* Mobile: stack benefactor cards */
+@media (max-width: 600px) {
+  .benefactor-card {
+    flex-direction: column !important;
+    text-align: center !important;
+    align-items: center !important;
+  }
+
+  .benefactor-info {
+    align-items: center;
+  }
 }

@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 import '../styles/team.css';
 import placeholderMember from '../assets/5.jpg';
 import benefactor1 from '../assets/1.jpg';
-import benefactor2 from '../assets/2.jpg';
 
 const Team = () => {
     const membersRef = useRef([]);
@@ -18,15 +17,15 @@ const Team = () => {
             });
         }, { threshold: 0.15 });
 
-        membersRef.current.forEach((it, i) => {
+        membersRef.current.forEach((it) => {
             if (it) {
-                it.style.setProperty('--delay', (i * 80) + 'ms');
+                it.style.setProperty('--delay', '0ms');
                 obs.observe(it);
             }
         });
 
         return () => obs.disconnect();
-    }, [selectedMember]); // Re-run if selectedMember changes (modal might affect layout, though unlikely)
+    }, [selectedMember]);
 
     const addToRefs = (el) => {
         if (el && !membersRef.current.includes(el)) {
@@ -35,13 +34,35 @@ const Team = () => {
     };
 
     const teamMembers = [
-        { name: "Tim Batac", role: "Chairman" },
+        {
+            name: "Tim Batac",
+            role: "Chairman",
+            details: {
+                title: "Mr. Teotimo \"Tim\" G. Batac",
+                position: "LTI Operations Head, Gruppo EMS | Chairman, TTGASInc",
+                background: "Mr. Tim serves as the LTI Operations Head of Gruppo EMS. He is one of the dedicated benefactors of the Team Twilight Scholarship Program. With a career in the semiconductor and electronics industry spanning over four decades, Tim currently oversees the PCB assembly and electronic assembly operations of Gruppo EMS, one of the largest electronics manufacturing services companies in the Philippines and worldwide. Beyond his corporate responsibilities, he serves as Chairman of the TTGASInc.",
+                involvement: "He first became connected with the Team Twilight Scholarship Program through his camaraderie with fellow golfers. During the COVID-19 pandemic, the group delivered personal protective equipment (PPEs) to hospitals and supported community pantries for caddies who were out of work. These efforts strengthened their bond and inspired the group to pursue the scholarship program as a natural extension of their service.",
+                vision: "\"We hope students graduate with the right values,\" he says. Mentorship is central to the program, but expectations are measured—once students are selected, the goal is to provide guidance and support, trusting that they will make the most of the opportunity. He hopes that the culture of service will continue through future generations.",
+                message: "\"Recognize your own strengths and motivations, stay grounded in the basics, and always give back. Pay forward.\" For Tim, success is not measured by recognition, but by the positive impact one leaves in the lives of others."
+            }
+        },
         { name: "Cesar Sangalang", role: "Vice Chairman" },
         { name: "Jon Mateo", role: "President" },
         { name: "Rene dela Cruz", role: "Vice President" },
         { name: "Jun Valerio", role: "Treasurer" },
         { name: "Julius Buenaventura", role: "Assistant Treasurer" },
-        { name: "Tony Mangubat", role: "Secretary" },
+        {
+            name: "Tony Mangubat",
+            role: "Secretary",
+            details: {
+                title: "Engr. Antonio \"Tony\" Mangubat",
+                position: "Secretary, TTGASInc | Dedicated Benefactor",
+                background: "Mr. Mangubat is one of the dedicated benefactors supporting the PKI Scholarship Program. A graduate of Technological University of the Philippines–Taguig, he proudly shares that he was once a government scholar—an opportunity that allowed him to pursue engineering despite the financial challenges his family faced. He began his career as a technician before completing his master's degree at Perpetual Help University, proving that perseverance and dedication can open many doors.",
+                involvement: "He first became connected with PKI and Team Twilight through long-time friends, particularly Sir Rene, with whom he regularly played golf. When the group began discussing their shared desire to help students, Rene introduced the idea of formally building a scholarship program. Mr. Mangubat immediately agreed, recognizing the importance of supporting the next generation and giving them opportunities similar to the ones he received. His motivation for supporting the scholarship is deeply personal—if not for the scholarship he had as a student, he might not have been able to finish his degree.",
+                vision: "When he speaks about the future of PKI scholars, his vision is clear. He hopes they will become future leaders in the industry—individuals who will excel not only in academics but also in their chosen fields, particularly in the semiconductor and electronics sector. He believes that leadership should extend beyond school performance; it must include service to the community and the ability to influence others toward positive action.",
+                message: "\"Strive to be the best version of yourself, focus on your studies, and develop your leadership skills—both in school and in the community. True leadership is measured not only by achievements but by the ability to inspire others and produce meaningful results.\""
+            }
+        },
         { name: "Malvin Castro", role: "Trustee" },
         { name: "Carlos Lagdameo", role: "Trustee" },
         { name: "Rey Araos", role: "Trustee" },
@@ -70,26 +91,90 @@ const Team = () => {
         { name: "Jana Pauline D. Alcones", course: "BSED-Social Studies" }
     ];
 
+    // NOTE: Primo "Jon" Mateo Jr. was removed — he is already listed as President (Jon Mateo) in the Trustees section.
     const benefactors = [
+        {
+            name: "Dr. Danilo \"Dan\" C. Lachica",
+            role: "President, SEIPI",
+            image: placeholderMember,
+            newsletter: "Newsletter Spotlight 1/5 — October 2025",
+            details: {
+                title: "Dr. Danilo \"Dan\" C. Lachica",
+                position: "President, Semiconductor and Electronics Industries in the Philippines Foundation, Inc. (SEIPI)",
+                background: "Dr. Dan Lachica is the President of the Semiconductor and Electronics Industries in the Philippines Foundation, Inc. (SEIPI). At 70 years old, he carries with him decades of experience in Semiconductor, Academe, industry leadership and volunteer service. He studied at the UP Elementary School, Philippine Science High School, and was an NSDB (now DOST) scholar. His professional journey took him from Procter & Gamble to Silicon Valley, where he spent 16 years working in front-end semiconductor wafer fabrication for American Microsystems, Inc. He later returned to the Philippines to run I-Omega, the first US Zip drive manufacturer, and eventually served 14 years in the Lopez Group of Companies before joining full time with SEIPI.",
+                involvement: "Dr. Lachica first learned about the PKI Scholarship through his long-time assistant, Ms. Mabelle dela Cruz and her husband, Rene. During the pandemic, Team Twilight Golfers began organizing initiatives helping Health Workers by donating PPEs. SEIPI supported Team Twilight's PPE distribution during the pandemic by designating Team Twilight as the Organizing Center and Logistics for SEIPI members' donation. Last April 2025, he became aware of the program's mission and felt compelled to help. Beyond financial support, Mr. Lachica consistently emphasizes mentorship and values formation. He often gives talks in schools and shares his own journey—admitting that he was not always the perfect student, but learned the importance of a straight moral compass as he grew older.",
+                vision: "His vision for the scholars is grounded in character and purpose. He hopes that students nurtured by the program will become moral, godly, and responsible citizens who lead by example. He emphasized the importance of leadership—not only in titles, but in everyday actions, discipline, and integrity. In the next five to ten years, he hopes to witness PKI graduates who succeed in their careers and pay forward the support they once received, creating a cycle of generosity and service. SEIPI has more than 360 member companies, with over 40 belonging to academic institutions. With around 460,000 workers in the semiconductor and electronics sector, he believes that nurturing young talent is essential for sustaining the industry.",
+                message: "\"Whatever you sow, you will reap.\" He encourages scholars to do everything in the service of God, stay sincere in their actions, and remember that true success is found in humility and service."
+            }
+        },
+        {
+            name: "Teotimo \"Tim\" G. Batac",
+            role: "LTI Operations Head, Gruppo EMS",
+            image: placeholderMember,
+            newsletter: "Newsletter Spotlight 2/5 — October 2025",
+            details: {
+                title: "Mr. Teotimo \"Tim\" G. Batac",
+                position: "LTI Operations Head, Gruppo EMS | Chairman, TTGASInc",
+                background: "Mr. Tim serves as the LTI Operations Head of Gruppo EMS. He is one of the dedicated benefactors of the Team Twilight Scholarship Program. With a career in the semiconductor and electronics industry spanning over four decades, Tim currently oversees the PCB assembly and electronic assembly operations of Gruppo EMS, one of the largest electronics manufacturing services companies in the Philippines and worldwide. Beyond his corporate responsibilities, he serves as Chairman of the TTGASInc.",
+                involvement: "He first became connected with the Team Twilight Scholarship Program through his camaraderie with fellow golfers. During the COVID-19 pandemic, the group delivered personal protective equipment (PPEs) to hospitals and supported community pantries for caddies who were out of work. Despite his age and concerns from family and friends, Tim personally delivered PPEs, an experience he describes as \"the most meaningful thing we did together.\" These efforts strengthened their bond and inspired the group to pursue the scholarship program as a natural extension of their service. When asked why he supports the scholarship program, Tim emphasized the importance of values formation alongside academic achievement. Having managed over 10,000 employees in his career, he observed that engineers who struggled through school often became the most effective professionals.",
+                vision: "\"We hope students graduate with the right values,\" he says. Mentorship is central to the program, but expectations are measured—once students are selected, the goal is to provide guidance and support, trusting that they will make the most of the opportunity. Tim also hopes that his fellow golfers and benefactors will be inspired to contribute, creating a ripple effect of giving within the community. On a personal level, the scholarship program has had a significant impact on Tim and his family. With his children actively participating, he sees the initiative as a way to instill a lifelong commitment to helping others.",
+                message: "\"Recognize your own strengths and motivations, stay grounded in the basics, and always give back. Pay forward.\" For Tim, success is not measured by recognition, but by the positive impact one leaves in the lives of others."
+            }
+        },
+        {
+            name: "Engr. Domingo \"Dingo\" Bonifacio",
+            role: "EVP & GM, Automated Technology Philippines",
+            image: placeholderMember,
+            newsletter: "Newsletter Spotlight 3/5 — October 2025",
+            details: {
+                title: "Engr. Domingo \"Dingo\" Bonifacio",
+                position: "Executive Vice President & General Manager, Automated Technology Philippines",
+                background: "Mr. Bonifacio serves as the Executive Vice President and General Manager of Automated Technology Philippines, leading its Electronics Manufacturing Services division. He is an Electronics and Communications Engineer who graduated from the University of Santo Tomas. After earning his degree, he migrated to the United States, where he spent twenty productive years working in Silicon Valley. During his stay abroad, he completed his Microwave Engineering continuing education at the University of California, Berkeley. He eventually returned to the Philippines in 1996 to establish Pacific Microwave Corporation, one of the first microwave and RF manufacturing companies in the country. His company later became part of a U.S.-listed corporation before undergoing a management buyout in 2005, eventually becoming Remec Broadband Wireless—one of the main producers of microwave radios for Huawei, manufacturing more than one million units. Today, he continues to contribute his expertise by leading a specialized microwave manufacturing division under Automated Technology.",
+                involvement: "Just like TTGAI members, his involvement with Team Twilight and the PKI Scholarship Program began through golf, where he regularly played with industry colleagues. Many members of the group come from the electronics field, and their shared experiences and camaraderie eventually inspired them to collaborate on something more meaningful. With a collective desire to support deserving students, the group came together to formalize a scholarship initiative that would benefit learners who struggle financially. Supporting the program is not new to him, as he has long been involved in helping students in his hometown in Pampanga. He recognizes that many young people possess intelligence, determination, and talent but lack the financial means to continue studying.",
+                vision: "When sharing his vision for the scholars, he emphasizes growth, learning, and national development. He hopes that students supported by the program will one day become professionals who contribute to the progress of the Philippines—whether by working in advanced technology industries, creating employment opportunities, or bringing expertise back into the country. He believes that young scholars today can become future leaders and innovators who help build a stronger economy. Looking ahead, he sees the program growing even larger in the next five to ten years. His goal is to build a cycle of generosity—scholars who graduate and succeed will eventually help new scholars, allowing the advocacy to sustain itself and reach more young people.",
+                message: "He shares that he does not seek recognition for his contributions. He prefers to help quietly, without wanting to be remembered personally. What matters most to him is seeing students work hard, study diligently, and succeed. For him, witnessing their growth is already the greatest reward. He hopes each scholar understands the value of dedication and uses their education to make a difference in their own lives and in the lives of others."
+            }
+        },
+        {
+            name: "Engr. Antonio \"Tony\" Mangubat",
+            role: "Secretary, TTGASInc | Benefactor",
+            image: placeholderMember,
+            newsletter: "Newsletter Spotlight 4/5 — October 2025",
+            details: {
+                title: "Engr. Antonio \"Tony\" Mangubat",
+                position: "Secretary, TTGASInc | Dedicated Benefactor",
+                background: "Mr. Mangubat is one of the dedicated benefactors supporting the PKI Scholarship Program. A graduate of Technological University of the Philippines–Taguig, he proudly shares that he was once a government scholar—an opportunity that allowed him to pursue engineering despite the financial challenges his family faced. He began his career as a technician before completing his master's degree at Perpetual Help University, proving that perseverance and dedication can open many doors.",
+                involvement: "He first became connected with PKI and Team Twilight through long-time friends, particularly Sir Rene, with whom he regularly played golf. When the group began discussing their shared desire to help students, Rene introduced the idea of formally building a scholarship program. Mr. Mangubat immediately agreed, recognizing the importance of supporting the next generation and giving them opportunities similar to the ones he received. His motivation for supporting the scholarship is deeply personal. He shared that if not for the scholarship he had as a student, he might not have been able to finish his degree. Because of that experience, he sees this moment as his opportunity to give back. For him, helping PKI scholars is a way of honoring the support he once received and ensuring that deserving students today don't lose their chance to pursue education.",
+                vision: "When he speaks about the future of PKI scholars, his vision is clear. He hopes they will become future leaders in the industry—individuals who will excel not only in academics but also in their chosen fields, particularly in the semiconductor and electronics sector, where he and many benefactors have built their careers. He believes that leadership should extend beyond school performance; it must include service to the community and the ability to influence others toward positive action. Supporting the program has been personally meaningful for him. He shared that this advocacy has been in discussion for years with Sir Rene, and seeing it finally come to life has brought him happiness and fulfillment. The growing support from many benefactors also strengthens his belief that the program will flourish for more than ten years, as long as more people continue stepping forward to help.",
+                message: "\"Strive to be the best version of yourself, focus on your studies, and develop your leadership skills—both in school and in the community. True leadership is measured not only by achievements but by the ability to inspire others and produce meaningful results.\""
+            }
+        },
+        {
+            name: "Engr. Rolando \"Rollie\" Lazaro",
+            role: "Founder & CEO, Autronix Systems Inc.",
+            image: placeholderMember,
+            newsletter: "Newsletter Spotlight 5/5 — October 2025",
+            details: {
+                title: "Engr. Rolando \"Rollie\" Lazaro",
+                position: "Founder & CEO, Autronix Systems Inc. (est. 2001)",
+                background: "Mr. Lazaro, one of the original member of Team Twilight golfers, has been a supporter in strengthening the PKI Scholarship Program. He began his career in the electronics manufacturing industry, working first as a factory worker before moving into machine servicing and sales. After several years of experience, he established his own business in 2001. Autronix Systems Inc. has been operating successfully for more than twenty-one years. They provide production equipment and services to various electronics manufacturing firms. From his early years as an employee to becoming a long-time businessman, he has built a career grounded in hard work, persistence, and a desire to uplift others.",
+                involvement: "His connection to PKI began with Team Twilight, a group he helped established. What started as a simple golf group eventually grew into a strong community of professionals from the semiconductor and electronics industry. As their camaraderie deepened, the group decided to do more than simply gather and play—they began raising funds to support institutions and individuals in need. This eventually led to the formalization of their advocacy, which now includes supporting students through the PKI Scholarship Program. His vision for PKI scholars highlights the importance of education as the key to a better future. Before this program, he often extended help to orphanages and families needing financial assistance for medical bills. It was only recently, through discussions with Rene and other members of Team Twilight, that he discovered how many students were struggling to continue their studies due to financial limitations.",
+                vision: "He envisions the program continuing for many more years. As long as the members of Team Twilight remain united, he believes the advocacy will thrive. He expressed concern over the country's political instability and emphasized the importance of investing in young people who will one day take on leadership roles. For him, the scholarship is not just financial support—it is a long-term investment in the nation's future. The inspiration for this scholarship program comes from a very personal place. Every December during his birthday, he would gather with friends to celebrate, play golf, and enjoy each other's company. Over time, he realized that these gatherings could be more meaningful if they were tied to a purpose. Instead of having celebrations centered only on leisure, he wanted them to become opportunities to help others. This idea evolved into organizing golf tournaments and fundraising initiatives focused on assisting institutions and individuals who needed support.",
+                message: "\"Study hard, be ambitious, and always look ahead.\" He reminds scholars that finishing their education has the power to change their lives, their families, and the community around them. He believes that success is not measured only by profession or income, but by the positive change one brings to society. As the older generation steps back, he hopes the youth will rise to lead, innovate, and transform the future of the country."
+            }
+        },
         {
             name: "Noel Cabangon",
             role: "Linkage & Advocate",
             image: benefactor1,
+            newsletter: "Featured Benefactor",
             details: {
-                role: "Benefactor and Fundraiser",
-                description: "Inspired by the 'noble' intent of the golfers, he uses his music to advocate for 'nationalism, social activism, and care for Mother Earth.'",
-                message: "He believes education is the 'only treasure one can truly own' and encourages scholars to take the opportunity seriously."
-            }
-        },
-        {
-            name: "Primo “Jon” Mateo Jr.",
-            role: "Managing Director, FASTECH",
-            image: benefactor2,
-            details: {
-                role: "Leader and Mentor",
-                vision: "Aims to raise leaders who will stand against corruption and normalize ethical behavior.",
-                history: "Has been personally supporting a scholar for 6 years; donated PPE during COVID-19; and established community pantries for golf caddies.",
-                goal: "To grow the program to support 1,000 scholars in the next five years."
+                title: "Noel Cabangon",
+                position: "Musician, Linkage & Advocate",
+                background: "A celebrated Filipino musician and social advocate, Noel Cabangon uses his platform and artistry to champion causes close to his heart—nationalism, social activism, and care for Mother Earth.",
+                involvement: "Inspired by the 'noble' intent of the golfers, he uses his music to advocate for the scholarship program and help raise awareness for deserving Filipino scholars.",
+                vision: "He believes education is the 'only treasure one can truly own' and sees the PKI Scholarship Program as a vital investment in the country's future.",
+                message: "He encourages scholars to take the opportunity seriously, work hard, and use their education to give back to their communities and the nation."
             }
         }
     ];
@@ -98,7 +183,6 @@ const Team = () => {
         if (member.details) {
             setSelectedMember(member);
         } else {
-            // Optional: Show a default 'Coming Soon' or nothing
             console.log("No details for this member yet.");
         }
     };
@@ -113,10 +197,17 @@ const Team = () => {
                 <h2 className="team-title">The Trustees</h2>
                 <div className="team-grid trustees-grid">
                     {teamMembers.map((member, index) => (
-                        <div key={index} className="member" ref={addToRefs} onClick={() => handleMemberClick(member)}>
+                        <div
+                            key={index}
+                            className={`member${member.details ? ' clickable-member' : ''}`}
+                            ref={addToRefs}
+                            onClick={() => handleMemberClick(member)}
+                            title={member.details ? 'Click to view profile' : ''}
+                        >
                             <img className="avatar" src={placeholderMember} alt={member.name} />
                             <p className="name">{member.name}</p>
                             <p className="role">{member.role}</p>
+                            {member.details && <span className="view-profile-hint">View Profile ›</span>}
                         </div>
                     ))}
                 </div>
@@ -136,12 +227,26 @@ const Team = () => {
 
                 {/* Featured Benefactors Section */}
                 <h2 className="team-title" style={{ marginTop: '4rem', background: '#2563eb' }}>Featured Benefactors</h2>
-                <div className="team-grid benefactors-grid">
+                <p className="benefactors-subtitle">
+                    Click on any benefactor card to read their full profile and story.
+                </p>
+                <div className="benefactors-list-grid">
                     {benefactors.map((member, index) => (
-                        <div key={`ben-${index}`} className="member" ref={addToRefs} onClick={() => handleMemberClick(member)} style={{ cursor: 'pointer' }}>
+                        <div
+                            key={`ben-${index}`}
+                            className="benefactor-card member clickable-member"
+                            ref={addToRefs}
+                            onClick={() => handleMemberClick(member)}
+                        >
                             <img className="avatar" src={member.image} alt={member.name} style={{ borderColor: '#ffd700' }} />
-                            <p className="name">{member.name}</p>
-                            <p className="role">{member.role}</p>
+                            <div className="benefactor-info">
+                                <p className="name">{member.name}</p>
+                                <p className="role">{member.role}</p>
+                                {member.newsletter && (
+                                    <span className="newsletter-tag">{member.newsletter}</span>
+                                )}
+                                <span className="view-profile-hint">Read Full Profile ›</span>
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -156,19 +261,46 @@ const Team = () => {
                         <div className="modal-header">
                             <img src={selectedMember.image || placeholderMember} alt={selectedMember.name} className="modal-avatar" />
                             <div>
-                                <h3>{selectedMember.name}</h3>
-                                <p className="modal-role">{selectedMember.role}</p>
+                                <h3>{selectedMember.details?.title || selectedMember.name}</h3>
+                                <p className="modal-role">{selectedMember.details?.position || selectedMember.role}</p>
+                                {selectedMember.newsletter && (
+                                    <span className="modal-newsletter-tag">{selectedMember.newsletter}</span>
+                                )}
                             </div>
                         </div>
                         <div className="modal-body">
                             {selectedMember.details ? (
                                 <>
-                                    {selectedMember.details.role && <p><strong>Role:</strong> {selectedMember.details.role}</p>}
-                                    {selectedMember.details.description && <p><strong>Involvement:</strong> {selectedMember.details.description}</p>}
-                                    {selectedMember.details.message && <p><strong>Message:</strong> {selectedMember.details.message}</p>}
-                                    {selectedMember.details.vision && <p><strong>Vision:</strong> {selectedMember.details.vision}</p>}
-                                    {selectedMember.details.history && <p><strong>History of Service:</strong> {selectedMember.details.history}</p>}
-                                    {selectedMember.details.goal && <p><strong>Goal:</strong> {selectedMember.details.goal}</p>}
+                                    {selectedMember.details.background && (
+                                        <div className="modal-section">
+                                            <h4 className="modal-section-title">📋 Background</h4>
+                                            <p>{selectedMember.details.background}</p>
+                                        </div>
+                                    )}
+                                    {selectedMember.details.involvement && (
+                                        <div className="modal-section">
+                                            <h4 className="modal-section-title">🤝 Involvement in PKI Program</h4>
+                                            <p>{selectedMember.details.involvement}</p>
+                                        </div>
+                                    )}
+                                    {selectedMember.details.description && (
+                                        <div className="modal-section">
+                                            <h4 className="modal-section-title">🎵 Advocacy</h4>
+                                            <p>{selectedMember.details.description}</p>
+                                        </div>
+                                    )}
+                                    {selectedMember.details.vision && (
+                                        <div className="modal-section">
+                                            <h4 className="modal-section-title">🔭 Vision for the Scholars</h4>
+                                            <p>{selectedMember.details.vision}</p>
+                                        </div>
+                                    )}
+                                    {selectedMember.details.message && (
+                                        <div className="modal-section modal-message">
+                                            <h4 className="modal-section-title">💬 Message to Scholars</h4>
+                                            <blockquote>{selectedMember.details.message}</blockquote>
+                                        </div>
+                                    )}
                                 </>
                             ) : (
                                 <p>Detailed profile information coming soon.</p>
