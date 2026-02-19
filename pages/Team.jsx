@@ -91,7 +91,7 @@ const Team = () => {
         { name: "Jana Pauline D. Alcones", course: "BSED-Social Studies" }
     ];
 
-    // NOTE: Primo "Jon" Mateo Jr. was removed — he is already listed as President (Jon Mateo) in the Trustees section.
+    // Primo "Jon" Mateo Jr. appears both as President in trustees AND as a featured benefactor spotlight (newsletter 4/6)
     const benefactors = [
         {
             name: "Dr. Danilo \"Dan\" C. Lachica",
@@ -164,17 +164,31 @@ const Team = () => {
             }
         },
         {
+            name: "Primo \"Jon\" Mateo Jr.",
+            role: "Managing Director, FASTECH",
+            image: placeholderMember,
+            newsletter: "Newsletter Spotlight — Sep 2025 4/6",
+            details: {
+                title: "Primo \"Jon\" Mateo Jr.",
+                position: "Managing Director, FASTECH | President, TTGASInc",
+                background: "Mr. Jon Mateo is a leader and mentor whose story reflects perseverance, vision, and compassion. Today, he serves as the Managing Director of FASTECH, one of the country's leading technology companies. He started his career as an auditor, later worked in banking, and eventually joined FASTECH as a finance supervisor. Through dedication and commitment, he worked his way up as CFO, COO, and now Managing Director. These milestones not only highlight his corporate success but also his discipline, integrity, and genuine concern for people. Beyond business, Sir Primo is also a family man and a mentor, inspired by the values he learned from his father and former boss. Their influence shaped his principles of humility, responsibility, and service — principles he now carries into his advocacies for education and community development.",
+                involvement: "Sir Jon's partnership with the Twilight Scholarship Program and the Pabaon Kay Iskolar (PKI) Program reflects his strong belief in education as a tool for nation-building. His commitment began with a personal story: supporting his very first scholar since senior high school — almost 6 years of continuous support. That experience inspired him because, in his own little way of helping, he supported someone else's dreams and it made him delighted. He also envisions expanding his impact by teaching pro bono at PnC and conducting values-based workshops because he believes in sharing both professional skills and life lessons with the youngers.",
+                vision: "He openly expressed his dismay at the decline of moral values in society, worsened by public officials who normalize unethical behaviors. For him, education must raise leaders who will stand against corruption. He dreams of scholars who will not only succeed in their careers but also inspire others to do good. He hopes to see some Iskolars become part of Team Twilight's leadership, paying forward the support they once received. Importantly, the program does not ask for repayment — only the hope that scholars will continue the cycle of kindness. In the long run, he hopes the scholarship program can grow to support a thousand scholars in the next five years.",
+                message: "\"My hope is you do good in society. Maging successful in your profession — successful sa pagtulong sa ibang tao.\" Quoting Mother Teresa: 'Not all of us can do great things, but all of us can do small things with great love.'"
+            }
+        },
+        {
             name: "Noel Cabangon",
-            role: "Linkage & Advocate",
+            role: "Musician, Linkage & Advocate",
             image: benefactor1,
-            newsletter: "Featured Benefactor",
+            newsletter: "Newsletter Spotlight — Sep 2025 3/6",
             details: {
                 title: "Noel Cabangon",
-                position: "Musician, Linkage & Advocate",
-                background: "A celebrated Filipino musician and social advocate, Noel Cabangon uses his platform and artistry to champion causes close to his heart—nationalism, social activism, and care for Mother Earth.",
-                involvement: "Inspired by the 'noble' intent of the golfers, he uses his music to advocate for the scholarship program and help raise awareness for deserving Filipino scholars.",
-                vision: "He believes education is the 'only treasure one can truly own' and sees the PKI Scholarship Program as a vital investment in the country's future.",
-                message: "He encourages scholars to take the opportunity seriously, work hard, and use their education to give back to their communities and the nation."
+                position: "Singer-Songwriter, Musician | Linkage & Advocate, PKI Program",
+                background: "A celebrated Filipino singer-songwriter and social advocate, Noel Cabangon is a board member of FILSCAP, board member of Jesuit Communications Foundation, President of Akbayanihan Foundation, Vice President of Dakila (Collective for Modern Heroism), and member of Philippine Educational Theater Association. A graduate of Bachelor of Music major in Popular Music. His melodies are not only heard by the ears but deeply felt by the heart. Through the power of music, Mr. Noel voiced his hope for the nation, caring for nationalism, social activism, human rights, and care for Mother Earth.",
+                involvement: "His involvement with the PKI Program started when it was first launched on April 11, 2025, during Mr. Rene Dela Cruz' birthday. Mr. Noel Cabangon found this initiative 'very interesting, very noble.' He saw the clear intention of these Golfers — to contribute to the betterment of society. With that purpose, he came up with an idea and started fundraising through his Bar Tour Series (June 25, 2025). From then on, his commitment to helping further ignited his passion for the nation. He also shared a personal story as to why he felt inspired to take part in this scholarship program — his immense belief in education, especially educating the youth.",
+                vision: "'Kabataan ang pag-asa ng bayan' resonates with him deeply and he values education as it is the only treasure one can truly own. Education, for Mr. Noel, is a way to have leaders that will continue the dreams of our forefathers, our National Heroes. He clarified that it is not about giving the Iskolars a responsibility — it's about giving them opportunity and helping them make the right decision for themselves, and for the country. He believes that with this program, we will be able to change society, and our future, all for the better.",
+                message: "He encourages scholars to value this opportunity and take it seriously. 'Wanting to have a better future for this country and empowering you, the scholars, will carry on the task… Education is really important.' He reminds every Iskolar that education is not only an investment in individuals but also a lasting contribution to the nation's future."
             }
         }
     ];

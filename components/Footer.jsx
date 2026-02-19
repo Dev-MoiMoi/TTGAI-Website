@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/footer.css';
 
 const Footer = () => {
+    const [subscribed, setSubscribed] = useState(false);
+    const [subEmail, setSubEmail] = useState('');
+
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
@@ -10,49 +13,55 @@ const Footer = () => {
         });
     };
 
+    const handleSubscribe = (e) => {
+        e.preventDefault();
+        const email = e.target.email.value;
+        const subject = encodeURIComponent('Newsletter Subscription - New Upload Notifications');
+        const body = encodeURIComponent(
+            `Newsletter Subscription Request\n\n` +
+            `Subscriber Email: ${email}\n\n` +
+            `This person has subscribed to receive email notifications every time a new update or upload is posted by Team Twilight Golfers Association Inc.\n\n` +
+            `Please add them to your newsletter mailing list.`
+        );
+        window.location.href = `mailto:ttgasinc@gmail.com?subject=${subject}&body=${body}`;
+        setSubEmail(email);
+        setSubscribed(true);
+        e.target.reset();
+    };
+
     return (
         <footer className="footer-section">
             <div className="footer-container">
                 <div className="footer-grid">
-                    {/* Column 1: Stay Connected */}
+                    {/* Column 1: Newsletter */}
                     <div className="footer-col subscribe-col">
-                        <h3 className="footer-heading">Stay Connected</h3>
+                        <h3 className="footer-heading">Newsletter</h3>
                         <p className="footer-value-prop">
-                            Get verified scholarship updates straight to your inbox.
-                            <br />Weekly updates. Zero spam.
+                            Be the first to know about every new upload and announcement.
+                            <br />Subscribe and we'll send updates straight to your inbox — no spam, ever.
                         </p>
-                        <form className="subscribe-form" onSubmit={(e) => {
-                            e.preventDefault();
-                            const name = e.target.name.value;
-                            const email = e.target.email.value;
-                            const subject = encodeURIComponent(`Scholarship Application Interest - ${name}`);
-                            const body = encodeURIComponent(
-                                `Name: ${name}\n` +
-                                `Email: ${email}\n\n` +
-                                `Automated Message: The person above is interested in applying for a scholarship and receiving updates from Team Twilight.`
-                            );
-                            window.location.href = `mailto:twilight.ucscholars@gmail.com?subject=${subject}&body=${body}`;
-                            alert(`Thank you, ${name}! Your email client will now open to send your application inquiry.`);
-                            e.target.reset();
-                        }}>
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Your Name"
-                                required
-                                className="footer-input"
-                            />
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Your Email"
-                                required
-                                className="footer-input"
-                            />
-                            <button type="submit" className="footer-btn">
-                                Subscribe
-                            </button>
-                        </form>
+
+                        {subscribed ? (
+                            <div className="subscribe-success">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-4.5-4.5 1.41-1.41L10 13.67l7.09-7.09 1.41 1.41L10 16.5z" />
+                                </svg>
+                                <span>You're subscribed! Check your email to confirm.</span>
+                            </div>
+                        ) : (
+                            <form className="subscribe-form" onSubmit={handleSubscribe}>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Enter your email address"
+                                    required
+                                    className="footer-input"
+                                />
+                                <button type="submit" className="footer-btn">
+                                    Subscribe to Updates
+                                </button>
+                            </form>
+                        )}
                     </div>
 
                     {/* Column 2: Quick Links */}
