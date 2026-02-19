@@ -80,15 +80,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: nowrap;
     gap: 0;
-    flex-wrap: wrap;
     background: rgba(255, 255, 255, 0.07);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 16px;
     padding: 1.5rem 2.5rem;
-    max-width: 540px;
+    width: fit-content;
+    max-width: 100%;
     margin: 0 auto;
     backdrop-filter: blur(8px);
+    overflow-x: auto;
 }
 
 .hero-stat {

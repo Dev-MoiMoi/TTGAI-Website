@@ -4,6 +4,9 @@ import '../styles/linkages.css';
 import pncLogo from '../assets/PnC Logo.jpg';
 import cabuyaoLogo from '../assets/Cabuyao Logo.png';
 import buscowitzLogo from '../assets/Buskowitz.png';
+import academicCapIcon from '../assets/square-academic-cap-svgrepo-com.svg';
+import communityIcon from '../assets/community-svgrepo-com.svg';
+import corporateIcon from '../assets/cooperate-svgrepo-com.svg';
 
 /* ─── Inline SVG Icon Components ─────────────────────────────────────────── */
 
@@ -127,10 +130,12 @@ const Linkages = () => {
         ? partners
         : partners.filter(p => p.category === activeCategory);
 
+    const iconStyle = { width: '28px', height: '28px', filter: 'brightness(0) saturate(100%) invert(27%) sepia(88%) saturate(1500%) hue-rotate(210deg) brightness(95%) contrast(95%)' };
+
     const categoryMeta = {
-        Academic: { icon: '🎓', label: 'Academic Partners', count: partners.filter(p => p.category === 'Academic').length },
-        Corporate: { icon: '⚡', label: 'Corporate Partners', count: partners.filter(p => p.category === 'Corporate').length },
-        Community: { icon: '🤝', label: 'Community Partners', count: partners.filter(p => p.category === 'Community').length },
+        Academic: { icon: <img src={academicCapIcon} alt="Academic" style={iconStyle} />, label: 'Academic Partners', count: partners.filter(p => p.category === 'Academic').length },
+        Corporate: { icon: <img src={corporateIcon} alt="Corporate" style={iconStyle} />, label: 'Corporate Partners', count: partners.filter(p => p.category === 'Corporate').length },
+        Community: { icon: <img src={communityIcon} alt="Community" style={iconStyle} />, label: 'Community Partners', count: partners.filter(p => p.category === 'Community').length },
     };
 
     return (
@@ -148,12 +153,12 @@ const Linkages = () => {
                     </p>
                     <div className="hero-stats">
                         <div className="hero-stat">
-                            <span className="stat-number">5</span>
+                            <span className="stat-number">{partners.length}</span>
                             <span className="stat-label">Active Partners</span>
                         </div>
                         <div className="hero-stat-divider" />
                         <div className="hero-stat">
-                            <span className="stat-number">3</span>
+                            <span className="stat-number">{[...new Set(partners.map(p => p.category))].length}</span>
                             <span className="stat-label">Sectors</span>
                         </div>
                         <div className="hero-stat-divider" />
