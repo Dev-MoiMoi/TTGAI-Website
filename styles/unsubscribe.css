@@ -1,0 +1,257 @@
+/* ─── Unsubscribe Page ───────────────────────────────────────────────────── */
+
+.unsub-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: var(--primary-navy);
+  position: relative;
+  overflow: hidden;
+  /* font handled globally */
+}
+
+/* Decorative blobs */
+.unsub-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.18;
+}
+
+.unsub-blob--1 {
+  width: 500px;
+  height: 500px;
+  background: #BA7517;
+  top: -120px;
+  right: -100px;
+}
+
+.unsub-blob--2 {
+  width: 400px;
+  height: 400px;
+  background: #4f78c8;
+  bottom: -80px;
+  left: -80px;
+}
+
+/* Card */
+.unsub-card {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Icon circle */
+.unsub-icon-wrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(197, 160, 89, 0.1);
+  border: 2px solid rgba(197, 160, 89, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #BA7517;
+  margin-bottom: 0.25rem;
+}
+
+.unsub-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #BA7517;
+  background: rgba(197, 160, 89, 0.08);
+  border: 1px solid rgba(197, 160, 89, 0.25);
+  padding: 0.25rem 0.9rem;
+  border-radius: 50px;
+}
+
+.unsub-title {
+  font-size: clamp(1.9rem, 5vw, 2.4rem);
+  font-weight: 800;
+  color: var(--primary-navy);
+  margin: 0;
+  line-height: 1.15;
+}
+
+.unsub-sub {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 360px;
+  margin: 0;
+}
+
+/* Form */
+.unsub-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  text-align: left;
+}
+
+.unsub-input {
+  width: 100%;
+  padding: 0.9rem 1.1rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.97rem;
+  color: #1e293b;
+  background: #f8fafc;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.unsub-input:focus {
+  border-color: #BA7517;
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+  background: #fff;
+}
+
+.unsub-input::placeholder {
+  color: #94a3b8;
+}
+
+/* Messages */
+.unsub-msg {
+  font-size: 0.87rem;
+  font-weight: 500;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  margin: 0;
+}
+
+.unsub-msg--warn {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  color: #b45309;
+}
+
+.unsub-msg--error {
+  background: rgba(220, 38, 38, 0.07);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  color: #dc2626;
+}
+
+/* Button */
+.unsub-btn {
+  width: 100%;
+  padding: 0.9rem;
+  background: #dc2626; /* Red unsubscribe button */
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+}
+
+.unsub-btn:hover:not(:disabled) {
+  background: #b91c1c; /* Darker red */
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
+}
+
+.unsub-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Spinner */
+.unsub-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: unsub-spin 0.65s linear infinite;
+  display: inline-block;
+}
+
+@keyframes unsub-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Result */
+.unsub-result {
+  width: 100%;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  animation: unsub-fadeUp 0.4s ease;
+}
+
+.unsub-result--success {
+  background: rgba(16, 185, 129, 0.07);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.unsub-result-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.unsub-result h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #065f46;
+  margin: 0;
+}
+
+.unsub-result p {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+  max-width: 320px;
+}
+
+/* Footer note */
+.unsub-footer-note {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  margin: 0.5rem 0 0;
+}
+
+.unsub-footer-note a {
+  color: #BA7517;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@keyframes unsub-fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 540px) {
+  .unsub-card {
+    padding: 2rem 1.25rem;
+  }
+}

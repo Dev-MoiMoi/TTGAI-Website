@@ -1,0 +1,213 @@
+/* ─── Subscribe Form — shared between Footer and Newsletter page ─────────── */
+
+/* ── Base form layout ──────────────────────────────────────────────────── */
+.sf-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  width: 100%;
+  max-width: 380px;
+}
+
+.sf-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+/* ── Input — footer variant (dark bg) ─────────────────────────────────── */
+.sf-input--footer {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: rgba(30, 41, 59, 0.55);
+  color: #fff;
+  font-size: 0.93rem;
+  transition: all 0.25s ease;
+  font-family: inherit;
+}
+
+.sf-input--footer::placeholder {
+  color: #94a3b8;
+}
+
+.sf-input--footer:focus {
+  outline: none;
+  border-color: #BA7517;
+  background: rgba(30, 41, 59, 0.8);
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+}
+
+/* ── Input — inline variant (light bg) ───────────────────────────────── */
+.sf-input--inline {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1.5px solid #cbd5e1;
+  background: #fff;
+  color: #1a2a5e;
+  font-size: 0.93rem;
+  transition: all 0.25s ease;
+  font-family: inherit;
+}
+
+.sf-input--inline::placeholder {
+  color: #94a3b8;
+}
+
+.sf-input--inline:focus {
+  outline: none;
+  border-color: #BA7517;
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+}
+
+/* ── Button — footer variant ─────────────────────────────────────────── */
+.sf-btn--footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  background: #BA7517;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.93rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.02em;
+  font-family: inherit;
+}
+
+.sf-btn--footer:hover:not(:disabled) {
+  background: #a3854a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(163, 133, 74, 0.35);
+}
+
+.sf-btn--footer:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ── Button — inline variant ─────────────────────────────────────────── */
+.sf-btn--inline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  background: #1a2a5e;
+  color: #BA7517;
+  border: 2px solid #1a2a5e;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.93rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.02em;
+  font-family: inherit;
+}
+
+.sf-btn--inline:hover:not(:disabled) {
+  background: #BA7517;
+  border-color: #BA7517;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(197, 160, 89, 0.35);
+}
+
+.sf-btn--inline:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ── Loading spinner ─────────────────────────────────────────────────── */
+.sf-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: sf-spin 0.65s linear infinite;
+}
+
+@keyframes sf-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Status messages ─────────────────────────────────────────────────── */
+.sf-msg {
+  font-size: 0.88rem;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 0.55rem 0.85rem;
+  margin: 0;
+}
+
+.sf-msg--already {
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  color: #3b82f6;
+}
+
+.sf-msg--error {
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  color: #ef4444;
+}
+
+/* ── Disclaimer ──────────────────────────────────────────────────────── */
+.sf-disclaimer {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* ── Success state ───────────────────────────────────────────────────── */
+.sf-success {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  animation: sf-fadeUp 0.4s ease;
+  max-width: 380px;
+}
+
+.sf-success--footer {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+}
+
+.sf-success--inline {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #059669;
+}
+
+.sf-success-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.sf-success-title {
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0 0 0.15rem 0;
+}
+
+.sf-success-sub {
+  font-size: 0.85rem;
+  margin: 0;
+  opacity: 0.85;
+}
+
+@keyframes sf-fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

@@ -13,12 +13,25 @@ const Navbar = () => {
             <Link to="/" onClick={closeMobileMenu}>
                 <img src={logo} className="logo" alt="Team Twilight Golfers Association Inc. logo" />
             </Link>
-            <label className="menu-icon" htmlFor="check">
+            <label
+                className="menu-icon"
+                htmlFor="check"
+                tabIndex="0"
+                aria-label="Toggle mobile menu"
+                aria-expanded={click}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleClick();
+                    }
+                }}
+            >
                 <input
                     id="check"
                     type="checkbox"
                     checked={click}
                     onChange={handleClick}
+                    tabIndex="-1"
                 />
                 <span className="top"></span>
                 <span className="mid"></span>
@@ -27,9 +40,11 @@ const Navbar = () => {
             <ul className={click ? 'active' : ''}>
                 <li><Link to="/" onClick={closeMobileMenu}>HOME</Link></li>
                 <li><Link to="/about" onClick={closeMobileMenu}>ABOUT</Link></li>
+                <li><Link to="/history" onClick={closeMobileMenu}>HISTORY</Link></li>
                 <li><Link to="/team" onClick={closeMobileMenu}>TEAM</Link></li>
                 <li><Link to="/operations" onClick={closeMobileMenu}>OPERATIONS</Link></li>
                 <li><Link to="/linkages" onClick={closeMobileMenu}>LINKAGES</Link></li>
+                <li><Link to="/newsletter" onClick={closeMobileMenu}>NEWSLETTER</Link></li>
                 <li id="team"><Link to="/sponsorship" onClick={closeMobileMenu}><button>BE A SPONSOR</button></Link></li>
             </ul>
         </nav>

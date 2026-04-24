@@ -13,7 +13,7 @@
     background: var(--bg-gradient);
     padding: 6rem 2rem 4rem;
     /* Top padding to account for fixed header if any */
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    /* font handled globally */
     color: var(--text-primary);
 }
 

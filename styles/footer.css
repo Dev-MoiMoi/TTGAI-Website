@@ -1,8 +1,8 @@
 .footer-section {
-    background: linear-gradient(to bottom, #1e293b, #0f172a);
-    color: #f8fafc;
+    background: var(--primary-navy);
+    color: var(--text-light);
     padding: 5rem 2rem 2rem;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    /* font handled globally */
     position: relative;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -64,8 +64,8 @@
 
 .footer-btn {
     padding: 0.8rem 2rem;
-    background: #2563eb;
-    color: white;
+    background: var(--primary-gold);
+    color: var(--text-light);
     border: none;
     border-radius: 8px;
     font-weight: 600;
@@ -75,9 +75,9 @@
 }
 
 .footer-btn:hover {
-    background: #1d4ed8;
+    background: #A3854A;
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 10px 20px -5px rgba(163, 133, 74, 0.3);
 }
 
 /* Subscribe Success State */
@@ -174,9 +174,9 @@
 }
 
 .social-icon:hover {
-    background: #2563eb;
-    border-color: #2563eb;
-    color: white;
+    background: var(--primary-gold);
+    border-color: var(--primary-gold);
+    color: var(--text-light);
     transform: translateY(-3px) scale(1.1);
 }
 
