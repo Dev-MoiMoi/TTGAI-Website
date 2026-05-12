@@ -984,7 +984,7 @@
 
 .adm-edit-textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 200px;
 }
 
 @media (max-width: 600px) {

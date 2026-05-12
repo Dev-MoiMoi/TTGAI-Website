@@ -505,7 +505,7 @@ const NewslettersTab = () => {
               </div>
               <div className="adm-edit-group">
                 <label className="adm-edit-label">Short Description / Excerpt</label>
-                <textarea className="adm-edit-textarea" rows="3" value={modal.editData.excerpt} onChange={e => setModal({...modal, editData: {...modal.editData, excerpt: e.target.value}})} />
+                <textarea className="adm-edit-textarea" rows="8" value={modal.editData.excerpt} onChange={e => setModal({...modal, editData: {...modal.editData, excerpt: e.target.value}})} placeholder="Write the newsletter excerpt or full description here…" />
               </div>
               <div className="adm-modal-actions">
                 <button type="button" className="adm-modal-cancel" onClick={() => setModal(null)}>Cancel</button>
