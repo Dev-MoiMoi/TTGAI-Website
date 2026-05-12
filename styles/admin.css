@@ -899,6 +899,100 @@
   font-weight: 500;
 }
 
+/* ── Edit / Create Newsletter Modal ───────────────────────────────────── */
+.adm-edit-modal {
+  max-width: 540px;
+  text-align: left;
+  align-items: stretch;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.adm-edit-modal h2 {
+  width: 100%;
+  text-align: left;
+}
+
+.adm-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  width: 100%;
+}
+
+.adm-edit-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.adm-edit-row > .adm-edit-group {
+  flex: 1;
+  min-width: 0;
+}
+
+.adm-edit-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.adm-edit-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.adm-edit-input,
+.adm-edit-select,
+.adm-edit-textarea {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #1e293b;
+  background: #fff;
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.adm-edit-input::placeholder {
+  color: #94a3b8;
+}
+
+.adm-edit-input:focus,
+.adm-edit-select:focus,
+.adm-edit-textarea:focus {
+  border-color: var(--primary-navy);
+  box-shadow: 0 0 0 3px rgba(26, 42, 94, 0.08);
+}
+
+.adm-edit-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg width%3D%2210%22 height%3D%226%22 viewBox%3D%220 0 10 6%22 fill%3D%22none%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath d%3D%22M1 1L5 5L9 1%22 stroke%3D%22%2364748B%22 stroke-width%3D%221.5%22 stroke-linecap%3D%22round%22 stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  padding-right: 2.5rem;
+}
+
+.adm-edit-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+@media (max-width: 600px) {
+  .adm-edit-row {
+    flex-direction: column;
+  }
+}
+
 /* ── Password Gate ─────────────────────────────────────────────────────── */
 .adm-gate {
   min-height: 100vh;

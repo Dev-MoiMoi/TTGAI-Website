@@ -465,32 +465,32 @@ const NewslettersTab = () => {
 
       {/* Create / Edit Modal */}
       {(modal?.type === 'edit' || modal?.type === 'create') && (
-        <div className="adm-modal-overlay" onClick={() => setModal(null)} style={{ overflowY: 'auto', padding: '2rem 1rem' }}>
-          <div className="adm-modal" onClick={(e) => e.stopPropagation()} style={{ marginTop: 'auto', marginBottom: 'auto', textAlign: 'left' }}>
-            <h2 style={{width: '100%'}}>{modal.type === 'create' ? 'Create Newsletter' : 'Edit Newsletter'}</h2>
-            <form onSubmit={modal.type === 'create' ? submitCreate : submitEdit} style={{display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem', width: '100%'}}>
-              <div>
-                <label style={{display:'block', marginBottom:'0.35rem', fontSize:'0.85rem', fontWeight:'700', color: '#64748b'}}>Title</label>
-                <input required type="text" value={modal.editData.title} onChange={e => setModal({...modal, editData: {...modal.editData, title: e.target.value}})} style={{width:'100%', padding:'0.75rem', border:'1px solid #cbd5e1', borderRadius:'8px', outline:'none', fontFamily:'inherit'}} />
+        <div className="adm-modal-overlay" onClick={() => setModal(null)}>
+          <div className="adm-modal adm-edit-modal" onClick={(e) => e.stopPropagation()}>
+            <h2>{modal.type === 'create' ? 'Create Newsletter' : 'Edit Newsletter'}</h2>
+            <form className="adm-edit-form" onSubmit={modal.type === 'create' ? submitCreate : submitEdit}>
+              <div className="adm-edit-group">
+                <label className="adm-edit-label">Title</label>
+                <input className="adm-edit-input" required type="text" value={modal.editData.title} onChange={e => setModal({...modal, editData: {...modal.editData, title: e.target.value}})} />
               </div>
-              <div style={{display: 'flex', gap: '1rem'}}>
-                <div style={{flex: 1}}>
-                  <label style={{display:'block', marginBottom:'0.35rem', fontSize:'0.85rem', fontWeight:'700', color: '#64748b'}}>Author/Scholar</label>
-                  <input required type="text" value={modal.editData.author} onChange={e => setModal({...modal, editData: {...modal.editData, author: e.target.value}})} style={{width:'100%', padding:'0.75rem', border:'1px solid #cbd5e1', borderRadius:'8px', outline:'none', fontFamily:'inherit'}} />
+              <div className="adm-edit-row">
+                <div className="adm-edit-group">
+                  <label className="adm-edit-label">Author/Scholar</label>
+                  <input className="adm-edit-input" required type="text" value={modal.editData.author} onChange={e => setModal({...modal, editData: {...modal.editData, author: e.target.value}})} />
                 </div>
-                <div style={{flex: 1}}>
-                  <label style={{display:'block', marginBottom:'0.35rem', fontSize:'0.85rem', fontWeight:'700', color: '#64748b'}}>Batch Year</label>
-                  <input required type="text" value={modal.editData.batch_year} onChange={e => setModal({...modal, editData: {...modal.editData, batch_year: e.target.value}})} style={{width:'100%', padding:'0.75rem', border:'1px solid #cbd5e1', borderRadius:'8px', outline:'none', fontFamily:'inherit'}} />
+                <div className="adm-edit-group">
+                  <label className="adm-edit-label">Batch Year</label>
+                  <input className="adm-edit-input" required type="text" value={modal.editData.batch_year} onChange={e => setModal({...modal, editData: {...modal.editData, batch_year: e.target.value}})} />
                 </div>
               </div>
-              <div>
-                <label style={{display:'block', marginBottom:'0.35rem', fontSize:'0.85rem', fontWeight:'700', color: '#64748b'}}>School</label>
-                <input type="text" value={modal.editData.school} onChange={e => setModal({...modal, editData: {...modal.editData, school: e.target.value}})} style={{width:'100%', padding:'0.75rem', border:'1px solid #cbd5e1', borderRadius:'8px', outline:'none', fontFamily:'inherit'}} />
+              <div className="adm-edit-group">
+                <label className="adm-edit-label">School</label>
+                <input className="adm-edit-input" type="text" value={modal.editData.school} onChange={e => setModal({...modal, editData: {...modal.editData, school: e.target.value}})} />
               </div>
-              <div style={{display: 'flex', gap: '1rem'}}>
-                <div style={{flex: 1}}>
-                  <label style={{display:'block', marginBottom:'0.35rem', fontSize:'0.85rem', fontWeight:'700', color: '#64748b'}}>Category</label>
-                  <select value={modal.editData.category} onChange={e => setModal({...modal, editData: {...modal.editData, category: e.target.value}})} style={{width:'100%', padding:'0.75rem', border:'1px solid #cbd5e1', borderRadius:'8px', outline:'none', fontFamily:'inherit', backgroundColor:'#fff'}}>
+              <div className="adm-edit-row">
+                <div className="adm-edit-group">
+                  <label className="adm-edit-label">Category</label>
+                  <select className="adm-edit-select" value={modal.editData.category} onChange={e => setModal({...modal, editData: {...modal.editData, category: e.target.value}})}>
                     <option value="Events">Events</option>
                     <option value="Fundraising">Fundraising</option>
                     <option value="Benefactor Spotlight">Benefactor Spotlight</option>
@@ -498,16 +498,16 @@ const NewslettersTab = () => {
                     <option value="Announcements">Announcements</option>
                   </select>
                 </div>
-                <div style={{flex: 1}}>
-                  <label style={{display:'block', marginBottom:'0.35rem', fontSize:'0.85rem', fontWeight:'700', color: '#64748b'}}>Volume</label>
-                  <input type="text" value={modal.editData.volume_key} onChange={e => setModal({...modal, editData: {...modal.editData, volume_key: e.target.value}})} placeholder="e.g. Community Submissions" style={{width:'100%', padding:'0.75rem', border:'1px solid #cbd5e1', borderRadius:'8px', outline:'none', fontFamily:'inherit'}} />
+                <div className="adm-edit-group">
+                  <label className="adm-edit-label">Volume</label>
+                  <input className="adm-edit-input" type="text" value={modal.editData.volume_key} onChange={e => setModal({...modal, editData: {...modal.editData, volume_key: e.target.value}})} placeholder="e.g. Community Submissions" />
                 </div>
               </div>
-              <div>
-                <label style={{display:'block', marginBottom:'0.35rem', fontSize:'0.85rem', fontWeight:'700', color: '#64748b'}}>Short Description / Excerpt</label>
-                <textarea rows="3" value={modal.editData.excerpt} onChange={e => setModal({...modal, editData: {...modal.editData, excerpt: e.target.value}})} style={{width:'100%', padding:'0.75rem', border:'1px solid #cbd5e1', borderRadius:'8px', resize: 'vertical', outline:'none', fontFamily:'inherit'}} />
+              <div className="adm-edit-group">
+                <label className="adm-edit-label">Short Description / Excerpt</label>
+                <textarea className="adm-edit-textarea" rows="3" value={modal.editData.excerpt} onChange={e => setModal({...modal, editData: {...modal.editData, excerpt: e.target.value}})} />
               </div>
-              <div className="adm-modal-actions" style={{marginTop: '0.5rem', display: 'flex'}}>
+              <div className="adm-modal-actions">
                 <button type="button" className="adm-modal-cancel" onClick={() => setModal(null)}>Cancel</button>
                 <button type="submit" className="adm-modal-confirm">Save Changes</button>
               </div>
