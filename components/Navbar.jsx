@@ -1,12 +1,28 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/5.jpg';
 import '../styles/navStyle.css';
 
+const NAV_LINKS = [
+    { to: '/', label: 'HOME' },
+    { to: '/about', label: 'ABOUT' },
+    { to: '/history', label: 'HISTORY' },
+    { to: '/team', label: 'TEAM' },
+    { to: '/operations', label: 'OPERATIONS' },
+    { to: '/linkages', label: 'LINKAGES' },
+    { to: '/newsletter', label: 'NEWSLETTER' },
+];
+
 const Navbar = () => {
     const [click, setClick] = useState(false);
+    const location = useLocation();
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
+
+    const isActive = (path) => {
+        if (path === '/') return location.pathname === '/';
+        return location.pathname.startsWith(path);
+    };
 
     return (
         <nav>
@@ -38,14 +54,26 @@ const Navbar = () => {
                 <span className="bot"></span>
             </label>
             <ul className={click ? 'active' : ''}>
-                <li><Link to="/" onClick={closeMobileMenu}>HOME</Link></li>
-                <li><Link to="/about" onClick={closeMobileMenu}>ABOUT</Link></li>
-                <li><Link to="/history" onClick={closeMobileMenu}>HISTORY</Link></li>
-                <li><Link to="/team" onClick={closeMobileMenu}>TEAM</Link></li>
-                <li><Link to="/operations" onClick={closeMobileMenu}>OPERATIONS</Link></li>
-                <li><Link to="/linkages" onClick={closeMobileMenu}>LINKAGES</Link></li>
-                <li><Link to="/newsletter" onClick={closeMobileMenu}>NEWSLETTER</Link></li>
-                <li id="team"><Link to="/sponsorship" onClick={closeMobileMenu}><button>BE A SPONSOR</button></Link></li>
+                {NAV_LINKS.map(({ to, label }) => (
+                    <li key={to}>
+                        <Link
+                            to={to}
+                            className={isActive(to) ? 'nav-active' : ''}
+                            onClick={closeMobileMenu}
+                        >
+                            {label}
+                        </Link>
+                    </li>
+                ))}
+                <li id="team">
+                    <Link
+                        to="/sponsorship"
+                        className={isActive('/sponsorship') ? 'nav-active' : ''}
+                        onClick={closeMobileMenu}
+                    >
+                        <button>BE A SPONSOR</button>
+                    </Link>
+                </li>
             </ul>
         </nav>
     );

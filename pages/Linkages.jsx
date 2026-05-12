@@ -22,7 +22,7 @@ const SPONSORS = [
         logo: 'https://www.fastechsynergy.com/static/392877dc29c603e438f3e5da63b04bf6/a82c6/fastech-logo.png',
         website: 'https://www.fastechsynergy.com',
         description: 'Leading Philippine semiconductor manufacturing company recognized for expertise in power semiconductor components and RF/Microwave modules. Based in Cabuyao, Laguna.',
-        darkBg: false,
+        darkBg: true,
         initials: 'FS',
     },
     {
@@ -31,7 +31,7 @@ const SPONSORS = [
         logo: buscowitzLogo,
         website: 'https://www.buskowitz.com',
         description: 'One of the leading solar energy companies in the Philippines, providing sustainable and renewable energy solutions. Organized the "Swing for a Cause" charity golf tournament benefiting PKI.',
-        darkBg: true,
+        darkBg: false,
         initials: 'BE',
     },
     {
@@ -111,7 +111,7 @@ const LogoCard = ({ sponsor }) => {
 
             <div className="lk-sponsor-card-body">
                 <p className="lk-sponsor-partner-tag">
-                    <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" /></svg>
                     PKI Partner
                 </p>
                 <h3 className="lk-sponsor-name">{sponsor.name}</h3>
@@ -248,7 +248,7 @@ const Linkages = () => {
                     <div className="lk-cta-inner">
                         <div className="lk-cta-icon">
                             <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                             </svg>
                         </div>
                         <h2>Join our network of impact and empower the next generation.</h2>

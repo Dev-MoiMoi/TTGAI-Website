@@ -1356,4 +1356,53 @@
     }
     .nl-hero-bullets { grid-template-columns: 1fr; }
 }
+
+/* ── Admin FAB Button ─────────────────────────────────────────────────────── */
+.nl-admin-fab {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    z-index: 50;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.5);
+    padding: 0.5rem 0.85rem;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(6px);
+}
+
+.nl-admin-fab span {
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-width 0.3s ease, opacity 0.25s ease;
+    white-space: nowrap;
+}
+
+.nl-admin-fab:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+}
+
+.nl-admin-fab:hover span {
+    max-width: 60px;
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .nl-admin-fab {
+        top: 0.75rem;
+        right: 0.75rem;
+        padding: 0.45rem 0.7rem;
+    }
+}
 

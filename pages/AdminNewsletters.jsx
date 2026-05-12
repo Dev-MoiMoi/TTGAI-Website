@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getAllSubscribers, getNewsletters, addNewsletter, updateNewsletter, deleteNewsletter } from '../lib/supabase';
 import { sendNewsletterNotify } from '../lib/emailjs';
 import '../styles/admin.css';
@@ -32,6 +33,8 @@ const IconDraft = () => <svg width="12" height="12" fill="none" stroke="currentC
 const PasswordGate = ({ onAuth }) => {
   const [pw, setPw] = useState('');
   const [wrong, setWrong] = useState(false);
+  const [showPw, setShowPw] = useState(false);
+  const [shaking, setShaking] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -40,28 +43,107 @@ const PasswordGate = ({ onAuth }) => {
       onAuth();
     } else {
       setWrong(true);
+      setShaking(true);
       setPw('');
+      setTimeout(() => setShaking(false), 500);
     }
   };
 
   return (
     <div className="adm-gate">
-      <div className="adm-gate-card">
-        <div className="adm-modal-icon"><IconLock /></div>
+      {/* Decorative background elements */}
+      <div className="adm-gate-bg-orb adm-gate-bg-orb--1" />
+      <div className="adm-gate-bg-orb adm-gate-bg-orb--2" />
+      <div className="adm-gate-bg-orb adm-gate-bg-orb--3" />
+
+      {/* Back to website */}
+      <Link to="/" className="adm-gate-back">
+        <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+        Back to Website
+      </Link>
+
+      <div className={`adm-gate-card${shaking ? ' adm-gate-card--shake' : ''}`}>
+        {/* Logo / Branding */}
+        <div className="adm-gate-brand">
+          <div className="adm-gate-logo-ring">
+            <IconGolf />
+          </div>
+          <span className="adm-gate-brand-name">TTGAI</span>
+          <span className="adm-gate-brand-tag">Administration Portal</span>
+        </div>
+
+        {/* Divider */}
+        <div className="adm-gate-divider" />
+
+        {/* Lock icon + heading */}
+        <div className="adm-gate-lock-wrap">
+          <IconLock />
+        </div>
         <h1>Admin Access</h1>
-        <p>Enter your admin password to continue.</p>
+        <p>Enter your credentials to access the dashboard.</p>
+
         <form onSubmit={handleLogin}>
-          <input
-            type="password"
-            className="adm-gate-input"
-            placeholder="Password"
-            value={pw}
-            onChange={(e) => { setPw(e.target.value); setWrong(false); }}
-            autoFocus
-          />
-          {wrong && <p className="adm-gate-error">Incorrect password. Try again.</p>}
-          <button type="submit" className="adm-gate-btn">Enter Admin Panel</button>
+          <div className="adm-gate-input-wrap">
+            <svg className="adm-gate-input-icon" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            <input
+              type={showPw ? 'text' : 'password'}
+              className="adm-gate-input"
+              placeholder="Enter admin password"
+              value={pw}
+              onChange={(e) => { setPw(e.target.value); setWrong(false); }}
+              autoFocus
+            />
+            <button
+              type="button"
+              className="adm-gate-eye"
+              onClick={() => setShowPw(!showPw)}
+              tabIndex={-1}
+              aria-label={showPw ? 'Hide password' : 'Show password'}
+            >
+              {showPw ? (
+                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                  <line x1="1" y1="1" x2="23" y2="23" />
+                </svg>
+              ) : (
+                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              )}
+            </button>
+          </div>
+
+          {wrong && (
+            <div className="adm-gate-error">
+              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" /><line x1="15" y1="9" x2="9" y2="15" /><line x1="9" y1="9" x2="15" y2="15" />
+              </svg>
+              Incorrect password. Please try again.
+            </div>
+          )}
+
+          <button type="submit" className="adm-gate-btn">
+            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+              <polyline points="10 17 15 12 10 7" />
+              <line x1="15" y1="12" x2="3" y2="12" />
+            </svg>
+            Enter Admin Panel
+          </button>
         </form>
+
+        <p className="adm-gate-footer-note">
+          <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          Secured access · TTGAI © {new Date().getFullYear()}
+        </p>
       </div>
     </div>
   );
@@ -556,6 +638,7 @@ const SubscribersTab = () => {
 const AdminNewsletters = () => {
   const [authed, setAuthed] = useState(!!sessionStorage.getItem('ttgai_admin'));
   const [tab, setTab] = useState('newsletters');
+  const [maintenanceModal, setMaintenanceModal] = useState(null); // { name: string, icon: JSX }
 
   if (!authed) return <PasswordGate onAuth={() => setAuthed(true)} />;
 
@@ -568,18 +651,22 @@ const AdminNewsletters = () => {
           <span className="adm-sidebar-name">TTGAI ADMIN</span>
         </div>
         <div className="adm-nav-menu">
-          <button className="adm-nav-link" onClick={() => alert('Dashboard placeholder')}><IconDashboard /> Dashboard</button>
+          <button className="adm-nav-link" onClick={() => setMaintenanceModal({ name: 'Dashboard', icon: <IconDashboard /> })}><IconDashboard /> Dashboard</button>
           <button className={`adm-nav-link ${tab === 'newsletters' ? 'active' : ''}`} onClick={() => setTab('newsletters')}>
             <IconNews /> Manage Newsletters
           </button>
           <button className={`adm-nav-link ${tab === 'subscribers' ? 'active' : ''}`} onClick={() => setTab('subscribers')}>
             <IconUsers /> Subscribers
           </button>
-          <button className="adm-nav-link" onClick={() => alert('Analytics placeholder')}><IconAnalytics /> Analytics</button>
-          <button className="adm-nav-link" onClick={() => alert('Notifications placeholder')}><IconBell /> Notifications</button>
-          <button className="adm-nav-link" onClick={() => alert('System Settings placeholder')}><IconSettings /> System Settings</button>
+          <button className="adm-nav-link" onClick={() => setMaintenanceModal({ name: 'Analytics', icon: <IconAnalytics /> })}><IconAnalytics /> Analytics</button>
+          <button className="adm-nav-link" onClick={() => setMaintenanceModal({ name: 'Notifications', icon: <IconBell /> })}><IconBell /> Notifications</button>
+          <button className="adm-nav-link" onClick={() => setMaintenanceModal({ name: 'System Settings', icon: <IconSettings /> })}><IconSettings /> System Settings</button>
         </div>
         <div className="adm-sidebar-footer">
+          <Link to="/newsletter" className="adm-nav-link adm-back-link">
+            <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            Back to Newsletter
+          </Link>
           <button className="adm-logout" onClick={() => { sessionStorage.removeItem('ttgai_admin'); setAuthed(false); }}>
             <IconLogOut /> Log Out
           </button>
@@ -625,6 +712,36 @@ const AdminNewsletters = () => {
             </div>
          </footer>
       </div>
+
+      {/* Maintenance Modal */}
+      {maintenanceModal && (
+        <div className="adm-modal-overlay" onClick={() => setMaintenanceModal(null)}>
+          <div className="adm-modal adm-maintenance-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="adm-maint-icon-wrap">
+              <svg width="40" height="40" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+              </svg>
+            </div>
+            <div className="adm-maint-badge">
+              {maintenanceModal.icon}
+              <span>{maintenanceModal.name}</span>
+            </div>
+            <h2>Under Maintenance</h2>
+            <p>
+              The <strong>{maintenanceModal.name}</strong> module is currently under development and will be available in a future update.
+            </p>
+            <div className="adm-maint-timeline">
+              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
+              </svg>
+              Expected: Coming Soon
+            </div>
+            <button className="adm-modal-confirm" onClick={() => setMaintenanceModal(null)} style={{ marginTop: '0.5rem' }}>
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

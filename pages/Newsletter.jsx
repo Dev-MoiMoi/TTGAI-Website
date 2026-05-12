@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/newsletter.css';
 import SubscribeForm from '../components/SubscribeForm';
 import { getNewsletters, addNewsletter } from '../lib/supabase';
@@ -284,6 +285,13 @@ const Newsletter = () => {
         <div className="newsletter-page">
             {/* ── 1. Hero ── */}
             <header className="nl-hero nl-hero--split">
+                {/* Admin quick-switch */}
+                <Link to="/admin/newsletters" className="nl-admin-fab" title="Open Admin Panel">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                    <span>Admin</span>
+                </Link>
                 <div className="nl-hero-left">
                     <span className="nl-hero-badge">The Twilight Monthly Recap</span>
                     <h1>The <span className="nl-hero-accent">Twilight</span><br/>Monthly Recap</h1>
