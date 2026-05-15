@@ -1053,4 +1053,57 @@
 @media (max-width: 640px) {
     .lk-sponsors-grid { grid-template-columns: 1fr; }
     .lk-benefactors-grid { grid-template-columns: 1fr; }
+
+    .lk-academic-card { padding: 1.5rem 1.25rem; gap: 1.25rem; }
+    .lk-academic-logo { max-width: 110px; max-height: 110px; }
+    .lk-academic-logo-wrap { width: auto; }
+    .lk-academic-body h3 { font-size: 1.25rem; }
+    .lk-academic-body p { font-size: 0.88rem; }
+}
+
+@media (max-width: 480px) {
+    .lk-hero { padding: 6rem 1rem 3.5rem; }
+    .lk-hero h1 { font-size: 1.7rem; }
+    .lk-hero-sub { font-size: 0.92rem; }
+
+    .lk-section { padding: 3rem 1rem; }
+
+    .lk-section-hd h2 { font-size: 1.35rem; }
+    .lk-section-sub { font-size: 0.88rem; }
+    .lk-section-header h2 { font-size: 1.35rem; }
+    .lk-section-header p { font-size: 0.88rem; }
+
+    .lk-sponsor-card { padding: 1.5rem 1.15rem 1.25rem; }
+    .lk-sponsor-name { font-size: 0.92rem; }
+    .lk-sponsor-desc { font-size: 0.78rem; }
+
+    .sponsor-card { padding: 1.5rem 1.15rem 1.25rem; }
+
+    .lk-benefactor-item { padding: 0.85rem 1rem; gap: 0.75rem; }
+    .lk-benefactor-avatar { width: 38px; height: 38px; font-size: 0.75rem; }
+    .lk-benefactor-name { font-size: 0.82rem; }
+
+    .lk-cta { padding: 3.5rem 1rem; }
+    .lk-cta h2 { font-size: 1.35rem; }
+    .lk-cta p { font-size: 0.92rem; }
+
+    .lk-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.88rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .lk-cta-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .lk-hero-stats {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.85rem 1rem;
+    }
+    .lk-stat-num { font-size: 1.5rem; }
+    .lk-stat-divider { width: 60%; height: 1px; margin: 0 auto; }
 }

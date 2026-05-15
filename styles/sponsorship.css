@@ -765,3 +765,53 @@
     .sp-calc-stats { grid-template-columns: 1fr; }
     .sp-section { padding: 3.5rem 1.25rem; }
 }
+
+@media (max-width: 480px) {
+    .sp-hero h1 { font-size: 1.8rem; }
+    .sp-hero-sub { font-size: 0.92rem; }
+    .sp-hero-inner { padding: 6.5rem 1.25rem 4.5rem; }
+
+    .sp-calc-wrap {
+        padding: 1.5rem 1.25rem;
+        border-radius: 14px;
+    }
+    .sp-calc-tier-btn { padding: 0.5rem 1rem; font-size: 0.82rem; }
+
+    .sp-form-card {
+        padding: 1.75rem 1.25rem;
+        border-radius: 14px;
+    }
+
+    .sp-section-hd h2 { font-size: 1.35rem; }
+    .sp-section-hd p { font-size: 0.88rem; }
+
+    .sp-why-card { padding: 1.5rem 1.1rem; }
+    .sp-tier-card { padding: 1.5rem 1rem 1.25rem; }
+    .sp-tier-price { font-size: 1.8rem; }
+
+    .sp-step-circle { width: 46px; height: 46px; font-size: 1.05rem; }
+
+    .sp-faq-q { padding: 1rem 1.1rem; font-size: 0.85rem; }
+    .sp-faq-a { padding: 0 1.1rem 1rem; font-size: 0.82rem; }
+
+    .sp-final-cta { padding: 4rem 1.25rem; }
+    .sp-final-cta h2 { font-size: 1.35rem; }
+
+    .sp-btn-gold,
+    .sp-btn-outline,
+    .sp-btn-outline-light {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.88rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .sp-hero-btns { flex-direction: column; align-items: stretch; }
+    .sp-final-cta-btns { flex-direction: column; align-items: stretch; }
+
+    .sp-selected-banner { font-size: 0.82rem; padding: 0.75rem 1rem; }
+    .sp-impact-note { font-size: 0.82rem; padding: 0.85rem 1rem; }
+
+    .sp-section--navy { padding: 2rem 1.25rem; }
+    .sp-partner-pill { font-size: 0.75rem; padding: 0.3rem 0.9rem; }
+}

@@ -300,7 +300,7 @@
 .about-pki-stat-block.visible { opacity: 1; transform: none; }
 .about-pki-stat-num {
     display: block;
-    font-size: 4.5rem;
+    font-size: clamp(2.5rem, 10vw, 4.5rem);
     font-weight: 900;
     color: var(--primary-gold);
     line-height: 1;
@@ -364,4 +364,41 @@
 }
 @media (max-width: 640px) {
     .about-hero { padding: 7rem 1.5rem 4rem; }
+}
+
+@media (max-width: 480px) {
+    .about-hero { padding: 6rem 1.25rem 3rem; }
+    .about-hero-inner h1 { font-size: 1.8rem; }
+    .about-hero-inner p { font-size: 0.92rem; }
+
+    .about-mv-section { padding: 3.5rem 1.25rem; }
+    .about-mv-card { padding: 2rem 1.25rem; border-radius: 14px; }
+
+    .about-values-section { padding: 3.5rem 1.25rem; }
+    .about-value-item { padding: 1.5rem 1.25rem; }
+
+    .about-milestones-section { padding: 3.5rem 1.25rem; }
+    .about-ms-item { gap: 1.5rem; margin-bottom: 2.5rem; }
+    .about-ms-text h4 { font-size: 1.15rem; }
+
+    .about-pki-section { padding: 3.5rem 1.25rem; }
+    .about-pki-inner { gap: 2rem; }
+    .about-pki-stat-block { padding: 2rem 1.25rem; border-radius: 14px; }
+
+    .about-cta-section { padding: 4rem 1.25rem; }
+    .about-cta-inner h2 { font-size: 1.5rem; }
+
+    .about-btn-gold,
+    .about-btn-outline {
+        padding: 0.7rem 1.4rem;
+        font-size: 0.85rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .about-values-section h2,
+    .about-milestones-section h2,
+    .about-pki-section h2 {
+        font-size: 1.5rem;
+    }
 }

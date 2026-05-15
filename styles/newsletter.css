@@ -1045,7 +1045,7 @@
 
     .nl-controls-wrap {
         padding: 1rem;
-        top: 70px;
+        top: 80px;
     }
 
     .nl-controls {
@@ -1058,6 +1058,12 @@
 
     .nl-grid {
         grid-template-columns: 1fr;
+    }
+
+    .nl-card-cover {
+        height: auto;
+        min-height: 180px;
+        aspect-ratio: 16/10;
     }
 
     .nl-submit-section {
@@ -1075,6 +1081,16 @@
     .nl-lb-info {
         flex: 0 0 auto;
         max-height: 45vh;
+    }
+
+    .nl-hero-subscribe-card {
+        padding: 1.5rem 1.25rem;
+        border-radius: 14px;
+    }
+
+    .nl-hero-subscribe-card h3 {
+        font-size: 1.05rem;
+        margin-bottom: 1rem;
     }
 }
 
@@ -1355,6 +1371,62 @@
         padding: 7rem 5% 4rem;
     }
     .nl-hero-bullets { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+    .nl-hero { padding: 5.5rem 1rem 3rem; }
+    .nl-hero h1 { font-size: 1.7rem; }
+    .nl-hero-sub { font-size: 0.9rem; }
+    .nl-hero-badge { font-size: 0.65rem; }
+
+    .nl-hero--split { padding: 6rem 4% 3.5rem; }
+    .nl-hero-left h1 { font-size: 1.7rem; }
+    .nl-hero-bullets li { font-size: 0.82rem; }
+
+    .nl-controls-wrap { padding: 0.75rem 1rem; }
+    .nl-cat-btn { font-size: 0.75rem; padding: 0.35rem 0.85rem; }
+
+    .nl-grid-section { padding: 1.5rem 0.75rem 2.5rem; }
+    .nl-card-body { padding: 1.1rem 1.15rem; }
+    .nl-card-title { font-size: 0.95rem; }
+    .nl-card-excerpt { font-size: 0.82rem; }
+
+    .nl-submit-section { padding: 3rem 1rem; }
+    .nl-submit-inner h2 { font-size: 1.4rem; }
+    .nl-submit-desc { font-size: 0.88rem; }
+
+    .nl-subscribe-section { padding: 3rem 1.25rem; }
+    .nl-subscribe-inner h2 { font-size: 1.4rem; }
+
+    .nl-big-cta { padding: 4rem 1.25rem; }
+    .nl-big-cta-inner h2 { font-size: 1.35rem; }
+
+    .nl-big-cta-btns {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nl-cta-btn-gold,
+    .nl-cta-btn-outline {
+        padding: 0.7rem 1.4rem;
+        font-size: 0.85rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .nl-archive-header { padding: 2rem 1rem 0.5rem; }
+    .nl-archive-title-row h2 { font-size: 1.35rem; }
+    .nl-archive-desc { font-size: 0.82rem; }
+
+    /* Lightbox small screen */
+    .nl-lightbox {
+        border-radius: 12px;
+        max-height: 92vh;
+    }
+    .nl-lb-img-wrap { min-height: 200px; }
+    .nl-lb-title { font-size: 1.1rem; }
+    .nl-lb-excerpt { font-size: 0.82rem; }
+    .nl-lb-nav { width: 36px; height: 36px; font-size: 1.4rem; }
 }
 
 /* ── Admin FAB Button ─────────────────────────────────────────────────────── */

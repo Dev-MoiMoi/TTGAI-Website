@@ -18,6 +18,7 @@
 body {
     background: var(--bg-color);
     font-style: normal;
+    overflow-x: hidden;
 }
 
 
@@ -304,6 +305,7 @@ body {
 .subscribe {
     flex-basis: 35%;
     margin-left: 100px;
+    max-width: 100%;
 }
 
 .contact {
@@ -325,7 +327,8 @@ body {
 
 form input,
 form textarea {
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     border: 0;
     outline: none;
     background: #414141;
@@ -334,6 +337,7 @@ form textarea {
     color: white;
     font-size: 16px;
     border-radius: 6px;
+    box-sizing: border-box;
 }
 
 input {
@@ -398,9 +402,11 @@ form {
 
 form input {
     padding: 10px;
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     border: none;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
 form button {
@@ -499,5 +505,15 @@ form button {
         flex-direction: column;
         padding: 30px 5%;
         text-align: center;
+    }
+
+    .subscribe {
+        margin-left: 0;
+        flex-basis: 100%;
+    }
+
+    form input,
+    form textarea {
+        max-width: 100%;
     }
 }
