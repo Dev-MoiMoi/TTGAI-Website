@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { unsubscribeEmail } from '../lib/supabase';
+import { validateEmail, RateLimiter } from '../lib/security';
 import '../styles/unsubscribe.css';
+
+const unsubLimiter = new RateLimiter({ maxAttempts: 5, windowMs: 5 * 60 * 1000 }); // 5 per 5 min
 
 const Unsubscribe = () => {
   const [email, setEmail] = useState('');
@@ -9,6 +12,19 @@ const Unsubscribe = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email.trim()) return;
+
+    // Validate email
+    if (!validateEmail(email.trim())) {
+      setStatus('error');
+      return;
+    }
+
+    // Rate limit
+    if (!unsubLimiter.allow('unsubscribe')) {
+      setStatus('error');
+      return;
+    }
+
     setStatus('loading');
     try {
       await unsubscribeEmail(email.trim());

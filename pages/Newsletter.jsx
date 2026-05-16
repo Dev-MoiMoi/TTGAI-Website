@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import '../styles/newsletter.css';
 import SubscribeForm from '../components/SubscribeForm';
 import { getNewsletters, addNewsletter } from '../lib/supabase';
+import { sanitizeHTML, sanitizeText, sanitizeName, RateLimiter } from '../lib/security';
+
+/* ─── Rate limiter for newsletter submissions ───────────── */
+const submitLimiter = new RateLimiter({ maxAttempts: 3, windowMs: 10 * 60 * 1000 }); // 3 per 10 min
 
 /* ─── Cloudinary config ───────────────────────────────────────────────────── */
 const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || '';
@@ -158,13 +162,13 @@ const Newsletter = () => {
             .then((data) => {
                 const mapped = data.map(item => ({
                     id: item.id,
-                    volume: item.volume_key || 'Unknown Volume',
+                    volume: sanitizeText(item.volume_key || 'Unknown Volume', 100),
                     volumeKey: item.volume_key || 'Other',
-                    page: item.page_info || 'Page 1/1',
-                    title: item.title || 'Untitled',
-                    excerpt: item.excerpt || '',
-                    category: item.category || 'Announcements',
-                    author: item.author || 'Contributor',
+                    page: sanitizeText(item.page_info || 'Page 1/1', 50),
+                    title: sanitizeText(item.title || 'Untitled', 200),
+                    excerpt: sanitizeText(item.excerpt || '', 1000),
+                    category: sanitizeText(item.category || 'Announcements', 50),
+                    author: sanitizeName(item.author || 'Contributor'),
                     date: item.date || new Date(item.created_at).toLocaleDateString(),
                     image: item.image_url
                 }));
@@ -215,13 +219,29 @@ const Newsletter = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!isFormValid) return;
+
+        // Rate‑limit submissions
+        if (!submitLimiter.allow('newsletter-submit')) {
+            const wait = submitLimiter.retryAfterSec('newsletter-submit');
+            setUploadStatus('error');
+            alert(`Too many submissions. Please wait ${Math.ceil(wait / 60)} minute(s) and try again.`);
+            return;
+        }
+
+        // Sanitize inputs
+        const safeName = sanitizeName(form.name);
+        const safeTitle = sanitizeText(form.newsletterTitle, 100);
+        const safeDesc = sanitizeText(form.description, 300);
+        const safeBatch = sanitizeText(form.batch, 50);
+        const safeSchool = sanitizeText(form.school, 100);
+
         const data = new FormData();
         data.append('file', file);
         data.append('upload_preset', CLOUDINARY_PRESET);
         data.append('folder', 'ttgai-newsletters');
         data.append('tags', 'pending');
         data.append('context',
-            `caption=${form.newsletterTitle}|scholar_name=${form.name}|batch_year=${form.batch}|school=${form.school}|description=${form.description}`
+            `caption=${safeTitle}|scholar_name=${safeName}|batch_year=${safeBatch}|school=${safeSchool}|description=${safeDesc}`
         );
         const xhr = new XMLHttpRequest();
         xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`);
@@ -234,12 +254,12 @@ const Newsletter = () => {
                     
                     // Create pending record in Supabase
                     await addNewsletter({
-                        title: form.newsletterTitle,
-                        excerpt: form.description,
+                        title: safeTitle,
+                        excerpt: safeDesc,
                         category: 'Announcements', // Default category for community submissions
-                        author: form.name,
-                        batch_year: form.batch,
-                        school: form.school,
+                        author: safeName,
+                        batch_year: safeBatch,
+                        school: safeSchool,
                         date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
                         volume_key: 'Community Submissions',
                         page_info: 'Page 1/1',

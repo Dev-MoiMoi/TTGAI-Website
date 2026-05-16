@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { addSubscriber } from '../lib/supabase';
 import { sendWelcomeEmail } from '../lib/emailjs';
+import { validateEmail, sanitizeName, RateLimiter } from '../lib/security';
 import '../styles/subscribe-form.css';
+
+const subscribeLimiter = new RateLimiter({ maxAttempts: 5, windowMs: 2 * 60 * 1000 }); // 5 per 2 min
 
 /**
  * Reusable newsletter subscribe form.
@@ -18,13 +21,29 @@ const SubscribeForm = ({ variant = 'inline' }) => {
     e.preventDefault();
     if (!email) return;
 
+    // Validate email format
+    if (!validateEmail(email.trim())) {
+      setStatus('error');
+      setErrorMsg('Please enter a valid email address.');
+      return;
+    }
+
+    // Rate limit
+    if (!subscribeLimiter.allow('subscribe')) {
+      setStatus('error');
+      setErrorMsg('Too many attempts. Please wait a moment and try again.');
+      return;
+    }
+
     setStatus('loading');
     setErrorMsg('');
 
+    const safeName = sanitizeName(name.trim());
+
     try {
-      await addSubscriber(name.trim(), email.trim());
+      await addSubscriber(safeName, email.trim());
       // Fire-and-forget welcome email (don't block UI on it)
-      sendWelcomeEmail(name.trim(), email.trim()).catch(() => {});
+      sendWelcomeEmail(safeName, email.trim()).catch(() => {});
       setStatus('success');
       setName('');
       setEmail('');

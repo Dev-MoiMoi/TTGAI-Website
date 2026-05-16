@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/global.css';
 import '../styles/home.css';
@@ -8,12 +8,37 @@ import img3 from '../assets/3.jpg';
 import img4 from '../assets/4.jpg';
 import img5 from '../assets/5.jpg';
 
+/* ── Earth Day 2026 images ── */
+import earthDay1 from '../assets/Earth Day/684180445_946665661451288_8343696422311329551_n.jpg';
+import earthDay2 from '../assets/Earth Day/679722873_946663178118203_8060107513597089396_n.jpg';
+import earthDay3 from '../assets/Earth Day/684563813_946667001451154_2670219676718142406_n.jpg';
+import earthDay4 from '../assets/Earth Day/683586609_946666171451237_1391433544689973347_n.jpg';
+import earthDay5 from '../assets/Earth Day/682565609_946666071451247_6417247281028576333_n.jpg';
+import earthDay6 from '../assets/Earth Day/684180445_946663738118147_77551954255807091_n.jpg';
+
+/* ── Ethics Seminar images ── */
+import ethics1 from '../assets/Ethics Seminar/679770527_1629939499136462_8784497964349652169_n.jpg';
+import ethics2 from '../assets/Ethics Seminar/680216454_1629939552469790_6476341565189612828_n.jpg';
+import ethics3 from '../assets/Ethics Seminar/679618311_1629939532469792_2245372649445564062_n.jpg';
+
 const Home = () => {
     const [openFaq, setOpenFaq] = useState(null);
+    const [earthDayIdx, setEarthDayIdx] = useState(0);
+    const [ethicsIdx, setEthicsIdx] = useState(0);
+
+    const earthDayPhotos = [earthDay1, earthDay2, earthDay3, earthDay4, earthDay5, earthDay6];
+    const ethicsPhotos = [ethics1, ethics2, ethics3];
 
     const toggleFaq = (index) => {
         setOpenFaq(openFaq === index ? null : index);
     };
+
+    /* Auto-rotate event carousels */
+    useEffect(() => {
+        const t1 = setInterval(() => setEarthDayIdx((i) => (i + 1) % 6), 4000);
+        const t2 = setInterval(() => setEthicsIdx((i) => (i + 1) % 3), 5000);
+        return () => { clearInterval(t1); clearInterval(t2); };
+    }, []);
 
     return (
         <>
@@ -96,6 +121,127 @@ const Home = () => {
                             </div>
                             <h4>Befriended</h4>
                             <p>Backed by industry leaders, business owners, and passionate benefactors.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ── 3½. RECENT EVENTS ── */}
+            <section className="home-events">
+                <div className="home-events-inner">
+                    <div className="home-events-header">
+                        <span className="home-events-badge">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            Latest Activity
+                        </span>
+                        <h2>Recent Events &amp; Seminars</h2>
+                        <p className="home-events-sub">
+                            TTGAI continues to empower communities through impactful seminars, workshops,
+                            and advocacy events — proving that we're more than golfers.
+                        </p>
+                    </div>
+
+                    <div className="home-events-grid">
+                        {/* ── Earth Day 2026 ── */}
+                        <div className="home-event-card">
+                            <div className="home-event-carousel">
+                                {earthDayPhotos.map((src, i) => (
+                                    <img
+                                        key={i}
+                                        src={src}
+                                        alt={`Earth Day 2026 — Photo ${i + 1}`}
+                                        className={`home-event-img ${i === earthDayIdx ? 'active' : ''}`}
+                                    />
+                                ))}
+                                <div className="home-event-dots">
+                                    {earthDayPhotos.map((_, i) => (
+                                        <button
+                                            key={i}
+                                            className={`home-event-dot ${i === earthDayIdx ? 'active' : ''}`}
+                                            onClick={() => setEarthDayIdx(i)}
+                                            aria-label={`View photo ${i + 1}`}
+                                        />
+                                    ))}
+                                </div>
+                                <span className="home-event-tag home-event-tag--green">
+                                    <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 22c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg>
+                                    ADVOCACY
+                                </span>
+                            </div>
+                            <div className="home-event-body">
+                                <div className="home-event-date-row">
+                                    <span className="home-event-date">
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                        April 22, 2026
+                                    </span>
+                                    <span className="home-event-location">
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        University of Cabuyao
+                                    </span>
+                                </div>
+                                <h3>Earth Day 2026 Celebration</h3>
+                                <p>
+                                    TTGAI co-organized the Earth Day 2026 celebration at the University of Cabuyao,
+                                    bringing together hundreds of students, faculty, and community leaders in a day
+                                    of environmental awareness, performances, and collective action for a greener future.
+                                </p>
+                                <div className="home-event-highlights">
+                                    <span className="home-event-highlight"><strong>300+</strong> Attendees</span>
+                                    <span className="home-event-highlight"><strong>6</strong> Speakers</span>
+                                    <span className="home-event-highlight"><strong>1</strong> Day of Impact</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* ── Ethical Leadership Workshop ── */}
+                        <div className="home-event-card">
+                            <div className="home-event-carousel">
+                                {ethicsPhotos.map((src, i) => (
+                                    <img
+                                        key={i}
+                                        src={src}
+                                        alt={`Ethical Leadership Workshop — Photo ${i + 1}`}
+                                        className={`home-event-img ${i === ethicsIdx ? 'active' : ''}`}
+                                    />
+                                ))}
+                                <div className="home-event-dots">
+                                    {ethicsPhotos.map((_, i) => (
+                                        <button
+                                            key={i}
+                                            className={`home-event-dot ${i === ethicsIdx ? 'active' : ''}`}
+                                            onClick={() => setEthicsIdx(i)}
+                                            aria-label={`View photo ${i + 1}`}
+                                        />
+                                    ))}
+                                </div>
+                                <span className="home-event-tag home-event-tag--blue">
+                                    <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                    SEMINAR
+                                </span>
+                            </div>
+                            <div className="home-event-body">
+                                <div className="home-event-date-row">
+                                    <span className="home-event-date">
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                        April 25, 2026
+                                    </span>
+                                    <span className="home-event-location">
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        Aurotech Corp, Sta. Rosa, Laguna
+                                    </span>
+                                </div>
+                                <h3>Ethical Leadership Workshop</h3>
+                                <p>
+                                    In partnership with the Philippine Leadership Society, TTGAI hosted an exclusive
+                                    Ethical Leadership Workshop for Pabaon Kay Iskolar scholars — facilitated by
+                                    Dr. Oscar G. Bulaong Jr., PhD, focusing on leading with integrity and confidence.
+                                </p>
+                                <div className="home-event-highlights">
+                                    <span className="home-event-highlight"><strong>PKI</strong> Exclusive</span>
+                                    <span className="home-event-highlight"><strong>Dr. Bulaong</strong> Facilitator</span>
+                                    <span className="home-event-highlight"><strong>PLS</strong> Partnership</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,10 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllSubscribers, getNewsletters, addNewsletter, updateNewsletter, deleteNewsletter } from '../lib/supabase';
 import { sendNewsletterNotify } from '../lib/emailjs';
+import {
+  hashPassword,
+  recordFailedLogin,
+  resetLoginAttempts,
+  getLoginLockStatus,
+  createSession,
+  destroySession,
+  isSessionValid,
+  refreshSession,
+  sanitizeHTML,
+  sanitizeName,
+  sanitizeText,
+} from '../lib/security';
 import '../styles/admin.css';
 
-const PASS = import.meta.env.VITE_ADMIN_PASSWORD || 'UCscholars0806';
+/* Pre‑computed SHA‑256 hash of the admin password.
+   The raw password is NEVER stored in the client bundle. */
+const PASS_HASH = import.meta.env.VITE_ADMIN_PASSWORD_HASH
+  || '1d60b980c1cc44ae13c091ada161e55288ab5f240fd27da604263bc131f0fe83';
 
 /* ════════════════════════════════════════════
    SVG Icons
@@ -28,25 +44,56 @@ const IconSent = () => <svg width="12" height="12" fill="none" stroke="currentCo
 const IconDraft = () => <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>;
 
 /* ════════════════════════════════════════════
-   Password Gate
+   Password Gate — with brute‑force protection
 ════════════════════════════════════════════ */
 const PasswordGate = ({ onAuth }) => {
   const [pw, setPw] = useState('');
   const [wrong, setWrong] = useState(false);
   const [showPw, setShowPw] = useState(false);
   const [shaking, setShaking] = useState(false);
+  const [lockInfo, setLockInfo] = useState(getLoginLockStatus());
+  const [verifying, setVerifying] = useState(false);
 
-  const handleLogin = (e) => {
+  // Countdown timer when locked out
+  useEffect(() => {
+    if (!lockInfo.locked) return;
+    const interval = setInterval(() => {
+      const status = getLoginLockStatus();
+      setLockInfo(status);
+      if (!status.locked) { clearInterval(interval); }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [lockInfo.locked]);
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (pw === PASS) {
-      sessionStorage.setItem('ttgai_admin', '1');
-      onAuth();
-    } else {
-      setWrong(true);
-      setShaking(true);
-      setPw('');
-      setTimeout(() => setShaking(false), 500);
+    const status = getLoginLockStatus();
+    if (status.locked) { setLockInfo(status); return; }
+
+    setVerifying(true);
+    try {
+      const inputHash = await hashPassword(pw);
+      if (inputHash === PASS_HASH) {
+        resetLoginAttempts();
+        createSession();
+        onAuth();
+      } else {
+        const result = recordFailedLogin();
+        setLockInfo(result);
+        setWrong(true);
+        setShaking(true);
+        setPw('');
+        setTimeout(() => setShaking(false), 500);
+      }
+    } finally {
+      setVerifying(false);
     }
+  };
+
+  const formatLockTime = (sec) => {
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m}:${String(s).padStart(2, '0')}`;
   };
 
   return (
@@ -96,6 +143,7 @@ const PasswordGate = ({ onAuth }) => {
               placeholder="Enter admin password"
               value={pw}
               onChange={(e) => { setPw(e.target.value); setWrong(false); }}
+              disabled={lockInfo.locked || verifying}
               autoFocus
             />
             <button
@@ -119,22 +167,37 @@ const PasswordGate = ({ onAuth }) => {
             </button>
           </div>
 
-          {wrong && (
+          {lockInfo.locked && (
             <div className="adm-gate-error">
               <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="10" /><line x1="15" y1="9" x2="9" y2="15" /><line x1="9" y1="9" x2="15" y2="15" />
               </svg>
-              Incorrect password. Please try again.
+              Too many failed attempts. Try again in {formatLockTime(lockInfo.remainingSec)}.
             </div>
           )}
 
-          <button type="submit" className="adm-gate-btn">
-            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-              <polyline points="10 17 15 12 10 7" />
-              <line x1="15" y1="12" x2="3" y2="12" />
-            </svg>
-            Enter Admin Panel
+          {wrong && !lockInfo.locked && (
+            <div className="adm-gate-error">
+              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" /><line x1="15" y1="9" x2="9" y2="15" /><line x1="9" y1="9" x2="15" y2="15" />
+              </svg>
+              Incorrect password. {lockInfo.attemptsLeft} attempt{lockInfo.attemptsLeft !== 1 ? 's' : ''} remaining.
+            </div>
+          )}
+
+          <button type="submit" className="adm-gate-btn" disabled={lockInfo.locked || verifying || !pw}>
+            {verifying ? (
+              <><span className="adm-spinner" style={{width:16,height:16}} /> Verifying…</>
+            ) : (
+              <>
+                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                  <polyline points="10 17 15 12 10 7" />
+                  <line x1="15" y1="12" x2="3" y2="12" />
+                </svg>
+                Enter Admin Panel
+              </>
+            )}
           </button>
         </form>
 
@@ -636,9 +699,32 @@ const SubscribersTab = () => {
    Main Admin Page
 ════════════════════════════════════════════ */
 const AdminNewsletters = () => {
-  const [authed, setAuthed] = useState(!!sessionStorage.getItem('ttgai_admin'));
+  const [authed, setAuthed] = useState(isSessionValid());
   const [tab, setTab] = useState('newsletters');
   const [maintenanceModal, setMaintenanceModal] = useState(null); // { name: string, icon: JSX }
+
+  // Auto‑expire session after 30 minutes of inactivity
+  useEffect(() => {
+    if (!authed) return;
+    const checkSession = setInterval(() => {
+      if (!isSessionValid()) {
+        setAuthed(false);
+      }
+    }, 30_000); // check every 30 seconds
+    return () => clearInterval(checkSession);
+  }, [authed]);
+
+  // Refresh session on meaningful user interaction
+  const handleInteraction = useCallback(() => {
+    if (authed) refreshSession();
+  }, [authed]);
+
+  useEffect(() => {
+    if (!authed) return;
+    const events = ['click', 'keydown', 'scroll'];
+    events.forEach((e) => window.addEventListener(e, handleInteraction, { passive: true }));
+    return () => events.forEach((e) => window.removeEventListener(e, handleInteraction));
+  }, [authed, handleInteraction]);
 
   if (!authed) return <PasswordGate onAuth={() => setAuthed(true)} />;
 
@@ -667,7 +753,7 @@ const AdminNewsletters = () => {
             <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
             Back to Newsletter
           </Link>
-          <button className="adm-logout" onClick={() => { sessionStorage.removeItem('ttgai_admin'); setAuthed(false); }}>
+          <button className="adm-logout" onClick={() => { destroySession(); setAuthed(false); }}>
             <IconLogOut /> Log Out
           </button>
         </div>
