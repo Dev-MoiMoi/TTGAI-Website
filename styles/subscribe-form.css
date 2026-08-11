@@ -36,7 +36,7 @@
   outline: none;
   border-color: #BA7517;
   background: rgba(30, 41, 59, 0.8);
-  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+  box-shadow: 0 0 0 3px rgba(186, 117, 23, 0.15);
 }
 
 /* ── Input — inline variant (light bg) ───────────────────────────────── */
@@ -59,7 +59,7 @@
 .sf-input--inline:focus {
   outline: none;
   border-color: #BA7517;
-  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+  box-shadow: 0 0 0 3px rgba(186, 117, 23, 0.15);
 }
 
 /* ── Button — footer variant ─────────────────────────────────────────── */
@@ -82,7 +82,7 @@
 }
 
 .sf-btn--footer:hover:not(:disabled) {
-  background: #a3854a;
+  background: #99610f;
   transform: translateY(-2px);
   box-shadow: 0 8px 20px -4px rgba(163, 133, 74, 0.35);
 }
@@ -116,7 +116,7 @@
   border-color: #BA7517;
   color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px -4px rgba(197, 160, 89, 0.35);
+  box-shadow: 0 8px 20px -4px rgba(186, 117, 23, 0.35);
 }
 
 .sf-btn--inline:disabled {

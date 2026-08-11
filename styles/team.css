@@ -23,8 +23,8 @@
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(circle at 20% 80%, rgba(197,160,89,0.10) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(197,160,89,0.07) 0%, transparent 45%);
+        radial-gradient(circle at 20% 80%, rgba(186,117,23,0.10) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(186,117,23,0.07) 0%, transparent 45%);
     pointer-events: none;
 }
 
@@ -36,8 +36,8 @@
 
 .tm-hero-badge {
     display: inline-block;
-    background: rgba(197,160,89,0.15);
-    border: 1px solid rgba(197,160,89,0.4);
+    background: rgba(186,117,23,0.15);
+    border: 1px solid rgba(186,117,23,0.4);
     color: var(--primary-gold);
     font-size: 0.72rem;
     font-weight: 700;
@@ -168,6 +168,37 @@
 
 .tm-section-label h2 em { font-style: italic; color: var(--primary-gold); }
 
+.tm-batch-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+}
+
+.tm-batch-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--primary-gold);
+    flex-shrink: 0;
+}
+
+.tm-batch-title {
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--primary-navy);
+}
+
+.tm-batch-title em {
+    font-style: italic;
+    color: var(--primary-gold);
+    text-transform: none;
+    letter-spacing: 0.02em;
+}
+
 /* ── Board Grid ───────────────────────────────────────────────────────────── */
 .tm-board-grid {
     display: grid;
@@ -178,16 +209,16 @@
 .tm-board-card {
     background: #fff;
     border: 1px solid #e2e8f0;
-    border-radius: 16px;
+    border-radius: var(--radius-lg, 16px);
     padding: 2rem 1.5rem 1.75rem;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    box-shadow: var(--shadow-sm);
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .tm-board-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.09);
+    box-shadow: var(--shadow-md);
 }
 
 .tm-board-card.has-profile { cursor: pointer; }
@@ -233,15 +264,16 @@
 .tm-team-card {
     background: #f8fafc;
     border: 1px solid #e8edf3;
-    border-radius: 14px;
+    border-radius: var(--radius-md, 14px);
     padding: 1.5rem 1rem;
     text-align: center;
+    box-shadow: var(--shadow-sm);
     transition: transform 0.25s, box-shadow 0.25s;
 }
 
 .tm-team-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+    box-shadow: var(--shadow-md);
 }
 
 .tm-team-card.has-profile { cursor: pointer; }
@@ -294,13 +326,14 @@
 .tm-scholar-card {
     background: #fff;
     border: 1px solid #e8edf3;
-    border-radius: 12px;
+    border-radius: var(--radius-md, 12px);
     padding: 1.25rem 0.9rem;
     text-align: center;
-    transition: transform 0.25s;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s, box-shadow 0.25s;
 }
 
-.tm-scholar-card:hover { transform: translateY(-3px); }
+.tm-scholar-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
 
 .tm-scholar-card--officer { border-color: var(--primary-gold); }
 
@@ -391,6 +424,7 @@
 
 .tm-benefactor-info {
     flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
@@ -408,6 +442,10 @@
     padding: 0.2rem 0.7rem;
     border-radius: 50px;
     white-space: nowrap;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
 }
 
 .tm-benefactor-arrow { color: #94a3b8; font-size: 1rem; margin-left: auto; }
@@ -449,7 +487,7 @@
     text-decoration: none;
     transition: background 0.2s;
 }
-.tm-cta-btn-gold:hover { background: #a3854a; }
+.tm-cta-btn-gold:hover { background: #99610f; }
 
 .tm-cta-btn-outline {
     display: inline-flex;
@@ -600,6 +638,7 @@
     .tm-board-grid { grid-template-columns: 1fr; }
     .tm-team-grid { grid-template-columns: repeat(2, 1fr); }
     .tm-scholars-grid { grid-template-columns: repeat(2, 1fr); }
+    .tm-benefactor-badge { display: none; }
 }
 
 @media (max-width: 480px) {

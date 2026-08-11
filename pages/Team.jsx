@@ -84,9 +84,9 @@ const Team = () => {
         { name: "Rey Araos", role: "Trustee", section: "trustees" },
     ];
 
-    const scholars = [
+    const batchOne = [
         { name: "Daniel Matthew Benegas", course: "BS Computer Science", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Dream big, work hard.", position: "President" },
-        { name: "Joemhir Keil P. Badilla", course: "BEED", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Education empowers.", position: "Vice President" },
+        { name: "Joemhir Keil P. Badilla", course: "BEED", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Education empowers.", position: "Secretary" },
         { name: "Ghia Mariz Estorgio", course: "BS Nursing", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Caring hands, glowing heart." },
         { name: "Moises Fatal Jr.", course: "BS Computer Science", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Code is poetry." },
         { name: "Enrique Bague III", course: "BS Nursing", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "To serve and heal." },
@@ -99,12 +99,36 @@ const Team = () => {
         { name: "John Rod Mhar M. Suario", course: "BS Information Technology", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Connecting the world." },
         { name: "Lorenzo Chauncey L. Dapan", course: "BS Accountancy", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Balance in all things." },
         { name: "Jefferson M. Caparas", course: "BSED-English", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Keep moving forward." },
-        { name: "Justin Harvy C. Tapay", course: "BSED-Social Science", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Learning never stops." },
+        { name: "Justin Harvy C. Tapay", course: "BSED-Social Science", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Learning never stops.", position: "Vice President" },
         { name: "Jericho B. Alintanahin", course: "BS Nursing", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Healing with a smile." },
         { name: "Ashzel Roi M. Caluit", course: "BSBA - Marketing", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Strategy meets creativity." },
         { name: "Ryven B. Villar", course: "BEED", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Teaching is passion." },
         { name: "Harold V. Magpantay", course: "BSED - Mathematics", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Numbers don't lie." },
         { name: "Jana Pauline D. Alcones", course: "BSED-Social Studies", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Building a better tomorrow." }
+    ];
+
+    const batchTwo = [
+        { name: "Bea Agustin", course: "BEED", school: "Pamantasan ng Cabuyao", quote: "Teach with heart and lead by example." },
+        { name: "Miguelsito L. Alvaro", course: "BS Psychology", school: "Pamantasan ng Cabuyao", quote: "Understanding begins with empathy." },
+        { name: "Marc Evan M. Avendaño", course: "BSED-Social Studies", school: "Pamantasan ng Cabuyao", quote: "History taught me to dream forward." },
+        { name: "Joemhir Keil P. Badilla", course: "BEED", school: "Pamantasan ng Cabuyao", quote: "Education empowers." },
+        { name: "Enrique B. Bague III", course: "BS Nursing", school: "Pamantasan ng Cabuyao", quote: "To serve and heal." },
+        { name: "Charles Jabriel D. Beato", course: "BS Nursing", school: "Pamantasan ng Cabuyao", quote: "Compassion first." },
+        { name: "Dan Reiy Paul P. Briones", course: "BS Computer Science", school: "Pamantasan ng Cabuyao", quote: "Code is poetry." },
+        { name: "Ashzel Roi M. Caluit", course: "BSBA - Marketing Management", school: "Pamantasan ng Cabuyao", quote: "Strategy meets creativity." },
+        { name: "Jefferson M. Caparas", course: "BSED-English", school: "Pamantasan ng Cabuyao", quote: "Keep moving forward." },
+        { name: "Jigen Paul A. De Belen", course: "BSBA - Financial Management", school: "Pamantasan ng Cabuyao", quote: "Balance in all things." },
+        { name: "Andrew D. Dejito", course: "BS Computer Science", school: "Pamantasan ng Cabuyao", quote: "Building the future one line at a time." },
+        { name: "Moises R. Fatal Jr.", course: "BS Computer Science", school: "Pamantasan ng Cabuyao", quote: "Dream big, code bigger." },
+        { name: "Jaidel C. Flores", course: "BS Computer Science", school: "Pamantasan ng Cabuyao", quote: "Innovation born of perseverance." },
+        { name: "Lindsay R. Laudato", course: "BSED-Filipino", school: "Pamantasan ng Cabuyao", quote: "Wika ng pag-asa." },
+        { name: "Denise Ann Q. Lopez", course: "BS Nursing", school: "Pamantasan ng Cabuyao", quote: "Caring hands, glowing heart." },
+        { name: "Chelseah Nicole B. Mamplata", course: "BSED-English", school: "Pamantasan ng Cabuyao", quote: "Words have power." },
+        { name: "Allyssa Cassandra A. Panogaling", course: "BS Nursing", school: "Pamantasan ng Cabuyao", quote: "Healing with a smile." },
+        { name: "Denver Jade D. Rosario", course: "BS Accountancy", school: "Pamantasan ng Cabuyao", quote: "Numbers tell our story." },
+        { name: "Justine Harvey C. Tapay", course: "BSED-Social Studies", school: "Pamantasan ng Cabuyao", quote: "Learning never stops." },
+        { name: "Kesley Kae G. Vitan", course: "BSBA - Marketing Management", school: "Pamantasan ng Cabuyao", quote: "Where passion meets purpose." },
+        { name: "Kharl O. Katigbak", course: "BSED - Mathematics", school: "Pamantasan ng Cabuyao", quote: "Numbers don't lie." }
     ];
 
     const benefactors = [
@@ -315,14 +339,37 @@ const Team = () => {
                 <div className="tm-container">
                     <div className="tm-section-label">
                         <span className="tm-section-bar" />
-                        <h2>The Scholars — <em>Batch Sinag at Dangal</em></h2>
+                        <h2>The Scholars</h2>
+                    </div>
+
+                    <div className="tm-batch-label">
+                        <span className="tm-batch-dot" />
+                        <span className="tm-batch-title">Batch 1 — <em>Sinag at Dangal</em></span>
                     </div>
                     <div className="tm-scholars-grid" ref={addToRefs}>
-                        {scholars.map((s, i) => (
-                            <div key={i} className={`tm-scholar-card${s.position ? ' tm-scholar-card--officer' : ''}`}>
+                        {batchOne.map((s, i) => (
+                            <div key={`b1-${i}`} className={`tm-scholar-card${s.position ? ' tm-scholar-card--officer' : ''}`}>
                                 <div className="tm-scholar-avatar-wrap">
                                     <img src={SCHOLAR_PHOTOS[s.name] || placeholderMember} alt={s.name} className="tm-scholar-avatar" />
                                     {s.position && <span className="tm-officer-badge">{s.position}</span>}
+                                </div>
+                                <h3 className="tm-scholar-name">{s.name}</h3>
+                                <p className="tm-scholar-course">{s.course}</p>
+                                <p className="tm-scholar-school">{s.school}</p>
+                                <p className="tm-scholar-quote">"{s.quote}"</p>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="tm-batch-label" style={{ marginTop: '3.5rem' }}>
+                        <span className="tm-batch-dot" />
+                        <span className="tm-batch-title">Batch 2</span>
+                    </div>
+                    <div className="tm-scholars-grid" ref={addToRefs}>
+                        {batchTwo.map((s, i) => (
+                            <div key={`b2-${i}`} className="tm-scholar-card">
+                                <div className="tm-scholar-avatar-wrap">
+                                    <img src={SCHOLAR_PHOTOS[s.name] || placeholderMember} alt={s.name} className="tm-scholar-avatar" />
                                 </div>
                                 <h3 className="tm-scholar-name">{s.name}</h3>
                                 <p className="tm-scholar-course">{s.course}</p>

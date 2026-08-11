@@ -1,6 +1,5 @@
 /* ─── Admin Newsletters Page Redesign ────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 /* ── Reset / Base ──────────────────────────────────────────────────────── */
 .adm-page {
@@ -13,13 +12,6 @@
   color: #1e293b;
   display: flex;
   z-index: 9999; /* Cover any global navs if they accidentally route render */
-}
-
-/* Reset button overrides from global navStyle.css */
-.adm-page button {
-  text-transform: none;
-  letter-spacing: normal;
-  line-height: normal;
 }
 
 /* ── Sidebar ───────────────────────────────────────────────────────────── */
@@ -530,7 +522,7 @@
 .adm-notify-btn:hover {
   background: #bfa15f;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(197,160,89,0.3);
+  box-shadow: 0 4px 12px rgba(186,117,23,0.3);
 }
 
 .adm-notify-btn.approve {

@@ -4,7 +4,18 @@
     padding: 5rem 2rem 2rem;
     /* font handled globally */
     position: relative;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: none;
+}
+
+.footer-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+    opacity: 0.8;
 }
 
 .footer-container {
@@ -57,27 +68,26 @@
 
 .footer-input:focus {
     outline: none;
-    border-color: #60a5fa;
+    border-color: var(--primary-gold);
     background: rgba(30, 41, 59, 0.8);
-    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+    box-shadow: 0 0 0 3px rgba(186, 117, 23, 0.18);
 }
 
 .footer-btn {
     padding: 0.8rem 2rem;
-    background: var(--primary-gold);
+    background: linear-gradient(135deg, var(--gold-400), var(--primary-gold));
     color: var(--text-light);
     border: none;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
 }
 
 .footer-btn:hover {
-    background: #A3854A;
+    background: var(--primary-gold);
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px -5px rgba(163, 133, 74, 0.3);
+    box-shadow: 0 10px 20px -5px rgba(186, 117, 23, 0.4);
 }
 
 /* Subscribe Success State */
@@ -128,7 +138,7 @@
 }
 
 .footer-links a:hover {
-    color: #60a5fa;
+    color: var(--gold-300);
     transform: translateX(5px);
 }
 
@@ -147,7 +157,7 @@
 
 .contact-icon {
     margin-right: 1rem;
-    color: #60a5fa;
+    color: var(--primary-gold);
     width: 24px;
     text-align: center;
 }
@@ -206,14 +216,15 @@
 }
 
 .trust-icon {
-    color: #10b981;
-    /* Green for trust */
+    color: var(--gold-400);
 }
 
 /* Back to Top Button */
 /* Removed the container styling for simplicity */
 .back-to-top {
     border: none;
+    background: transparent;
+    color: #cbd5e1;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -225,9 +236,13 @@
 
 .back-to-top:hover {
     background: none;
-    border-color: none;
+    border-color: transparent;
     color: white;
     transform: translateY(-3px);
+}
+
+.back-to-top:hover i {
+    color: var(--gold-300);
 }
 
 @media (max-width: 768px) {

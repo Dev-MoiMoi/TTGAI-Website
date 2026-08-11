@@ -1,7 +1,6 @@
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    About Page — TTGAI  (about-* namespace)
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 .about-page {
     background: var(--bg-color);
@@ -19,7 +18,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 75% 50%, rgba(197,160,89,0.08) 0%, transparent 60%);
+    background: radial-gradient(circle at 75% 50%, rgba(186,117,23,0.08) 0%, transparent 60%);
     pointer-events: none;
 }
 .about-hero-inner {
@@ -28,8 +27,8 @@
 }
 .about-hero-badge {
     display: inline-block;
-    background: rgba(197,160,89,0.15);
-    border: 1px solid rgba(197,160,89,0.4);
+    background: rgba(186,117,23,0.15);
+    border: 1px solid rgba(186,117,23,0.4);
     color: var(--primary-gold);
     font-size: 0.72rem;
     font-weight: 700;
@@ -71,7 +70,7 @@
     text-decoration: none;
     transition: background 0.2s, transform 0.2s;
 }
-.about-btn-gold:hover { background: #a3854a; transform: translateY(-2px); }
+.about-btn-gold:hover { background: #99610f; transform: translateY(-2px); }
 .about-btn-outline {
     display: inline-flex;
     align-items: center;
@@ -330,8 +329,8 @@
     width: 64px;
     height: 64px;
     border-radius: 50%;
-    background: rgba(197,160,89,0.15);
-    border: 1.5px solid rgba(197,160,89,0.4);
+    background: rgba(186,117,23,0.15);
+    border: 1.5px solid rgba(186,117,23,0.4);
     display: flex;
     align-items: center;
     justify-content: center;

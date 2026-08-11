@@ -334,49 +334,50 @@ const Newsletter = () => {
                 </div>
             </header>
 
-            {/* ── 2. Filter & Search ── */}
-            <div className="nl-controls-wrap">
-                <div className="nl-controls">
-                    <div className="nl-search-wrap">
-                        <svg className="nl-search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
-                        </svg>
-                        <input
-                            type="search"
-                            className="nl-search"
-                            placeholder="Search articles…"
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                        />
+            {/* ── 2 + 3. Filter & Search + Article Grid ── */}
+            <div className="nl-filter-region">
+                <div className="nl-controls-wrap">
+                    <div className="nl-controls">
+                        <div className="nl-search-wrap">
+                            <svg className="nl-search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                            </svg>
+                            <input
+                                type="search"
+                                className="nl-search"
+                                placeholder="Search articles…"
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                            />
+                        </div>
+                        <select className="nl-volume-select" value={activeVolume} onChange={(e) => setActiveVolume(e.target.value)}>
+                            {VOLUMES.map((v) => <option key={v}>{v}</option>)}
+                        </select>
                     </div>
-                    <select className="nl-volume-select" value={activeVolume} onChange={(e) => setActiveVolume(e.target.value)}>
-                        {VOLUMES.map((v) => <option key={v}>{v}</option>)}
-                    </select>
+                    <div className="nl-cat-pills">
+                        {CATEGORIES.map((cat) => (
+                            <button key={cat} className={`nl-cat-btn${activeCategory === cat ? ' active' : ''}`} onClick={() => setActiveCategory(cat)}>
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
                 </div>
-                <div className="nl-cat-pills">
-                    {CATEGORIES.map((cat) => (
-                        <button key={cat} className={`nl-cat-btn${activeCategory === cat ? ' active' : ''}`} onClick={() => setActiveCategory(cat)}>
-                            {cat}
-                        </button>
-                    ))}
-                </div>
-            </div>
 
-            {/* ── 3. Article Grid ── */}
-            <main className="nl-grid-section">
-                {filtered.length > 0 ? (
-                    <div className="nl-grid">
-                        {filtered.map((a) => <ArticleCard key={a.id} article={a} onOpen={openLightbox} />)}
-                    </div>
-                ) : (
-                    <div className="nl-empty">
-                        <p>No articles match your search. Try a different keyword or category.</p>
-                        <button className="nl-reset-btn" onClick={() => { setSearch(''); setActiveCategory('All'); setActiveVolume('All Volumes'); }}>
-                            Clear Filters
-                        </button>
-                    </div>
-                )}
-            </main>
+                <main className="nl-grid-section">
+                    {filtered.length > 0 ? (
+                        <div className="nl-grid">
+                            {filtered.map((a) => <ArticleCard key={a.id} article={a} onOpen={openLightbox} />)}
+                        </div>
+                    ) : (
+                        <div className="nl-empty">
+                            <p>No articles match your search. Try a different keyword or category.</p>
+                            <button className="nl-reset-btn" onClick={() => { setSearch(''); setActiveCategory('All'); setActiveVolume('All Volumes'); }}>
+                                Clear Filters
+                            </button>
+                        </div>
+                    )}
+                </main>
+            </div>
 
             {/* ── 4. Dark CTA Banner ── */}
             <section className="nl-big-cta">
