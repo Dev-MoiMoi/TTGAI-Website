@@ -761,14 +761,16 @@ const AdminNewsletters = () => {
     localStorage.setItem('adm_tab', next);
   }, []);
 
-  // Auto‑expire session after 30 minutes of inactivity
+  // Auto‑expire the session when the 30‑minute JWT (or the inactivity
+  // timestamp) runs out, so the page drops to the login gate instead of
+  // sending a dead token and showing `invalid_token` everywhere.
   useEffect(() => {
     if (!authed) return;
     const checkSession = setInterval(() => {
       if (!isSessionValid()) {
         setAuthed(false);
       }
-    }, 30_000); // check every 30 seconds
+    }, 15_000); // check every 15 seconds
     return () => clearInterval(checkSession);
   }, [authed]);
 
