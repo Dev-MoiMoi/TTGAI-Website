@@ -7,6 +7,7 @@ import img2 from '../assets/2.jpg';
 import img3 from '../assets/3.jpg';
 import img4 from '../assets/4.jpg';
 import img5 from '../assets/5.jpg';
+import { useSiteImages } from '../lib/siteImages';
 
 /* ── Earth Day 2026 images ── */
 import earthDay1 from '../assets/Earth Day/684180445_946665661451288_8343696422311329551_n.jpg';
@@ -25,9 +26,25 @@ const Home = () => {
     const [openFaq, setOpenFaq] = useState(null);
     const [earthDayIdx, setEarthDayIdx] = useState(0);
     const [ethicsIdx, setEthicsIdx] = useState(0);
+    const siteImages = useSiteImages();
 
-    const earthDayPhotos = [earthDay1, earthDay2, earthDay3, earthDay4, earthDay5, earthDay6];
-    const ethicsPhotos = [ethics1, ethics2, ethics3];
+    const earthDayPhotos = [
+        siteImages.earth_day_1 || earthDay1,
+        siteImages.earth_day_2 || earthDay2,
+        siteImages.earth_day_3 || earthDay3,
+        siteImages.earth_day_4 || earthDay4,
+        siteImages.earth_day_5 || earthDay5,
+        siteImages.earth_day_6 || earthDay6,
+    ];
+    const ethicsPhotos = [
+        siteImages.ethics_seminar_1 || ethics1,
+        siteImages.ethics_seminar_2 || ethics2,
+        siteImages.ethics_seminar_3 || ethics3,
+    ];
+    const heroBg = siteImages.home_hero || img4;
+    const spot1 = siteImages.home_spot_1 || img1;
+    const spot2 = siteImages.home_spot_2 || img2;
+    const spot3 = siteImages.home_spot_3 || img3;
 
     const toggleFaq = (index) => {
         setOpenFaq(openFaq === index ? null : index);
@@ -44,7 +61,7 @@ const Home = () => {
         <>
             {/* ── 1. Hero ── */}
             <section className="home-hero">
-                <img src={img4} alt="Team Twilight Golfers" className="home-hero-bg" />
+                <img src={heroBg} alt="Team Twilight Golfers" className="home-hero-bg" />
                 <div className="home-hero-overlay" />
                 <div className="home-hero-content">
                     <span className="home-hero-badge">Pabaon Kay Iskolar</span>
@@ -315,7 +332,7 @@ const Home = () => {
                     <div className="home-spotlight-grid">
                         <div className="home-spot-card">
                             <div className="home-spot-img-wrap">
-                                <img src={img2} alt="Charity Golf Tournament" />
+                                <img src={spot2} alt="Charity Golf Tournament" />
                                 <span className="home-spot-tag">EVENT</span>
                             </div>
                             <div className="home-spot-body">
@@ -326,7 +343,7 @@ const Home = () => {
                         </div>
                         <div className="home-spot-card">
                             <div className="home-spot-img-wrap">
-                                <img src={img3} alt="Pabaon Kay Iskolar" />
+                                <img src={spot3} alt="Pabaon Kay Iskolar" />
                                 <span className="home-spot-tag">SCHOLARSHIP</span>
                             </div>
                             <div className="home-spot-body">
@@ -337,7 +354,7 @@ const Home = () => {
                         </div>
                         <div className="home-spot-card">
                             <div className="home-spot-img-wrap">
-                                <img src={img1} alt="Fundraising" />
+                                <img src={spot1} alt="Fundraising" />
                                 <span className="home-spot-tag">IMPACT</span>
                             </div>
                             <div className="home-spot-body">

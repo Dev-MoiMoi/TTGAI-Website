@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { adminApi } from '../lib/admin';
 import { sendNewsletterNotify } from '../lib/emailjs';
@@ -17,6 +17,8 @@ import {
   sanitizeText,
 } from '../lib/security';
 import '../styles/admin.css';
+import SiteImagesTab from '../components/admin/SiteImagesTab';
+import { uploadImage } from '../lib/cloudinary';
 
 /* ════════════════════════════════════════════
    SVG Icons
@@ -38,6 +40,7 @@ const IconDelete = () => <svg width="14" height="14" fill="none" stroke="current
 const IconDoc = () => <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>;
 const IconSent = () => <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>;
 const IconDraft = () => <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>;
+const IconImage = () => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>;
 
 /* ════════════════════════════════════════════
    Password Gate — with brute‑force protection
@@ -252,6 +255,22 @@ const NewslettersTab = () => {
   const [subscribers, setSubscribers] = useState([]);
   const [modal, setModal] = useState(null); // { type: 'notify'|'create'|'edit'|'delete', newsletter?, editData? }
   const [sendProgress, setSendProgress] = useState({}); // { [id]: { sent, total, failed } }
+  const [imgUploading, setImgUploading] = useState(false);
+  const imgInputRef = useRef(null);
+
+  const handleImageFile = async (file) => {
+    if (!file) return;
+    setImgUploading(true);
+    try {
+      const url = await uploadImage(file, { folder: 'ttgai-newsletters', tags: 'approved' });
+      setModal((m) => ({ ...m, editData: { ...m.editData, image_url: url } }));
+    } catch (err) {
+      console.error('Image upload failed:', err);
+      alert('Image upload failed. Please try again.');
+    } finally {
+      setImgUploading(false);
+    }
+  };
 
   const fetchNewsletters = () => {
     adminApi.listNewsletters(getSessionToken()).then(setDbNls).catch(err => console.error('Fetch error:', err));
@@ -341,7 +360,7 @@ const NewslettersTab = () => {
   const openCreate = () => {
     setModal({
       type: 'create',
-      editData: { title: '', author: '', batch_year: '', school: '', category: 'Events', volume_key: '', excerpt: '' }
+      editData: { title: '', author: '', batch_year: '', school: '', category: 'Events', volume_key: '', excerpt: '', image_url: '' }
     });
   };
 
@@ -355,6 +374,7 @@ const NewslettersTab = () => {
       category: modal.editData.category,
       volume_key: modal.editData.volume_key,
       excerpt: modal.editData.excerpt,
+      image_url: modal.editData.image_url || '',
       status: 'approved' // defaulting to approved for admin creation
     });
     fetchNewsletters();
@@ -372,7 +392,8 @@ const NewslettersTab = () => {
         school: nl.originalData?.school || '',
         category: nl.originalData?.category || 'Events',
         volume_key: nl.originalData?.volume_key || '',
-        excerpt: nl.originalData?.excerpt || ''
+        excerpt: nl.originalData?.excerpt || '',
+        image_url: nl.originalData?.image_url || ''
       }
     });
   };
@@ -386,7 +407,8 @@ const NewslettersTab = () => {
       school: modal.editData.school,
       category: modal.editData.category,
       volume_key: modal.editData.volume_key,
-      excerpt: modal.editData.excerpt
+      excerpt: modal.editData.excerpt,
+      image_url: modal.editData.image_url || ''
     });
     fetchNewsletters();
     setModal(null);
@@ -584,6 +606,21 @@ const NewslettersTab = () => {
                 <label className="adm-edit-label">Short Description / Excerpt</label>
                 <textarea className="adm-edit-textarea" rows="8" value={modal.editData.excerpt} onChange={e => setModal({...modal, editData: {...modal.editData, excerpt: e.target.value}})} placeholder="Write the newsletter excerpt or full description here…" />
               </div>
+              <div className="adm-edit-group">
+                <label className="adm-edit-label">Cover Image</label>
+                <div className="adm-edit-image-row">
+                  <input className="adm-edit-input" type="url" placeholder="Paste image URL…" value={modal.editData.image_url || ''} onChange={e => setModal({...modal, editData: {...modal.editData, image_url: e.target.value}})} />
+                  <input ref={imgInputRef} type="file" accept="image/jpeg,image/png,image/webp,application/pdf" style={{ display: 'none' }} onChange={(e) => { handleImageFile(e.target.files?.[0]); e.target.value = ''; }} />
+                  <button type="button" className="adm-edit-upload-btn" onClick={() => imgInputRef.current?.click()} disabled={imgUploading}>
+                    {imgUploading ? 'Uploading…' : 'Upload'}
+                  </button>
+                </div>
+                {modal.editData.image_url && (
+                  <div className="adm-edit-image-preview">
+                    <img src={modal.editData.image_url} alt="Cover preview" />
+                  </div>
+                )}
+              </div>
               <div className="adm-modal-actions">
                 <button type="button" className="adm-modal-cancel" onClick={() => setModal(null)}>Cancel</button>
                 <button type="submit" className="adm-modal-confirm">Save Changes</button>
@@ -755,6 +792,9 @@ const AdminNewsletters = () => {
           <button className={`adm-nav-link ${tab === 'newsletters' ? 'active' : ''}`} onClick={() => setTab('newsletters')}>
             <IconNews /> Manage Newsletters
           </button>
+          <button className={`adm-nav-link ${tab === 'site-images' ? 'active' : ''}`} onClick={() => setTab('site-images')}>
+            <IconImage /> Site Images
+          </button>
           <button className={`adm-nav-link ${tab === 'subscribers' ? 'active' : ''}`} onClick={() => setTab('subscribers')}>
             <IconUsers /> Subscribers
           </button>
@@ -798,7 +838,9 @@ const AdminNewsletters = () => {
 
          {/* Main content body */}
          <main className="adm-main">
-            {tab === 'newsletters' ? <NewslettersTab /> : <SubscribersTab />}
+            {tab === 'newsletters' && <NewslettersTab />}
+            {tab === 'site-images' && <SiteImagesTab />}
+            {tab === 'subscribers' && <SubscribersTab />}
          </main>
 
          {/* Footer */}

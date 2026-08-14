@@ -5,10 +5,18 @@ import visionImg from '../assets/vision.jpg';
 import advocacyImg from '../assets/advocacy.jpg';
 import valueImg from '../assets/value.jpg';
 import aboutBg from '../assets/About bg.jpg';
+import { useSiteImages } from '../lib/siteImages';
 import '../styles/about.css';
 
 const About = () => {
     const boxesRef = useRef([]);
+    const siteImages = useSiteImages();
+
+    const heroBg = siteImages.about_hero || aboutBg;
+    const milestoneMission = siteImages.about_mission || missionImg;
+    const milestoneFounding = siteImages.about_founding || advocacyImg;
+    const milestonePki = siteImages.about_pki || valueImg;
+    const milestoneSinag = siteImages.about_sinag || visionImg;
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
@@ -39,7 +47,7 @@ const About = () => {
     return (
         <div className="about-page">
             {/* ── 1. Hero ── */}
-            <header className="about-hero" style={{ backgroundImage: `url(${aboutBg})` }}>
+            <header className="about-hero" style={{ backgroundImage: `url(${heroBg})` }}>
                 <div className="about-hero-inner">
                     <span className="about-hero-badge">Our Purpose</span>
                     <h1>Our Story of <span className="about-h1-accent">Purpose<br/>&amp; Passion</span></h1>
@@ -121,7 +129,7 @@ const About = () => {
                     {/* Milestone 1 */}
                     <div className="about-ms-item about-ms-item--right" ref={addToRefs}>
                         <div className="about-ms-img">
-                            <img src={missionImg} alt="TTGAI Founded" />
+                            <img src={milestoneMission} alt="TTGAI Founded" />
                             <span className="about-ms-year-badge">2009</span>
                         </div>
                         <div className="about-ms-text">
@@ -136,7 +144,7 @@ const About = () => {
                     {/* Milestone 2 */}
                     <div className="about-ms-item" ref={addToRefs}>
                         <div className="about-ms-img">
-                            <img src={advocacyImg} alt="Founding the Association" />
+                            <img src={milestoneFounding} alt="Founding the Association" />
                             <span className="about-ms-year-badge about-ms-year-badge--gold">2021</span>
                         </div>
                         <div className="about-ms-text">
@@ -151,7 +159,7 @@ const About = () => {
                     {/* Milestone 3 */}
                     <div className="about-ms-item about-ms-item--right" ref={addToRefs}>
                         <div className="about-ms-img">
-                            <img src={valueImg} alt="Scholarship Program" />
+                            <img src={milestonePki} alt="Scholarship Program" />
                             <span className="about-ms-year-badge">2025</span>
                         </div>
                         <div className="about-ms-text">
@@ -166,7 +174,7 @@ const About = () => {
                     {/* Milestone 4 */}
                     <div className="about-ms-item" ref={addToRefs}>
                         <div className="about-ms-img">
-                            <img src={visionImg} alt="Batch Sinag at Dangal" />
+                            <img src={milestoneSinag} alt="Batch Sinag at Dangal" />
                             <span className="about-ms-year-badge about-ms-year-badge--gold">2025</span>
                         </div>
                         <div className="about-ms-text">

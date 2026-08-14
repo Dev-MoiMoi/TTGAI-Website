@@ -4,15 +4,10 @@ import '../styles/newsletter.css';
 import SubscribeForm from '../components/SubscribeForm';
 import { getNewsletters, addNewsletter } from '../lib/supabase';
 import { sanitizeHTML, sanitizeText, sanitizeName, RateLimiter } from '../lib/security';
+import { uploadImage, ALLOWED_UPLOAD_TYPES as ALLOWED_TYPES, MAX_UPLOAD_BYTES as MAX_BYTES } from '../lib/cloudinary';
 
 /* ─── Rate limiter for newsletter submissions ───────────── */
 const submitLimiter = new RateLimiter({ maxAttempts: 3, windowMs: 10 * 60 * 1000 }); // 3 per 10 min
-
-/* ─── Cloudinary config ───────────────────────────────────────────────────── */
-const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || '';
-const CLOUDINARY_PRESET = 'ttgai_submissions';
-const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
-const MAX_BYTES = 10 * 1024 * 1024; // 10 MB
 
 /* ─── Category colour map ─────────────────────────────────────────────────── */
 const CATEGORY_COLORS = {
@@ -224,7 +219,7 @@ const Newsletter = () => {
 
     const isFormValid = form.name && form.batch && form.school && form.newsletterTitle && file && !fileError;
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!isFormValid) return;
 
@@ -243,53 +238,38 @@ const Newsletter = () => {
         const safeBatch = sanitizeText(form.batch, 50);
         const safeSchool = sanitizeText(form.school, 100);
 
-        const data = new FormData();
-        data.append('file', file);
-        data.append('upload_preset', CLOUDINARY_PRESET);
-        data.append('folder', 'ttgai-newsletters');
-        data.append('tags', 'pending');
-        data.append('context',
-            `caption=${safeTitle}|scholar_name=${safeName}|batch_year=${safeBatch}|school=${safeSchool}|description=${safeDesc}`
-        );
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`);
-        xhr.upload.onprogress = (ev) => { if (ev.lengthComputable) setProgress(Math.round((ev.loaded / ev.total) * 100)); };
-        xhr.onload = async () => { 
-            if (xhr.status === 200) {
-                try {
-                    const response = JSON.parse(xhr.responseText);
-                    const imageUrl = response.secure_url;
-                    
-                    // Create pending record in Supabase
-                    await addNewsletter({
-                        title: safeTitle,
-                        excerpt: safeDesc,
-                        category: 'Announcements', // Default category for community submissions
-                        author: safeName,
-                        batch_year: safeBatch,
-                        school: safeSchool,
-                        date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
-                        volume_key: 'Community Submissions',
-                        page_info: 'Page 1/1',
-                        image_url: imageUrl,
-                        status: 'pending'
-                    });
-                    
-                    setUploading(false);
-                    setUploadStatus('success');
-                } catch (err) {
-                    console.error('Error saving to Supabase:', err);
-                    setUploading(false);
-                    setUploadStatus('error');
-                }
-            } else {
-                setUploading(false);
-                setUploadStatus('error'); 
-            }
-        };
-        xhr.onerror = () => { setUploading(false); setUploadStatus('error'); };
         setUploading(true); setProgress(0); setUploadStatus(null);
-        xhr.send(data);
+        try {
+            const imageUrl = await uploadImage(file, {
+                folder: 'ttgai-newsletters',
+                tags: 'pending',
+                context:
+                    `caption=${safeTitle}|scholar_name=${safeName}|batch_year=${safeBatch}|school=${safeSchool}|description=${safeDesc}`,
+                onProgress: (p) => setProgress(p),
+            });
+
+            // Create pending record in Supabase
+            await addNewsletter({
+                title: safeTitle,
+                excerpt: safeDesc,
+                category: 'Announcements', // Default category for community submissions
+                author: safeName,
+                batch_year: safeBatch,
+                school: safeSchool,
+                date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+                volume_key: 'Community Submissions',
+                page_info: 'Page 1/1',
+                image_url: imageUrl,
+                status: 'pending'
+            });
+
+            setUploading(false);
+            setUploadStatus('success');
+        } catch (err) {
+            console.error('Error saving to Supabase:', err);
+            setUploading(false);
+            setUploadStatus('error');
+        }
     };
 
     const resetForm = () => {

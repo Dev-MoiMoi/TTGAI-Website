@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/5.jpg';
+import { useSiteImages } from '../lib/siteImages';
 import '../styles/navStyle.css';
 
 const NAV_LINKS = [
@@ -19,6 +20,8 @@ const Navbar = () => {
     const toggleRef = useRef(null);
     const closeRef = useRef(null);
     const wasOpen = useRef(false);
+    const siteImages = useSiteImages();
+    const brandImage = siteImages.navbar_logo || logo;
 
     const closeMenu = () => setOpen(false);
     const toggleMenu = () => setOpen((o) => !o);
@@ -68,7 +71,7 @@ const Navbar = () => {
     return (
         <nav className="navbar" aria-label="Primary">
             <Link to="/" className="nav-brand" onClick={closeMenu} aria-label="Home">
-                <img src={logo} className="logo" alt="Team Twilight Golfers Association Inc. logo" />
+                <img src={brandImage} className="logo" alt="Team Twilight Golfers Association Inc. logo" />
             </Link>
 
             {/* Desktop links */}

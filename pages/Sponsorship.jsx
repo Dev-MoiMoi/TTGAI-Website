@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/sponsorship.css';
 import golfBg from '../assets/4.jpg';
+import { useSiteImages } from '../lib/siteImages';
 
 const packages = [
     {
@@ -98,6 +99,8 @@ const Sponsorship = () => {
     // Form state
     const [formData, setFormData] = useState({ organization: '', contactPerson: '', email: '', message: '' });
     const [submitted, setSubmitted] = useState(false);
+    const siteImages = useSiteImages();
+    const heroBg = siteImages.sponsorship_hero || golfBg;
 
     const toggleFaq = (index) => setOpenFaq(openFaq === index ? null : index);
 
@@ -141,7 +144,7 @@ const Sponsorship = () => {
         <div className="sponsorship-page">
 
             {/* 1. Hero */}
-            <section className="sp-hero" style={{ backgroundImage: `url(${golfBg})` }}>
+            <section className="sp-hero" style={{ backgroundImage: `url(${heroBg})` }}>
                 <div className="sp-hero-overlay" />
                 <div className="sp-hero-inner">
                     <span className="sp-hero-badge">Pabaon Kay Iskolar</span>

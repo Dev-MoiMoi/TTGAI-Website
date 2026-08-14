@@ -23,6 +23,8 @@ import { SignJWT, jwtVerify } from "npm:jose@5";
  *   - newsletter:create POST { title, author, ... } -> creates as 'approved'
  *   - newsletter:update POST { id, ...fields }      -> updates allowed fields
  *   - newsletter:delete POST { id }
+ *   - siteImages:list   GET  (Bearer token)   -> all replaceable site image slots
+ *   - siteImages:update POST { slug, image_url }    -> set/clear a slot's image
  */
 
 const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
@@ -155,6 +157,15 @@ function pickNewsletterFields(body: Record<string, unknown>, allowStatus = false
   return picked;
 }
 
+/* Only allow real http(s) image URLs — anything else (javascript:, data:, …)
+   is coerced to "" so a slot reverts to its bundled fallback. */
+function sanitizeImageUrl(value: unknown): string {
+  if (typeof value !== "string") return "";
+  const v = value.trim();
+  if (!v) return "";
+  return /^https?:\/\/\S+$/i.test(v) ? v : "";
+}
+
 /* ── Handlers ────────────────────────────────────────────── */
 
 async function handleLogin(req: Request): Promise<Response> {
@@ -234,8 +245,8 @@ async function handleNewsletterCreate(req: Request): Promise<Response> {
 
   // Admin-created editions are always approved on creation.
   payload.status = "approved";
-  // `image_url` is NOT NULL in the DB but the admin form has no image field.
-  payload.image_url = (payload.image_url as string) || "";
+  // `image_url` is NOT NULL — default to "" when absent, sanitize when present.
+  payload.image_url = sanitizeImageUrl(payload.image_url);
 
   const { data, error } = await supabase.from("newsletters").insert([payload]).select();
   if (error) return json({ ok: false, error: error.message }, 500);
@@ -256,6 +267,9 @@ async function handleNewsletterUpdate(req: Request): Promise<Response> {
   if (!id) return json({ ok: false, error: "missing_id" }, 400);
 
   const updates = pickNewsletterFields(body, true);
+  if (typeof body.image_url === "string") {
+    updates.image_url = sanitizeImageUrl(body.image_url);
+  }
   const { data, error } = await supabase.from("newsletters").update(updates).eq("id", id).select();
   if (error) return json({ ok: false, error: error.message }, 500);
   return json({ ok: true, data: data?.[0] });
@@ -277,6 +291,48 @@ async function handleNewsletterDelete(req: Request): Promise<Response> {
   const { error } = await supabase.from("newsletters").delete().eq("id", id);
   if (error) return json({ ok: false, error: error.message }, 500);
   return json({ ok: true, data: { id } });
+}
+
+async function handleSiteImagesList(): Promise<Response> {
+  const { data, error } = await supabase
+    .from("site_images")
+    .select("*")
+    .order("section", { ascending: true })
+    .order("label", { ascending: true });
+
+  if (error) return json({ ok: false, error: error.message }, 500);
+  return json({ ok: true, data: data ?? [] });
+}
+
+async function handleSiteImagesUpdate(req: Request): Promise<Response> {
+  if (req.method !== "POST") return json({ ok: false, error: "method_not_allowed" }, 405);
+
+  let body: Record<string, unknown>;
+  try {
+    body = await req.json();
+  } catch {
+    return json({ ok: false, error: "bad_request" }, 400);
+  }
+
+  const slug = typeof body.slug === "string" ? body.slug.trim() : "";
+  if (!slug) return json({ ok: false, error: "missing_slug" }, 400);
+
+  const imageUrl = sanitizeImageUrl(body.image_url);
+
+  const { data: existing, error: fetchError } = await supabase
+    .from("site_images")
+    .select("slug")
+    .eq("slug", slug);
+  if (fetchError) return json({ ok: false, error: fetchError.message }, 500);
+  if (!existing || existing.length === 0) return json({ ok: false, error: "unknown_slug" }, 404);
+
+  const { data, error } = await supabase
+    .from("site_images")
+    .update({ image_url: imageUrl, updated_at: new Date().toISOString() })
+    .eq("slug", slug)
+    .select();
+  if (error) return json({ ok: false, error: error.message }, 500);
+  return json({ ok: true, data: data?.[0] });
 }
 
 /* ── Router ──────────────────────────────────────────────── */
@@ -307,6 +363,10 @@ Deno.serve(async (req) => {
       return await handleNewsletterUpdate(req);
     case "newsletter:delete":
       return await handleNewsletterDelete(req);
+    case "siteImages:list":
+      return await handleSiteImagesList();
+    case "siteImages:update":
+      return await handleSiteImagesUpdate(req);
     default:
       return json({ ok: false, error: "unknown_action" }, 404);
   }

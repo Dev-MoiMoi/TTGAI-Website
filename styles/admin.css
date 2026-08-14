@@ -1395,6 +1395,237 @@
   color: #f59e0b;
 }
 
+/* ── Site Images tab ─────────────────────────────────────────────────────── */
+.adm-si-section {
+  margin-bottom: 2rem;
+}
+
+.adm-si-section-hd {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.adm-si-section-title {
+  font-size: 1.05rem;
+  color: #1e293b;
+}
+
+.adm-si-section-count {
+  background: #eef2ff;
+  color: #4338ca;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 50px;
+  padding: 0.15rem 0.6rem;
+}
+
+.adm-si-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.adm-si-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.adm-si-card--dirty {
+  border-color: #f59e0b;
+}
+
+.adm-si-thumb {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: #f1f5f9;
+}
+
+.adm-si-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.adm-si-thumb-empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.adm-si-upload-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.adm-si-upload-progress {
+  background: #fff;
+  color: #1e293b;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 50px;
+  padding: 0.35rem 0.9rem;
+}
+
+.adm-si-card-body {
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.adm-si-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.adm-si-slug {
+  font-size: 0.72rem;
+  color: #64748b;
+  background: #f1f5f9;
+  border-radius: 6px;
+  padding: 0.15rem 0.45rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adm-si-input {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.82rem;
+  color: #1e293b;
+}
+
+.adm-si-input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.adm-si-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.adm-si-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #475569;
+  border-radius: 8px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.adm-si-btn:hover:not(:disabled) {
+  background: #f1f5f9;
+}
+
+.adm-si-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.adm-si-btn--upload {
+  color: #4338ca;
+  border-color: #c7d2fe;
+}
+
+.adm-si-btn--save {
+  background: #4f46e5;
+  border-color: #4f46e5;
+  color: #fff;
+}
+
+.adm-si-btn--save:hover:not(:disabled) {
+  background: #4338ca;
+}
+
+.adm-si-error {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #dc2626;
+}
+
+.adm-si-notice {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #059669;
+  font-weight: 600;
+}
+
+/* ── Newsletter modal cover image ─────────────────────────────────────────── */
+.adm-edit-image-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.adm-edit-image-row .adm-edit-input {
+  flex: 1;
+}
+
+.adm-edit-upload-btn {
+  border: 1px solid #c7d2fe;
+  background: #eef2ff;
+  color: #4338ca;
+  border-radius: 8px;
+  padding: 0 1rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.adm-edit-upload-btn:hover:not(:disabled) {
+  background: #e0e7ff;
+}
+
+.adm-edit-upload-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.adm-edit-image-preview {
+  margin-top: 0.5rem;
+  max-width: 220px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.adm-edit-image-preview img {
+  width: 100%;
+  display: block;
+}
+
 /* ── Responsive ────────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .adm-page { flex-direction: column; }

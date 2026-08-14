@@ -4,12 +4,14 @@ import '../styles/linkages.css';
 import pncLogo from '../assets/Linkages/PnC Logo.jpg';
 import cabuyaoLogo from '../assets/Linkages/Cabuyao Logo.png';
 import buscowitzLogo from '../assets/Linkages/Buskowitz.png';
+import { useSiteImages } from '../lib/siteImages';
 
 /* ─── Corporate Sponsors Data ─────────────────────────────────────────────── */
 const SPONSORS = [
     {
         name: 'GMV Corporation',
         person: 'Jun Valerio',
+        slug: 'gmv',
         logo: 'https://images.squarespace-cdn.com/content/v1/62eb33c6069f4814c6f2f5d2/7bf7e610-a89b-4b14-bd84-bb4f4e22c454/GMV+NEW+LOGO.png',
         website: 'https://www.gmv.com.ph',
         description: 'Premium provider of products and services for the Philippine Semiconductor and Electronics Industry for over 30 years. Based in Biñan, Laguna.',
@@ -19,6 +21,7 @@ const SPONSORS = [
     {
         name: 'Fastech Synergy Philippines',
         person: 'Primo "Jon" Mateo Jr.',
+        slug: 'fastech',
         logo: 'https://www.fastechsynergy.com/static/392877dc29c603e438f3e5da63b04bf6/a82c6/fastech-logo.png',
         website: 'https://www.fastechsynergy.com',
         description: 'Leading Philippine semiconductor manufacturing company recognized for expertise in power semiconductor components and RF/Microwave modules. Based in Cabuyao, Laguna.',
@@ -28,6 +31,7 @@ const SPONSORS = [
     {
         name: 'Buscowitz Energy',
         person: null,
+        slug: 'buscowitz',
         logo: buscowitzLogo,
         website: 'https://www.buskowitz.com',
         description: 'One of the leading solar energy companies in the Philippines, providing sustainable and renewable energy solutions. Organized the "Swing for a Cause" charity golf tournament benefiting PKI.',
@@ -37,6 +41,7 @@ const SPONSORS = [
     {
         name: 'SEIPI',
         person: 'Dr. Danilo Lachica',
+        slug: 'seipi',
         logo: 'https://seipi.org.ph/wp-content/uploads/elementor/thumbs/SEIPI-LOGO-qrmf087iuvkqfehukvhwsz242l482k8oyn0gynkkkg.png',
         website: 'https://seipi.org.ph',
         description: 'Semiconductor & Electronics Industries in the Philippines Foundation, Inc. — the largest organization of foreign and Filipino electronics companies in the Philippines. Industry partner and supporter of PKI.',
@@ -132,6 +137,13 @@ const LogoCard = ({ sponsor }) => {
 
 /* ─── Main Component ──────────────────────────────────────────────────────── */
 const Linkages = () => {
+    const siteImages = useSiteImages();
+
+    const sponsors = SPONSORS.map((s) =>
+        s.slug ? { ...s, logo: siteImages[`linkages_${s.slug}`] || s.logo } : s
+    );
+    const academicLogo = siteImages.linkages_pnc || pncLogo;
+
     return (
         <div className="linkages-page">
 
@@ -173,7 +185,7 @@ const Linkages = () => {
                         </div>
                     </div>
                     <div className="lk-sponsors-grid">
-                        {SPONSORS.map((s, i) => <LogoCard key={i} sponsor={s} />)}
+                        {sponsors.map((s, i) => <LogoCard key={`${s.slug || i}-${s.logo}`} sponsor={s} />)}
                     </div>
                 </div>
             </section>
@@ -190,7 +202,7 @@ const Linkages = () => {
 
                     <div className="lk-academic-card">
                         <div className="lk-academic-logo-wrap">
-                            <img src={pncLogo} alt="Pamantasan ng Cabuyao Logo" className="lk-academic-logo" />
+                            <img src={academicLogo} alt="Pamantasan ng Cabuyao Logo" className="lk-academic-logo" />
                         </div>
                         <div className="lk-academic-body">
                             <div className="lk-academic-badges">

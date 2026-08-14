@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../styles/team.css';
 import placeholderMember from '../assets/5.jpg';
 import benefactor1 from '../assets/1.jpg';
+import { useSiteImages, siteImageSlug } from '../lib/siteImages';
 
 /* ─── Trustee photos ─────────────────────────────────────────────────────── */
 import photoJonMateo from '../assets/Trustees/Jon Mateo.jpg';
@@ -20,6 +21,9 @@ const Team = () => {
     const [selectedMember, setSelectedMember] = useState(null);
     const [search, setSearch] = useState('');
     const [activeFilter, setActiveFilter] = useState('All');
+    const siteImages = useSiteImages();
+    const teamPlaceholderImg = siteImages.team_placeholder || placeholderMember;
+    const teamImgFor = (name) => siteImages[`team_${siteImageSlug(name)}`] || '';
 
     useEffect(() => {
         const obs = new IntersectionObserver((entries) => {
@@ -297,7 +301,7 @@ const Team = () => {
                                 onClick={() => handleMemberClick(m)}
                             >
                                 <div className="tm-board-avatar-wrap">
-                                    <img src={m.photo || placeholderMember} alt={m.name} className="tm-board-avatar" />
+                                    <img src={m.photo || teamImgFor(m.name) || teamPlaceholderImg} alt={m.name} className="tm-board-avatar" />
                                 </div>
                                 <h3 className="tm-board-name">{m.name}</h3>
                                 <p className="tm-board-role">{m.role}</p>
@@ -323,7 +327,7 @@ const Team = () => {
                                 onClick={() => handleMemberClick(m)}
                             >
                                 <div className="tm-team-avatar-wrap">
-                                    <img src={m.photo || placeholderMember} alt={m.name} className="tm-team-avatar" />
+                                    <img src={m.photo || teamImgFor(m.name) || teamPlaceholderImg} alt={m.name} className="tm-team-avatar" />
                                 </div>
                                 <h3 className="tm-team-name">{m.name}</h3>
                                 <p className="tm-team-role">{m.role}</p>
@@ -350,7 +354,7 @@ const Team = () => {
                         {batchOne.map((s, i) => (
                             <div key={`b1-${i}`} className={`tm-scholar-card${s.position ? ' tm-scholar-card--officer' : ''}`}>
                                 <div className="tm-scholar-avatar-wrap">
-                                    <img src={SCHOLAR_PHOTOS[s.name] || placeholderMember} alt={s.name} className="tm-scholar-avatar" />
+                                    <img src={SCHOLAR_PHOTOS[s.name] || teamImgFor(s.name) || teamPlaceholderImg} alt={s.name} className="tm-scholar-avatar" />
                                     {s.position && <span className="tm-officer-badge">{s.position}</span>}
                                 </div>
                                 <h3 className="tm-scholar-name">{s.name}</h3>
@@ -369,7 +373,7 @@ const Team = () => {
                         {batchTwo.map((s, i) => (
                             <div key={`b2-${i}`} className="tm-scholar-card">
                                 <div className="tm-scholar-avatar-wrap">
-                                    <img src={SCHOLAR_PHOTOS[s.name] || placeholderMember} alt={s.name} className="tm-scholar-avatar" />
+                                    <img src={SCHOLAR_PHOTOS[s.name] || teamImgFor(s.name) || teamPlaceholderImg} alt={s.name} className="tm-scholar-avatar" />
                                 </div>
                                 <h3 className="tm-scholar-name">{s.name}</h3>
                                 <p className="tm-scholar-course">{s.course}</p>
@@ -391,7 +395,7 @@ const Team = () => {
                     <div className="tm-benefactors-list" ref={addToRefs}>
                         {benefactors.map((b, i) => (
                             <div key={i} className="tm-benefactor-row" onClick={() => handleMemberClick(b)}>
-                                <img src={b.image} alt={b.name} className="tm-benefactor-avatar" />
+                                <img src={teamImgFor(b.name) || b.image} alt={b.name} className="tm-benefactor-avatar" />
                                 <div className="tm-benefactor-info">
                                     <span className="tm-benefactor-name">{b.name}</span>
                                     <span className="tm-benefactor-role">{b.role}</span>
@@ -422,7 +426,7 @@ const Team = () => {
                     <div className="modal-content" onClick={e => e.stopPropagation()}>
                         <button className="modal-close" onClick={closeModal}>&times;</button>
                         <div className="modal-header">
-                            <img src={selectedMember.image || placeholderMember} alt={selectedMember.name} className="modal-avatar" />
+                            <img src={selectedMember.image || teamImgFor(selectedMember.name) || teamPlaceholderImg} alt={selectedMember.name} className="modal-avatar" />
                             <div>
                                 <h3>{selectedMember.details?.title || selectedMember.name}</h3>
                                 <p className="modal-role">{selectedMember.details?.position || selectedMember.role}</p>
