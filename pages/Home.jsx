@@ -22,10 +22,34 @@ import ethics1 from '../assets/Ethics Seminar/679770527_1629939499136462_8784497
 import ethics2 from '../assets/Ethics Seminar/680216454_1629939552469790_6476341565189612828_n.jpg';
 import ethics3 from '../assets/Ethics Seminar/679618311_1629939532469792_2245372649445564062_n.jpg';
 
+/* ── Batch 1 Graduates images ── */
+import batch1Grad1 from '../assets/Batch 1 Graduates/Daniel Matthew Benegas.png';
+import batch1Grad2 from '../assets/Batch 1 Graduates/Ghia Mariz Estorgio.png';
+import batch1Grad3 from '../assets/Batch 1 Graduates/Harold Magpantay.png';
+import batch1Grad4 from '../assets/Batch 1 Graduates/Jerico Alintanahin.png';
+import batch1Grad5 from '../assets/Batch 1 Graduates/Jhon Rod Mhar Suario.png';
+import batch1Grad6 from '../assets/Batch 1 Graduates/Lorenzo Chancey Dapan.png';
+import batch1Grad7 from '../assets/Batch 1 Graduates/Paula Vidal.png';
+import batch1Grad8 from '../assets/Batch 1 Graduates/Pauline Alcones.png';
+import batch1Grad9 from '../assets/Batch 1 Graduates/Ryven Villar.png';
+
+const BATCH1_NAMES = [
+    'Daniel Matthew Benegas',
+    'Ghia Mariz Estorgio',
+    'Harold Magpantay',
+    'Jerico Alintanahin',
+    'Jhon Rod Mhar Suario',
+    'Lorenzo Chancey Dapan',
+    'Paula Vidal',
+    'Pauline Alcones',
+    'Ryven Villar',
+];
+
 const Home = () => {
     const [openFaq, setOpenFaq] = useState(null);
     const [earthDayIdx, setEarthDayIdx] = useState(0);
     const [ethicsIdx, setEthicsIdx] = useState(0);
+    const [batch1Idx, setBatch1Idx] = useState(0);
     const siteImages = useSiteImages();
 
     const earthDayPhotos = [
@@ -41,6 +65,17 @@ const Home = () => {
         siteImages.ethics_seminar_2 || ethics2,
         siteImages.ethics_seminar_3 || ethics3,
     ];
+    const batch1Photos = [
+        siteImages.batch1_grad_1 || batch1Grad1,
+        siteImages.batch1_grad_2 || batch1Grad2,
+        siteImages.batch1_grad_3 || batch1Grad3,
+        siteImages.batch1_grad_4 || batch1Grad4,
+        siteImages.batch1_grad_5 || batch1Grad5,
+        siteImages.batch1_grad_6 || batch1Grad6,
+        siteImages.batch1_grad_7 || batch1Grad7,
+        siteImages.batch1_grad_8 || batch1Grad8,
+        siteImages.batch1_grad_9 || batch1Grad9,
+    ];
     const heroBg = siteImages.home_hero || img4;
     const spot1 = siteImages.home_spot_1 || img1;
     const spot2 = siteImages.home_spot_2 || img2;
@@ -54,7 +89,8 @@ const Home = () => {
     useEffect(() => {
         const t1 = setInterval(() => setEarthDayIdx((i) => (i + 1) % 6), 4000);
         const t2 = setInterval(() => setEthicsIdx((i) => (i + 1) % 3), 5000);
-        return () => { clearInterval(t1); clearInterval(t2); };
+        const t3 = setInterval(() => setBatch1Idx((i) => (i + 1) % 9), 4000);
+        return () => { clearInterval(t1); clearInterval(t2); clearInterval(t3); };
     }, []);
 
     return (
@@ -257,6 +293,56 @@ const Home = () => {
                                     <span className="home-event-highlight"><strong>PKI</strong> Exclusive</span>
                                     <span className="home-event-highlight"><strong>Dr. Bulaong</strong> Facilitator</span>
                                     <span className="home-event-highlight"><strong>PLS</strong> Partnership</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* ── Batch 1 Graduates ── */}
+                        <div className="home-event-card">
+                            <div className="home-event-carousel">
+                                {batch1Photos.map((src, i) => (
+                                    <img
+                                        key={i}
+                                        src={src}
+                                        alt={`Batch 1 Graduate — ${BATCH1_NAMES[i]}`}
+                                        className={`home-event-img ${i === batch1Idx ? 'active' : ''}`}
+                                    />
+                                ))}
+                                <div className="home-event-dots">
+                                    {batch1Photos.map((_, i) => (
+                                        <button
+                                            key={i}
+                                            className={`home-event-dot ${i === batch1Idx ? 'active' : ''}`}
+                                            onClick={() => setBatch1Idx(i)}
+                                            aria-label={`View photo ${i + 1}`}
+                                        />
+                                    ))}
+                                </div>
+                                <span className="home-event-tag home-event-tag--gold">
+                                    <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                                    MILESTONE
+                                </span>
+                            </div>
+                            <div className="home-event-body">
+                                <div className="home-event-date-row">
+                                    <span className="home-event-date">
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                        Batch Sinag at Dangal
+                                    </span>
+                                    <span className="home-event-location">
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        Pamantasan ng Cabuyao
+                                    </span>
+                                </div>
+                                <h3>Batch 1 Graduates of Pabaon Kay Iskolar</h3>
+                                <p>
+                                    Meet the first nine graduates of Batch Sinag at Dangal — the first light of hope.
+                                    Their journey from scholars to graduates is the mission of TTGAI made real.
+                                </p>
+                                <div className="home-event-highlights">
+                                    <span className="home-event-highlight"><strong>9</strong> Graduates</span>
+                                    <span className="home-event-highlight"><strong>Batch 1</strong> Sinag at Dangal</span>
+                                    <span className="home-event-highlight"><strong>2026</strong> Milestone</span>
                                 </div>
                             </div>
                         </div>

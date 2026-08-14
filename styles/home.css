@@ -312,7 +312,7 @@
 
 .home-events-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
 }
 
@@ -406,6 +406,11 @@
 
 .home-event-tag--blue {
     background: rgba(59, 130, 246, 0.85);
+    color: #fff;
+}
+
+.home-event-tag--gold {
+    background: rgba(217, 164, 6, 0.92);
     color: #fff;
 }
 
@@ -779,6 +784,10 @@
 }
 
 /* ═══════════ RESPONSIVE ═══════════ */
+@media (max-width: 1120px) {
+    .home-events-grid { grid-template-columns: 1fr 1fr; max-width: 860px; margin: 0 auto; }
+}
+
 @media (max-width: 900px) {
     .home-driving-inner { grid-template-columns: 1fr; gap: 2.5rem; }
     .home-spotlight-grid { grid-template-columns: 1fr 1fr; }
