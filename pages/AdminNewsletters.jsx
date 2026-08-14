@@ -752,8 +752,14 @@ const SubscribersTab = () => {
 ════════════════════════════════════════════ */
 const AdminNewsletters = () => {
   const [authed, setAuthed] = useState(isSessionValid());
-  const [tab, setTab] = useState('newsletters');
+  const [tab, setTab] = useState(() => localStorage.getItem('adm_tab') || 'dashboard');
   const [maintenanceModal, setMaintenanceModal] = useState(null); // { name: string, icon: JSX }
+
+  // Persist the active tab so a refresh lands on the same page (default: dashboard).
+  const switchTab = useCallback((next) => {
+    setTab(next);
+    localStorage.setItem('adm_tab', next);
+  }, []);
 
   // Auto‑expire session after 30 minutes of inactivity
   useEffect(() => {
@@ -789,14 +795,14 @@ const AdminNewsletters = () => {
           <span className="adm-sidebar-name">TTGAI ADMIN</span>
         </div>
         <div className="adm-nav-menu">
-          <button className={`adm-nav-link ${tab === 'dashboard' ? 'active' : ''}`} onClick={() => setTab('dashboard')}><IconDashboard /> Dashboard</button>
-          <button className={`adm-nav-link ${tab === 'newsletters' ? 'active' : ''}`} onClick={() => setTab('newsletters')}>
+          <button className={`adm-nav-link ${tab === 'dashboard' ? 'active' : ''}`} onClick={() => switchTab('dashboard')}><IconDashboard /> Dashboard</button>
+          <button className={`adm-nav-link ${tab === 'newsletters' ? 'active' : ''}`} onClick={() => switchTab('newsletters')}>
             <IconNews /> Manage Newsletters
           </button>
-          <button className={`adm-nav-link ${tab === 'site-images' ? 'active' : ''}`} onClick={() => setTab('site-images')}>
+          <button className={`adm-nav-link ${tab === 'site-images' ? 'active' : ''}`} onClick={() => switchTab('site-images')}>
             <IconImage /> Site Images
           </button>
-          <button className={`adm-nav-link ${tab === 'subscribers' ? 'active' : ''}`} onClick={() => setTab('subscribers')}>
+          <button className={`adm-nav-link ${tab === 'subscribers' ? 'active' : ''}`} onClick={() => switchTab('subscribers')}>
             <IconUsers /> Subscribers
           </button>
           <button className="adm-nav-link" onClick={() => setMaintenanceModal({ name: 'Analytics', icon: <IconAnalytics /> })}><IconAnalytics /> Analytics</button>
@@ -839,7 +845,7 @@ const AdminNewsletters = () => {
 
          {/* Main content body */}
          <main className="adm-main">
-            {tab === 'dashboard' && <DashboardTab onNavigate={setTab} />}
+            {tab === 'dashboard' && <DashboardTab onNavigate={switchTab} />}
             {tab === 'newsletters' && <NewslettersTab />}
             {tab === 'site-images' && <SiteImagesTab />}
             {tab === 'subscribers' && <SubscribersTab />}
