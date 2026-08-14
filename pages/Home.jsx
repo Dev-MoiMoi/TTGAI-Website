@@ -50,6 +50,7 @@ const Home = () => {
     const [earthDayIdx, setEarthDayIdx] = useState(0);
     const [ethicsIdx, setEthicsIdx] = useState(0);
     const [batch1Idx, setBatch1Idx] = useState(0);
+    const [lightbox, setLightbox] = useState(null); // { photos, index, title, captions }
     const siteImages = useSiteImages();
 
     const earthDayPhotos = [
@@ -81,6 +82,14 @@ const Home = () => {
     const spot2 = siteImages.home_spot_2 || img2;
     const spot3 = siteImages.home_spot_3 || img3;
 
+    const earthDayCaptions = earthDayPhotos.map((_, i) => `Earth Day 2026 — Photo ${i + 1}`);
+    const ethicsCaptions = ethicsPhotos.map((_, i) => `Ethical Leadership Workshop — Photo ${i + 1}`);
+    const batch1Captions = batch1Photos.map((_, i) => `Batch 1 Graduate — ${BATCH1_NAMES[i]}`);
+
+    const openLightbox = (photos, index, title, captions) => setLightbox({ photos, index, title, captions });
+    const closeLightbox = () => setLightbox(null);
+    const goLightbox = (delta) => setLightbox((lb) => (lb ? { ...lb, index: (lb.index + delta + lb.photos.length) % lb.photos.length } : lb));
+
     const toggleFaq = (index) => {
         setOpenFaq(openFaq === index ? null : index);
     };
@@ -92,6 +101,23 @@ const Home = () => {
         const t3 = setInterval(() => setBatch1Idx((i) => (i + 1) % 9), 4000);
         return () => { clearInterval(t1); clearInterval(t2); clearInterval(t3); };
     }, []);
+
+    /* Lightbox: ESC closes, arrow keys navigate, body scroll locked while open */
+    useEffect(() => {
+        if (!lightbox) return;
+        const prevOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        const onKey = (e) => {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') goLightbox(1);
+            if (e.key === 'ArrowLeft') goLightbox(-1);
+        };
+        window.addEventListener('keydown', onKey);
+        return () => {
+            document.body.style.overflow = prevOverflow;
+            window.removeEventListener('keydown', onKey);
+        };
+    }, [lightbox]);
 
     return (
         <>
@@ -204,6 +230,7 @@ const Home = () => {
                                         src={src}
                                         alt={`Earth Day 2026 — Photo ${i + 1}`}
                                         className={`home-event-img ${i === earthDayIdx ? 'active' : ''}`}
+                                        onClick={() => openLightbox(earthDayPhotos, i, 'Earth Day 2026 Celebration', earthDayCaptions)}
                                     />
                                 ))}
                                 <div className="home-event-dots">
@@ -255,6 +282,7 @@ const Home = () => {
                                         src={src}
                                         alt={`Ethical Leadership Workshop — Photo ${i + 1}`}
                                         className={`home-event-img ${i === ethicsIdx ? 'active' : ''}`}
+                                        onClick={() => openLightbox(ethicsPhotos, i, 'Ethical Leadership Workshop', ethicsCaptions)}
                                     />
                                 ))}
                                 <div className="home-event-dots">
@@ -306,6 +334,7 @@ const Home = () => {
                                         src={src}
                                         alt={`Batch 1 Graduate — ${BATCH1_NAMES[i]}`}
                                         className={`home-event-img ${i === batch1Idx ? 'active' : ''}`}
+                                        onClick={() => openLightbox(batch1Photos, i, 'Batch 1 Graduates of Pabaon Kay Iskolar', batch1Captions)}
                                     />
                                 ))}
                                 <div className="home-event-dots">
@@ -491,6 +520,30 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
+            {/* ── Photo Lightbox (Latest Activity) ── */}
+            {lightbox && (
+                <div className="home-lightbox" onClick={closeLightbox} role="dialog" aria-modal="true" aria-label={lightbox.title}>
+                    <button className="home-lightbox-close" onClick={closeLightbox} aria-label="Close">×</button>
+                    <button
+                        className="home-lightbox-nav home-lightbox-nav--prev"
+                        onClick={(e) => { e.stopPropagation(); goLightbox(-1); }}
+                        aria-label="Previous photo"
+                    >‹</button>
+                    <div className="home-lightbox-main" onClick={(e) => e.stopPropagation()}>
+                        <img src={lightbox.photos[lightbox.index]} alt={lightbox.captions[lightbox.index]} />
+                        <div className="home-lightbox-caption">
+                            <h4>{lightbox.title}</h4>
+                            <span>{lightbox.captions[lightbox.index]} — {lightbox.index + 1} / {lightbox.photos.length}</span>
+                        </div>
+                    </div>
+                    <button
+                        className="home-lightbox-nav home-lightbox-nav--next"
+                        onClick={(e) => { e.stopPropagation(); goLightbox(1); }}
+                        aria-label="Next photo"
+                    >›</button>
+                </div>
+            )}
         </>
     );
 };
