@@ -24,7 +24,9 @@ import { SignJWT, jwtVerify } from "npm:jose@5";
  *   - newsletter:update POST { id, ...fields }      -> updates allowed fields
  *   - newsletter:delete POST { id }
  *   - siteImages:list   GET  (Bearer token)   -> all replaceable site image slots
- *   - siteImages:update POST { slug, image_url }    -> set/clear a slot's image
+ *   - siteImages:create POST { slug, label, section, image_url } -> add a slot
+ *   - siteImages:update POST { slug, label?, section?, image_url? } -> edit a slot
+ *   - siteImages:delete POST { slug }          -> remove a slot
  *   - dashboard:stats   GET  (Bearer token)   -> aggregate KPIs for the admin dashboard
  */
 
@@ -318,7 +320,12 @@ async function handleSiteImagesUpdate(req: Request): Promise<Response> {
   const slug = typeof body.slug === "string" ? body.slug.trim() : "";
   if (!slug) return json({ ok: false, error: "missing_slug" }, 400);
 
-  const imageUrl = sanitizeImageUrl(body.image_url);
+  const updates: Record<string, unknown> = {
+    updated_at: new Date().toISOString(),
+  };
+  if (typeof body.image_url === "string") updates.image_url = sanitizeImageUrl(body.image_url);
+  if (typeof body.label === "string") updates.label = body.label.trim().slice(0, 120);
+  if (typeof body.section === "string") updates.section = body.section.trim().slice(0, 60);
 
   const { data: existing, error: fetchError } = await supabase
     .from("site_images")
@@ -329,11 +336,79 @@ async function handleSiteImagesUpdate(req: Request): Promise<Response> {
 
   const { data, error } = await supabase
     .from("site_images")
-    .update({ image_url: imageUrl, updated_at: new Date().toISOString() })
+    .update(updates)
     .eq("slug", slug)
     .select();
   if (error) return json({ ok: false, error: error.message }, 500);
   return json({ ok: true, data: data?.[0] });
+}
+
+/* Slugs must match what the site's slug generator produces (lowercase
+   alphanumerics and underscores) — see siteImageSlug() in lib/siteImages.js. */
+const SLUG_RE = /^[a-z0-9_]{1,64}$/;
+
+async function handleSiteImagesCreate(req: Request): Promise<Response> {
+  if (req.method !== "POST") return json({ ok: false, error: "method_not_allowed" }, 405);
+
+  let body: Record<string, unknown>;
+  try {
+    body = await req.json();
+  } catch {
+    return json({ ok: false, error: "bad_request" }, 400);
+  }
+
+  const slug = typeof body.slug === "string" ? body.slug.trim() : "";
+  if (!slug) return json({ ok: false, error: "missing_slug" }, 400);
+  if (!SLUG_RE.test(slug)) return json({ ok: false, error: "invalid_slug" }, 400);
+
+  const label = typeof body.label === "string" ? body.label.trim().slice(0, 120) : "";
+  if (!label) return json({ ok: false, error: "missing_label" }, 400);
+
+  const section = typeof body.section === "string" && body.section.trim()
+    ? body.section.trim().slice(0, 60)
+    : "General";
+
+  const payload = {
+    slug,
+    label,
+    section,
+    image_url: sanitizeImageUrl(body.image_url),
+  };
+
+  const { data, error } = await supabase.from("site_images").insert([payload]).select();
+  if (error) {
+    // Unique violation on slug -> friendly error.
+    if (/duplicate key value violates unique constraint/.test(error.message)) {
+      return json({ ok: false, error: "duplicate_slug" }, 409);
+    }
+    return json({ ok: false, error: error.message }, 500);
+  }
+  return json({ ok: true, data: data?.[0] });
+}
+
+async function handleSiteImagesDelete(req: Request): Promise<Response> {
+  if (req.method !== "POST") return json({ ok: false, error: "method_not_allowed" }, 405);
+
+  let body: Record<string, unknown>;
+  try {
+    body = await req.json();
+  } catch {
+    return json({ ok: false, error: "bad_request" }, 400);
+  }
+
+  const slug = typeof body.slug === "string" ? body.slug.trim() : "";
+  if (!slug) return json({ ok: false, error: "missing_slug" }, 400);
+
+  const { data: existing, error: fetchError } = await supabase
+    .from("site_images")
+    .select("slug")
+    .eq("slug", slug);
+  if (fetchError) return json({ ok: false, error: fetchError.message }, 500);
+  if (!existing || existing.length === 0) return json({ ok: false, error: "unknown_slug" }, 404);
+
+  const { error } = await supabase.from("site_images").delete().eq("slug", slug);
+  if (error) return json({ ok: false, error: error.message }, 500);
+  return json({ ok: true, data: { slug } });
 }
 
 function isoDaysAgo(days: number): string {
@@ -470,8 +545,12 @@ Deno.serve(async (req) => {
       return await handleNewsletterDelete(req);
     case "siteImages:list":
       return await handleSiteImagesList();
+    case "siteImages:create":
+      return await handleSiteImagesCreate(req);
     case "siteImages:update":
       return await handleSiteImagesUpdate(req);
+    case "siteImages:delete":
+      return await handleSiteImagesDelete(req);
     case "dashboard:stats":
       return await handleDashboardStats();
     default:

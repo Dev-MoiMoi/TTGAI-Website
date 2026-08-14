@@ -1680,6 +1680,48 @@
 }
 
 /* ── Site Images tab ─────────────────────────────────────────────────────── */
+.adm-page-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.adm-si-card-actions {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  gap: 0.35rem;
+}
+
+.adm-si-icon-btn {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.65);
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.adm-si-icon-btn:hover {
+  background: rgba(15, 23, 42, 0.85);
+}
+
+.adm-si-icon-btn--danger:hover {
+  background: #dc2626;
+}
+
+.adm-si-hint {
+  margin: 0.35rem 0 0;
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
 .adm-si-section {
   margin-bottom: 2rem;
 }
