@@ -86,25 +86,25 @@ const Team = () => {
 
     const batchOne = [
         { name: "Daniel Matthew Benegas", course: "BS Computer Science", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Dream big, work hard.", position: "President" },
+        { name: "Justin Harvy C. Tapay", course: "BSED-Social Science", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Learning never stops.", position: "Vice President" },
         { name: "Joemhir Keil P. Badilla", course: "BEED", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Education empowers.", position: "Secretary" },
+        { name: "Jana Pauline D. Alcones", course: "BSED-Social Studies", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Building a better tomorrow." },
+        { name: "Jericho B. Alintanahin", course: "BS Nursing", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Healing with a smile." },
+        { name: "John Rico T. Añover", course: "BSED Social studies", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "History is our guide." },
+        { name: "Enrique Bague III", course: "BS Nursing", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "To serve and heal." },
+        { name: "Charles Jabriel D. Beato", course: "BS Nursing", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Compassion first." },
+        { name: "Ashzel Roi M. Caluit", course: "BSBA - Marketing", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Strategy meets creativity." },
+        { name: "Jefferson M. Caparas", course: "BSED-English", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Keep moving forward." },
+        { name: "Lorenzo Chauncey L. Dapan", course: "BS Accountancy", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Balance in all things." },
         { name: "Ghia Mariz Estorgio", course: "BS Nursing", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Caring hands, glowing heart." },
         { name: "Moises Fatal Jr.", course: "BS Computer Science", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Code is poetry." },
-        { name: "Enrique Bague III", course: "BS Nursing", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "To serve and heal." },
-        { name: "John Rico T. Añover", course: "BSED Social studies", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "History is our guide." },
-        { name: "Charles Jabriel D. Beato", course: "BS Nursing", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Compassion first." },
         { name: "Jaidel C. Flores", course: "BS Computer Science", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Innovating the future." },
-        { name: "Paula T. Vidal", course: "BS Psychology", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Understanding mind and soul." },
         { name: "Lindsay R. Laudato", course: "BSED Filipino", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Wika ng pag-asa." },
+        { name: "Harold V. Magpantay", course: "BSED - Mathematics", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Numbers don't lie." },
         { name: "Chelseah Nicole B. Mamplata", course: "BSED English", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Words have power." },
         { name: "John Rod Mhar M. Suario", course: "BS Information Technology", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Connecting the world." },
-        { name: "Lorenzo Chauncey L. Dapan", course: "BS Accountancy", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Balance in all things." },
-        { name: "Jefferson M. Caparas", course: "BSED-English", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Keep moving forward." },
-        { name: "Justin Harvy C. Tapay", course: "BSED-Social Science", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Learning never stops.", position: "Vice President" },
-        { name: "Jericho B. Alintanahin", course: "BS Nursing", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Healing with a smile." },
-        { name: "Ashzel Roi M. Caluit", course: "BSBA - Marketing", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Strategy meets creativity." },
-        { name: "Ryven B. Villar", course: "BEED", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Teaching is passion." },
-        { name: "Harold V. Magpantay", course: "BSED - Mathematics", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Numbers don't lie." },
-        { name: "Jana Pauline D. Alcones", course: "BSED-Social Studies", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Building a better tomorrow." }
+        { name: "Paula T. Vidal", course: "BS Psychology", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Understanding mind and soul." },
+        { name: "Ryven B. Villar", course: "BEED", batch: "Batch Sinag", school: "Pamantasan ng Cabuyao", quote: "Teaching is passion." }
     ];
 
     const batchTwo = [

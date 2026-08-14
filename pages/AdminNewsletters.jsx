@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { getAllSubscribers, getNewsletters, addNewsletter, updateNewsletter, deleteNewsletter } from '../lib/supabase';
+import { adminApi } from '../lib/admin';
 import { sendNewsletterNotify } from '../lib/emailjs';
 import {
   hashPassword,
@@ -10,17 +10,13 @@ import {
   createSession,
   destroySession,
   isSessionValid,
+  getSessionToken,
   refreshSession,
   sanitizeHTML,
   sanitizeName,
   sanitizeText,
 } from '../lib/security';
 import '../styles/admin.css';
-
-/* Pre‑computed SHA‑256 hash of the admin password.
-   The raw password is NEVER stored in the client bundle. */
-const PASS_HASH = import.meta.env.VITE_ADMIN_PASSWORD_HASH
-  || '1d60b980c1cc44ae13c091ada161e55288ab5f240fd27da604263bc131f0fe83';
 
 /* ════════════════════════════════════════════
    SVG Icons
@@ -53,6 +49,7 @@ const PasswordGate = ({ onAuth }) => {
   const [shaking, setShaking] = useState(false);
   const [lockInfo, setLockInfo] = useState(getLoginLockStatus());
   const [verifying, setVerifying] = useState(false);
+  const [networkError, setNetworkError] = useState(false);
 
   // Countdown timer when locked out
   useEffect(() => {
@@ -71,19 +68,27 @@ const PasswordGate = ({ onAuth }) => {
     if (status.locked) { setLockInfo(status); return; }
 
     setVerifying(true);
+    setNetworkError(false);
     try {
       const inputHash = await hashPassword(pw);
-      if (inputHash === PASS_HASH) {
-        resetLoginAttempts();
-        createSession();
-        onAuth();
-      } else {
+      const data = await adminApi.login(inputHash);
+      resetLoginAttempts();
+      createSession(data.token);
+      onAuth();
+    } catch (err) {
+      if (err.status === 429) {
+        setLockInfo({ locked: true, remainingSec: 300, attemptsLeft: 0 });
+        setPw('');
+      } else if (err.status === 401) {
         const result = recordFailedLogin();
         setLockInfo(result);
         setWrong(true);
         setShaking(true);
         setPw('');
         setTimeout(() => setShaking(false), 500);
+      } else {
+        setNetworkError(true);
+        setPw('');
       }
     } finally {
       setVerifying(false);
@@ -142,7 +147,7 @@ const PasswordGate = ({ onAuth }) => {
               className="adm-gate-input"
               placeholder="Enter admin password"
               value={pw}
-              onChange={(e) => { setPw(e.target.value); setWrong(false); }}
+              onChange={(e) => { setPw(e.target.value); setWrong(false); setNetworkError(false); }}
               disabled={lockInfo.locked || verifying}
               autoFocus
             />
@@ -182,6 +187,15 @@ const PasswordGate = ({ onAuth }) => {
                 <circle cx="12" cy="12" r="10" /><line x1="15" y1="9" x2="9" y2="15" /><line x1="9" y1="9" x2="15" y2="15" />
               </svg>
               Incorrect password. {lockInfo.attemptsLeft} attempt{lockInfo.attemptsLeft !== 1 ? 's' : ''} remaining.
+            </div>
+          )}
+
+          {networkError && (
+            <div className="adm-gate-error">
+              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" /><line x1="15" y1="9" x2="9" y2="15" /><line x1="9" y1="9" x2="15" y2="15" />
+              </svg>
+              Could not reach the admin service. Check your connection and try again.
             </div>
           )}
 
@@ -240,7 +254,7 @@ const NewslettersTab = () => {
   const [sendProgress, setSendProgress] = useState({}); // { [id]: { sent, total, failed } }
 
   const fetchNewsletters = () => {
-    getNewsletters().then(setDbNls).catch(err => console.error('Fetch error:', err));
+    adminApi.listNewsletters(getSessionToken()).then(setDbNls).catch(err => console.error('Fetch error:', err));
   };
 
   useEffect(() => {
@@ -264,7 +278,7 @@ const NewslettersTab = () => {
   const handleNotify = async (newsletter) => {
     setState(newsletter.id, 'loading');
     try {
-      const allSubs = await getAllSubscribers();
+      const allSubs = await adminApi.getAllSubscribers(getSessionToken());
       const activeSubs = allSubs.filter(s => s.is_active === true || s.is_active === 'true' || s.is_active === null);
       
       setSubscribers(activeSubs);
@@ -320,7 +334,7 @@ const NewslettersTab = () => {
   };
 
   const handleApprove = async (id) => {
-    await updateNewsletter(id, { status: 'approved' });
+    await adminApi.updateNewsletter(getSessionToken(), id, { status: 'approved' });
     fetchNewsletters();
   };
 
@@ -333,7 +347,7 @@ const NewslettersTab = () => {
 
   const submitCreate = async (e) => {
     e.preventDefault();
-    await addNewsletter({
+    await adminApi.createNewsletter(getSessionToken(), {
       title: modal.editData.title,
       author: modal.editData.author,
       batch_year: modal.editData.batch_year,
@@ -365,7 +379,7 @@ const NewslettersTab = () => {
 
   const submitEdit = async (e) => {
     e.preventDefault();
-    await updateNewsletter(modal.newsletter.id, {
+    await adminApi.updateNewsletter(getSessionToken(), modal.newsletter.id, {
       title: modal.editData.title,
       author: modal.editData.author,
       batch_year: modal.editData.batch_year,
@@ -383,7 +397,7 @@ const NewslettersTab = () => {
   };
 
   const confirmDelete = async () => {
-    await deleteNewsletter(modal.newsletter.id);
+    await adminApi.deleteNewsletter(getSessionToken(), modal.newsletter.id);
     fetchNewsletters();
     setModal(null);
   };
@@ -605,7 +619,7 @@ const SubscribersTab = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    getAllSubscribers()
+    adminApi.getAllSubscribers(getSessionToken())
       .then(setSubs)
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));

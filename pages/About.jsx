@@ -4,6 +4,7 @@ import missionImg from '../assets/mission.jpg';
 import visionImg from '../assets/vision.jpg';
 import advocacyImg from '../assets/advocacy.jpg';
 import valueImg from '../assets/value.jpg';
+import aboutBg from '../assets/About bg.jpg';
 import '../styles/about.css';
 
 const About = () => {
@@ -38,7 +39,7 @@ const About = () => {
     return (
         <div className="about-page">
             {/* ── 1. Hero ── */}
-            <header className="about-hero">
+            <header className="about-hero" style={{ backgroundImage: `url(${aboutBg})` }}>
                 <div className="about-hero-inner">
                     <span className="about-hero-badge">Our Purpose</span>
                     <h1>Our Story of <span className="about-h1-accent">Purpose<br/>&amp; Passion</span></h1>

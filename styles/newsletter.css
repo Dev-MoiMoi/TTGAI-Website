@@ -233,6 +233,13 @@
     transition: transform 0.45s ease;
 }
 
+/* No-image fallback */
+.nl-card-cover-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a1232 0%, #1a2a5e 60%, #1e3170 100%);
+}
+
 .nl-card:hover .nl-card-cover-img {
     transform: scale(1.06);
 }
@@ -866,6 +873,14 @@
     object-fit: contain;
     display: block;
     max-height: 90vh;
+}
+
+/* No-image fallback in lightbox */
+.nl-lb-img-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 340px;
+    background: linear-gradient(135deg, #0a1232 0%, #1a2a5e 60%, #1e3170 100%);
 }
 
 /* Nav arrows */

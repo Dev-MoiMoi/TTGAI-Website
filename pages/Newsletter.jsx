@@ -58,7 +58,11 @@ const Lightbox = ({ article, allArticles, onClose }) => {
 
                 {/* Image */}
                 <div className="nl-lb-img-wrap">
-                    <img src={current.image} alt={current.title} className="nl-lb-img" />
+                    {current.image ? (
+                        <img src={current.image} alt={current.title} className="nl-lb-img" />
+                    ) : (
+                        <div className="nl-lb-img-placeholder" aria-hidden="true"></div>
+                    )}
                     {/* Nav arrows */}
                     <button className="nl-lb-nav nl-lb-prev" onClick={() => navigate(-1)} aria-label="Previous">‹</button>
                     <button className="nl-lb-nav nl-lb-next" onClick={() => navigate(1)} aria-label="Next">›</button>
@@ -120,7 +124,11 @@ const ArticleCard = ({ article, onOpen }) => (
     <article className="nl-card" onClick={() => onOpen(article)}>
         {/* Cover image */}
         <div className="nl-card-cover">
-            <img src={article.image} alt={article.title} className="nl-card-cover-img" />
+            {article.image ? (
+                <img src={article.image} alt={article.title} className="nl-card-cover-img" />
+            ) : (
+                <div className="nl-card-cover-placeholder" aria-hidden="true"></div>
+            )}
             <div className="nl-card-cover-overlay">
                 <span className="nl-card-zoom-icon">🔍</span>
             </div>
