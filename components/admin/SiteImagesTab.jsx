@@ -3,6 +3,7 @@ import { adminApi } from '../../lib/admin';
 import { getSessionToken } from '../../lib/security';
 import { uploadImage } from '../../lib/cloudinary';
 import { refreshSiteImages } from '../../lib/siteImages';
+import { defaultSiteImage } from '../../lib/defaultImages';
 
 const SECTION_ORDER = ['Hero / Background', 'Events', 'Team', 'Partners', 'General'];
 
@@ -23,7 +24,8 @@ const SlotCard = ({ slot, onSaved }) => {
   const fileRef = useRef(null);
 
   const dirty = (draft || '') !== (slot.image_url || '');
-  const preview = draft || slot.image_url || '';
+  const isDefault = !draft && !slot.image_url;
+  const preview = draft || slot.image_url || defaultSiteImage(slot.slug) || '';
 
   const handleFile = async (file) => {
     if (!file) return;
@@ -82,6 +84,7 @@ const SlotCard = ({ slot, onSaved }) => {
             <span>No image</span>
           </div>
         )}
+        {isDefault && preview && <span className="adm-si-default-badge">DEFAULT</span>}
         {uploading && (
           <div className="adm-si-upload-overlay">
             <div className="adm-si-upload-progress">{progress}%</div>
