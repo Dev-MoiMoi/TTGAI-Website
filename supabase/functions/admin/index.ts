@@ -25,6 +25,7 @@ import { SignJWT, jwtVerify } from "npm:jose@5";
  *   - newsletter:delete POST { id }
  *   - siteImages:list   GET  (Bearer token)   -> all replaceable site image slots
  *   - siteImages:update POST { slug, image_url }    -> set/clear a slot's image
+ *   - dashboard:stats   GET  (Bearer token)   -> aggregate KPIs for the admin dashboard
  */
 
 const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
@@ -335,6 +336,110 @@ async function handleSiteImagesUpdate(req: Request): Promise<Response> {
   return json({ ok: true, data: data?.[0] });
 }
 
+function isoDaysAgo(days: number): string {
+  return new Date(Date.now() - days * 86400000).toISOString();
+}
+
+function todayStartIso(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+async function countRows(table: string, filter?: Record<string, unknown>): Promise<number> {
+  const opts = { count: "exact" as const, head: true };
+  let q = supabase.from(table).select("*", opts);
+  if (filter) {
+    for (const [col, val] of Object.entries(filter)) q = q.eq(col, val);
+  }
+  const { count, error } = await q;
+  if (error) throw new Error(error.message);
+  return count ?? 0;
+}
+
+async function handleDashboardStats(): Promise<Response> {
+  try {
+    const [
+      subsTotal,
+      subsActive,
+      recentSubs,
+      nlsAll,
+      imgAll,
+    ] = await Promise.all([
+      countRows("subscribers"),
+      countRows("subscribers", { is_active: true }),
+      supabase.from("subscribers").select("email, name, subscribed_at, is_active")
+        .order("subscribed_at", { ascending: false }).limit(5),
+      supabase.from("newsletters").select("*").order("created_at", { ascending: false }),
+      supabase.from("site_images").select("slug, section, image_url"),
+    ]);
+
+    // Subscriber date-window counts.
+    const [todayRes, weekRes, monthRes] = await Promise.all([
+      supabase.from("subscribers").select("*", { count: "exact", head: true }).gte("subscribed_at", todayStartIso()),
+      supabase.from("subscribers").select("*", { count: "exact", head: true }).gte("subscribed_at", isoDaysAgo(7)),
+      supabase.from("subscribers").select("*", { count: "exact", head: true }).gte("subscribed_at", isoDaysAgo(30)),
+    ]);
+    if (todayRes.error || weekRes.error || monthRes.error || recentSubs.error || nlsAll.error || imgAll.error) {
+      throw new Error(todayRes.error?.message || weekRes.error?.message || monthRes.error?.message
+        || recentSubs.error?.message || nlsAll.error?.message || imgAll.error?.message);
+    }
+
+    const nls = nlsAll.data ?? [];
+    const approved = nls.filter((n) => n.status === "approved").length;
+    const pending = nls.filter((n) => n.status === "pending").length;
+
+    const byCategory: Record<string, number> = {};
+    const byBatch: Record<string, number> = {};
+    for (const n of nls) {
+      const cat = (n.category || "Uncategorized").trim();
+      byCategory[cat] = (byCategory[cat] || 0) + 1;
+      const batch = (n.batch_year || "Unknown").trim();
+      byBatch[batch] = (byBatch[batch] || 0) + 1;
+    }
+    const sortByCount = (m: Record<string, number>) =>
+      Object.entries(m).sort((a, b) => b[1] - a[1]).map(([label, count]) => ({ label, count }));
+
+    const imgs = imgAll.data ?? [];
+    const imgSections: Record<string, { filled: number; total: number }> = {};
+    for (const img of imgs) {
+      const sec = (img.section || "General").trim();
+      if (!imgSections[sec]) imgSections[sec] = { filled: 0, total: 0 };
+      imgSections[sec].total += 1;
+      if (img.image_url) imgSections[sec].filled += 1;
+    }
+
+    return json({
+      ok: true,
+      data: {
+        subscribers: {
+          total: subsTotal,
+          active: subsActive,
+          newToday: todayRes.count ?? 0,
+          newThisWeek: weekRes.count ?? 0,
+          newThisMonth: monthRes.count ?? 0,
+          recent: recentSubs.data ?? [],
+        },
+        newsletters: {
+          total: nls.length,
+          approved,
+          pending,
+          byCategory: sortByCount(byCategory),
+          byBatch: sortByCount(byBatch),
+          recent: nls.slice(0, 5),
+        },
+        siteImages: {
+          total: imgs.length,
+          filled: imgs.filter((i) => i.image_url).length,
+          bySection: Object.entries(imgSections)
+            .map(([section, v]) => ({ section, filled: v.filled, total: v.total }))
+            .sort((a, b) => b.filled / Math.max(b.total, 1) - a.filled / Math.max(a.total, 1)),
+        },
+      },
+    });
+  } catch (err) {
+    return json({ ok: false, error: err.message }, 500);
+  }
+}
+
 /* ── Router ──────────────────────────────────────────────── */
 
 Deno.serve(async (req) => {
@@ -367,6 +472,8 @@ Deno.serve(async (req) => {
       return await handleSiteImagesList();
     case "siteImages:update":
       return await handleSiteImagesUpdate(req);
+    case "dashboard:stats":
+      return await handleDashboardStats();
     default:
       return json({ ok: false, error: "unknown_action" }, 404);
   }

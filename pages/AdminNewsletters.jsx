@@ -18,6 +18,7 @@ import {
 } from '../lib/security';
 import '../styles/admin.css';
 import SiteImagesTab from '../components/admin/SiteImagesTab';
+import DashboardTab from '../components/admin/DashboardTab';
 import { uploadImage } from '../lib/cloudinary';
 
 /* ════════════════════════════════════════════
@@ -788,7 +789,7 @@ const AdminNewsletters = () => {
           <span className="adm-sidebar-name">TTGAI ADMIN</span>
         </div>
         <div className="adm-nav-menu">
-          <button className="adm-nav-link" onClick={() => setMaintenanceModal({ name: 'Dashboard', icon: <IconDashboard /> })}><IconDashboard /> Dashboard</button>
+          <button className={`adm-nav-link ${tab === 'dashboard' ? 'active' : ''}`} onClick={() => setTab('dashboard')}><IconDashboard /> Dashboard</button>
           <button className={`adm-nav-link ${tab === 'newsletters' ? 'active' : ''}`} onClick={() => setTab('newsletters')}>
             <IconNews /> Manage Newsletters
           </button>
@@ -838,6 +839,7 @@ const AdminNewsletters = () => {
 
          {/* Main content body */}
          <main className="adm-main">
+            {tab === 'dashboard' && <DashboardTab onNavigate={setTab} />}
             {tab === 'newsletters' && <NewslettersTab />}
             {tab === 'site-images' && <SiteImagesTab />}
             {tab === 'subscribers' && <SubscribersTab />}
